@@ -6,9 +6,9 @@ import android.widget.ArrayAdapter;
 import com.simplesoft.simplesofttemplate.R;
 import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
 import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
-import com.simplesoft.simplesofttemplate.main.view.BaseActivityViewPager;
+import com.simplesoft.simplesofttemplate.main.view.BaseActivity;
 
-public class MainActivity extends BaseActivityViewPager {
+public class MainActivity extends BaseActivity {
 
 	private String[] mPlanetTitles;
 
@@ -22,6 +22,9 @@ public class MainActivity extends BaseActivityViewPager {
 		setViewPagerInfo(vPagerInfo);
 		mPlanetTitles = getResources().getStringArray(R.array.operating_systems);
 		setDrawMenuAdapter(new ArrayAdapter<String>(this, R.layout.drawer_item, R.id.content, mPlanetTitles));
+		switchFragment(new AppPaidFragment(), true);
+		setViewPagerInfo(vPagerInfo);
+		switchFragment(new AppListFragment(), true);
 	}
 	
 	@Override

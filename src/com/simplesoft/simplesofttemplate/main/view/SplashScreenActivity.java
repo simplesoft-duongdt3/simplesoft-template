@@ -51,4 +51,9 @@ public class SplashScreenActivity extends BaseActivity {
 		switchActivity(MainActivity.class);
    	 	SplashScreenActivity.this.finish();
 	}
+
+	@Override
+	protected void onViewPagerChange(int pos) {
+		
+	}
 }

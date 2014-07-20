@@ -12,7 +12,6 @@ import android.widget.Button;
 
 import com.simplesoft.simplesofttemplate.R;
 import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
-import com.simplesoft.simplesofttemplate.main.view.BaseActivityFragment;
 import com.simplesoft.simplesofttemplate.main.view.BaseFragment;
 
 /**
@@ -32,7 +31,7 @@ public class AppListFragment extends BaseFragment {
 			
 			@Override
 			public void onClick(View v) {
-				((BaseActivityFragment)parent).switchFragment(new AppPaidFragment(), false);
+				parent.switchFragment(new AppPaidFragment(), false);
 			}
 		});
 		return super.onCreateView(inflater, vgroup, savedInstanceState);

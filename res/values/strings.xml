@@ -6,6 +6,7 @@
     
     <string name="hello_world">Hello world!</string>
     <string name="menu_draw">Menu</string>
+    <string name="text_error">fail</string>
 
     <string-array name="operating_systems">
         <item>Android</item>

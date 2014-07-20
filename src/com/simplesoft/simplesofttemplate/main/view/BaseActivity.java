@@ -1,15 +1,22 @@
 package com.simplesoft.simplesofttemplate.main.view;
 
 import android.app.ActionBar;
+import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
@@ -23,6 +30,7 @@ import com.simplesoft.simplesofttemplate.main.controller.BaseController.RequestD
 import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
 import com.simplesoft.simplesofttemplate.main.controller.IRequestView;
 import com.simplesoft.simplesofttemplate.main.controller.SimpleController;
+import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
 import com.startapp.android.publish.StartAppAd;
 import com.startapp.android.publish.StartAppSDK;
 import com.startapp.android.publish.splash.SplashConfig;
@@ -38,7 +46,8 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	protected ActionBar actionBar;
 	protected FrameLayout fragHolder;
 	protected LinearLayout llAds;
-
+	private ViewPager viewPager;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -85,6 +94,8 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 			actionBar.setDisplayHomeAsUpEnabled(true);
 			actionBar.setHomeButtonEnabled(true);
 		}
+		
+		
 	}
 
 	/**
@@ -244,5 +255,125 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	@Override
 	public Activity getActivityContext() {
 		return this;
+	}
+	
+	
+	public static class ViewPagerInfo{
+		public String [] tabTitle;
+		public FragmentPagerAdapter vPagerAdapter;
+	}
+	
+	/**
+	 * Add ViewPagerInfo and Tab ActionBar
+	 * @author: duongdt3
+	 * @since: 1.0
+	 * @time: 18:32:37 19 Jul 2014
+	 * @return: void
+	 * @throws:  
+	 * @param vPagerInfo
+	 */
+	protected void setViewPagerInfo(ViewPagerInfo vPagerInfo){
+		removeAllInBackStack(getSupportFragmentManager());
+		
+		if (viewPager == null) {
+			// Add ViewPager
+			ViewGroup vgroup = (ViewGroup) getLayoutInflater().inflate(R.layout.viewpager, null, false);
+			ViewGroup parent = (ViewGroup) vgroup.findViewById(R.id.parent);
+			viewPager = (ViewPager) vgroup.findViewById(R.id.pager);
+			parent.removeAllViews();
+			
+			fragHolder.removeAllViews();
+			fragHolder.addView(viewPager);        
+			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+		}
+		
+		actionBar.removeAllTabs();
+		// Adding Tabs
+        for (String tab_name : vPagerInfo.tabTitle) {
+        	Tab tab = actionBar.newTab().setText(tab_name).setTabListener(tabListener);
+        	actionBar.addTab(tab);
+        }
+        viewPager.setOnPageChangeListener(pageChangeListener);
+        viewPager.setAdapter(vPagerInfo.vPagerAdapter);
+        viewPager.setCurrentItem(0);
+        onViewPagerChange(0);
+	}
+
+	/** Defining ViewPager listener */
+    ViewPager.SimpleOnPageChangeListener pageChangeListener = new ViewPager.SimpleOnPageChangeListener(){
+    	@Override
+    	public void onPageSelected(int position) {
+    		super.onPageSelected(position);
+    		if (actionBar != null) {
+    			actionBar.setSelectedNavigationItem(position);
+    			onViewPagerChange(position);
+			}
+    	}
+    };
+    
+    /** Defining action bar tab listener */
+    ActionBar.TabListener tabListener = new ActionBar.TabListener() {
+    	
+    	@Override
+    	public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
+    	}
+    	
+    	@Override
+    	public void onTabSelected(Tab tab, android.app.FragmentTransaction ft) {
+    		if (viewPager != null) {
+    			viewPager.setCurrentItem(tab.getPosition());
+			}
+    	}
+    	
+    	@Override
+    	public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
+    	}
+    };
+
+    protected abstract void onViewPagerChange(int pos);
+    
+    
+    /**
+     * Switch fragment
+     * @author: duongdt3
+     * @since: 1.0
+     * @time: 08:50:10 20 Jul 2014
+     * @return: void
+     * @throws:  
+     * @param frag
+     * @param isRemoveBackStack
+     */
+    public void switchFragment(BaseFragment frag, boolean isRemoveBackStack) {
+    	//nếu có Viewpager rồi, thì xoá đi, add fragment vào thôi
+    	if (viewPager != null) {
+    		viewPager = null;
+    		fragHolder.removeAllViews();
+    		actionBar.removeAllTabs();
+			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		}
+    	FragmentManager fm = getSupportFragmentManager();
+		FragmentTransaction ft = fm.beginTransaction();
+		if (isRemoveBackStack) {
+			removeAllInBackStack(fm);
+		}
+		String TAG = frag.getTAG();
+		
+		Fragment existsFrag = fm.findFragmentByTag(TAG);
+		if (existsFrag != null) {
+			ft.remove(existsFrag);
+		}
+		ft.add(R.id.fragHolder, frag, TAG);
+		ft.addToBackStack(TAG);
+		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		ft.commit();
+	}
+    
+    protected void removeAllInBackStack(FragmentManager fm) {
+		try {
+			fm.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+			fm.executePendingTransactions();
+		} catch (Exception e) {
+			LogUtil.log(e);
+		}
 	}
 }

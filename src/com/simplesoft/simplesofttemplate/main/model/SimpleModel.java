@@ -26,7 +26,7 @@ public class SimpleModel {
 	 * @return
 	 */
 	public static Object getAppList(RequestData e) {
-		return null;
+		return new Object();
 	}
 
 }
