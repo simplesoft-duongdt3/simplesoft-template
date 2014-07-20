@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.simplesoft.simplesofttemplate.R;
@@ -29,6 +30,7 @@ public abstract class BaseActivity extends FragmentActivity {
 
 	protected ActionBar actionBar;
 	protected FrameLayout fragHolder;
+	protected LinearLayout llAds;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +48,7 @@ public abstract class BaseActivity extends FragmentActivity {
 		setContentView(R.layout.activity_base_draw);
 		actionBar = getActionBar();
 		fragHolder = (FrameLayout) findViewById(R.id.fragHolder);
-
+		llAds = (LinearLayout)findViewById(R.id.llAds);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -71,9 +73,11 @@ public abstract class BaseActivity extends FragmentActivity {
 					.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
 		}
 
-		actionBar.setDisplayShowTitleEnabled(true);
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setHomeButtonEnabled(true);
+		if (actionBar != null) {
+			actionBar.setDisplayShowTitleEnabled(true);
+			actionBar.setDisplayHomeAsUpEnabled(true);
+			actionBar.setHomeButtonEnabled(true);
+		}
 	}
 
 	/**
