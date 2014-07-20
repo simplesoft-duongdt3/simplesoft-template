@@ -4,8 +4,6 @@
  */
 package com.simplesoft.simplesofttemplate.main.view;
 
-import com.simplesoft.simplesofttemplate.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+
+import com.simplesoft.simplesofttemplate.R;
+import com.simplesoft.simplesofttemplate.main.controller.IRequestView;
+import com.simplesoft.simplesofttemplate.main.controller.SimpleController;
+import com.simplesoft.simplesofttemplate.main.controller.BaseController.RequestAction;
+import com.simplesoft.simplesofttemplate.main.controller.BaseController.RequestData;
+import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
 
 /**
  * BaseFragment.java
@@ -21,7 +27,7 @@ import android.widget.LinearLayout;
  * @since:  1.0
  * @time: 09:39:33 19 Jul 2014
  */
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment implements IRequestView{
 	
 	protected BaseActivity parent;
 	protected LinearLayout viewRoot;
@@ -53,5 +59,26 @@ public class BaseFragment extends Fragment {
 	public String getTAG() {
 		return this.getClass().getName();
 	}
-
+	
+	public void sendViewRequest(RequestAction rqAction) {
+		sendViewRequest(rqAction, new Bundle());
+	}
+	
+	public void sendViewRequest(RequestAction rqAction, Bundle data) {
+		RequestData rData = new RequestData();
+		rData.action = rqAction;
+		rData.sender = this;
+		rData.viewData = data;
+		SimpleController.getInstance().handleViewRequest(rData);
+	}
+	
+	@Override
+	public void handleViewDataResponseError(ResponseData rspData) {
+		Toast.makeText(parent, rspData.errorMessage, Toast.LENGTH_LONG).show();
+	}
+	
+	@Override
+	public Activity getActivityContext() {
+		return parent;
+	}
 }

@@ -2,6 +2,7 @@ package com.simplesoft.simplesofttemplate.function.view;
 
 import android.os.Bundle;
 
+import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
 import com.simplesoft.simplesofttemplate.main.view.BaseActivityFragment;
 
 public class MainFragmentActivity extends BaseActivityFragment {
@@ -32,6 +33,10 @@ public class MainFragmentActivity extends BaseActivityFragment {
 	@Override
 	protected boolean isShowAdsWhenStart() {
 		return true;
+	}
+
+	@Override
+	public void handleViewDataResponse(ResponseData rspData) {
 	}
 	
 }

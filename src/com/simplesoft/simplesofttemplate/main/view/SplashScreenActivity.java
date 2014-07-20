@@ -1,11 +1,12 @@
 package com.simplesoft.simplesofttemplate.main.view;
 
+import android.os.Bundle;
+import android.view.View;
+
 import com.simplesoft.simplesofttemplate.R;
 import com.simplesoft.simplesofttemplate.function.view.MainActivity;
-
-import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.view.View;
+import com.simplesoft.simplesofttemplate.main.controller.BaseController.RequestAction;
+import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
 
 public class SplashScreenActivity extends BaseActivity {
 
@@ -22,16 +23,7 @@ public class SplashScreenActivity extends BaseActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		new CountDownTimer(1500, 1000) {
-
-		     public void onTick(long millisUntilFinished) {
-		     }
-
-		     public void onFinish() {
-		    	 switchActivity(MainActivity.class);
-		    	 SplashScreenActivity.this.finish();
-		     }
-		  }.start();
+		sendViewRequest(RequestAction.GET_LIST_APP);
 	}
 
 	@Override
@@ -53,5 +45,10 @@ public class SplashScreenActivity extends BaseActivity {
 	protected boolean isShowAdsWhenStart() {
 		return false;
 	}
-	
+
+	@Override
+	public void handleViewDataResponse(ResponseData rspData) {
+		switchActivity(MainActivity.class);
+   	 	SplashScreenActivity.this.finish();
+	}
 }
