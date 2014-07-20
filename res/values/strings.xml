@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">Simple Apps Permissions</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="contentDescription">SimpleSoft Image</string>
     <string name="menu_draw">Menu</string>
 
     <string-array name="operating_systems">
