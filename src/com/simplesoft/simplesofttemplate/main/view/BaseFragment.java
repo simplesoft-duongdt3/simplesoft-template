@@ -4,7 +4,7 @@
  */
 package com.simplesoft.simplesofttemplate.main.view;
 
-import com.simplesoft.simplesofttemplate.R;
+import com.simplesoft.simplesappspermissions.R;
 
 import android.app.Activity;
 import android.os.Bundle;

@@ -12,7 +12,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.ViewGroup;
 
-import com.simplesoft.simplesofttemplate.R;
+import com.simplesoft.simplesappspermissions.R;
 
 /**
  * ViewPagerActivity.java

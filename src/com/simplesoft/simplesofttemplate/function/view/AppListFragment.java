@@ -4,7 +4,7 @@
  */
 package com.simplesoft.simplesofttemplate.function.view;
 
-import com.simplesoft.simplesofttemplate.R;
+import com.simplesoft.simplesappspermissions.R;
 import com.simplesoft.simplesofttemplate.main.view.BaseActivityFragment;
 import com.simplesoft.simplesofttemplate.main.view.BaseFragment;
 

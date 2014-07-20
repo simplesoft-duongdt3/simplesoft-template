@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.simplesoft.simplesofttemplate.R;
+import com.simplesoft.simplesappspermissions.R;
 import com.simplesoft.simplesofttemplate.main.view.BaseFragment;
 
 /**

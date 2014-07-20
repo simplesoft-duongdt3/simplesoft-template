@@ -14,7 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 
-import com.simplesoft.simplesofttemplate.R;
+import com.simplesoft.simplesappspermissions.R;
 import com.startapp.android.publish.StartAppAd;
 import com.startapp.android.publish.StartAppSDK;
 import com.startapp.android.publish.splash.SplashConfig;

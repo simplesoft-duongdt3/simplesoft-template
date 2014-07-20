@@ -3,7 +3,7 @@ package com.simplesoft.simplesofttemplate.function.view;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
-import com.simplesoft.simplesofttemplate.R;
+import com.simplesoft.simplesappspermissions.R;
 import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
 import com.simplesoft.simplesofttemplate.main.view.BaseActivityViewPager;
 
