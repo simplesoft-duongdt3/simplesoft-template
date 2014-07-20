@@ -59,6 +59,7 @@ public class SimpleModel {
 			
 			listAppGlobal.add(itemInfo);
 		}
+		
 		return listAppGlobal;
 	}
 }

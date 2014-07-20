@@ -70,4 +70,9 @@ public class SplashScreenActivity extends BaseActivity {
 			  }.start();
 		}
 	}
+
+	@Override
+	protected void onViewPagerChange(int pos) {
+		
+	}
 }

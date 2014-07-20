@@ -6,9 +6,9 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
-import com.simplesoft.simplesofttemplate.main.view.BaseActivityFragment;
+import com.simplesoft.simplesofttemplate.main.view.BaseActivity;
 
-public class MainFragmentActivity extends BaseActivityFragment {
+public class MainFragmentActivity extends BaseActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +65,11 @@ public class MainFragmentActivity extends BaseActivityFragment {
 
 	@Override
 	public void handleViewDataResponse(ResponseData rspData) {
-		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	protected void onViewPagerChange(int pos) {
 		
 	}
 }

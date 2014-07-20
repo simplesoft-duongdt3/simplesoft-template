@@ -6,9 +6,9 @@ import android.widget.ArrayAdapter;
 import com.simplesoft.simplesappspermissions.R;
 import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
 import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
-import com.simplesoft.simplesofttemplate.main.view.BaseActivityViewPager;
+import com.simplesoft.simplesofttemplate.main.view.BaseActivity;
 
-public class MainActivity extends BaseActivityViewPager {
+public class MainActivity extends BaseActivity {
 
 	private String[] mPlanetTitles;
 
