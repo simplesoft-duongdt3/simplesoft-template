@@ -29,7 +29,7 @@ public class SimpleModel {
 	 * @author: DungNX
 	 * @param context
 	 * @return
-	 * @throws NameNotFoundException
+	 * @throws Exception
 	 * @return: List<AppItemInfo>
 	 * @throws:
 	*/
@@ -40,12 +40,11 @@ public class SimpleModel {
 		List<AppItemInfo> listAppGlobal = new ArrayList<AppItemInfo>();
 		for(ApplicationInfo item : listApp){
 			AppItemInfo itemInfo = new AppItemInfo();
-			itemInfo.name = item.name;
 			itemInfo.packageName = item.packageName;
 			itemInfo.uid = item.uid;
 			itemInfo.processName = item.processName;
-			itemInfo.icon = pm.getApplicationIcon(itemInfo.packageName);
 			PackageInfo pkInfo = pm.getPackageInfo(itemInfo.packageName, PackageManager.GET_ACTIVITIES);
+			itemInfo.name = item.loadLabel(pm).toString();
 			itemInfo.versionCode = pkInfo.versionCode;
 			itemInfo.versionName = pkInfo.versionName;
 			pkInfo = pm.getPackageInfo(itemInfo.packageName, PackageManager.GET_PERMISSIONS);

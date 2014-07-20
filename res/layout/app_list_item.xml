@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="horizontal" >
 
     <ImageView
         android:id="@+id/ivAppIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_gravity="center"
+        android:scaleType="fitCenter"
         android:layout_margin="5dp"
         android:src="@drawable/ic_launcher" />
 
@@ -28,16 +29,10 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/tvVersion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
-
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="version" />
     </LinearLayout>
 
     <LinearLayout
@@ -48,7 +43,7 @@
         android:orientation="vertical" >
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/tvNumPermission"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="so quyen" />

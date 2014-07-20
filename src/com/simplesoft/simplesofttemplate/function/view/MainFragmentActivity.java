@@ -13,6 +13,12 @@ public class MainFragmentActivity extends BaseActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		ViewPagerInfo vPagerInfo = new ViewPagerInfo();
+        vPagerInfo.tabTitle = new String[] {"All", "Paid"};
+        vPagerInfo.vPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+		setViewPagerInfo(vPagerInfo);
+
 	}
 
 	@Override
@@ -27,7 +33,7 @@ public class MainFragmentActivity extends BaseActivity {
 
 	@Override
 	protected boolean isShowDrawMenu() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -58,7 +64,7 @@ public class MainFragmentActivity extends BaseActivity {
 
 		@Override
 		public int getCount() {
-			return 2;
+			return 1;
 		}
 
 	}

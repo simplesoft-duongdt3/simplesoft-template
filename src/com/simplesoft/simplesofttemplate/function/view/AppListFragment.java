@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.simplesoft.simplesappspermissions.R;
+import com.simplesoft.simplesofttemplate.function.adapter.AppListAdapter;
 import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
+import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 import com.simplesoft.simplesofttemplate.main.view.BaseFragment;
 
 /**
@@ -30,7 +32,8 @@ public class AppListFragment extends BaseFragment {
 			Bundle savedInstanceState) {
 		ViewGroup vgroup = (ViewGroup) inflater.inflate(R.layout.frag_app_list, null, false);
 		appList = (ListView) vgroup.findViewById(R.id.appList);
-		
+		AppListAdapter adapter = new AppListAdapter(parent, AppInfo.getInstance().listAppInfo);
+		appList.setAdapter(adapter);
 		return super.onCreateView(inflater, vgroup, savedInstanceState);
 	}
 

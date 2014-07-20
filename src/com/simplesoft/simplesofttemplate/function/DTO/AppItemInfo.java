@@ -4,7 +4,6 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PermissionInfo;
 import android.content.pm.ProviderInfo;
 import android.content.pm.ServiceInfo;
-import android.graphics.drawable.Drawable;
 
 /**
  * Mo ta muc dich cua class
@@ -26,5 +25,5 @@ public class AppItemInfo {
 	public ActivityInfo[] receivers;
 	public ServiceInfo[] services;
 	
-	public Drawable icon;
+//	public Drawable icon;
 }

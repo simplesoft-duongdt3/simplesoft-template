@@ -6,6 +6,8 @@ package com.simplesoft.simplesofttemplate.main.utils;
 
 import java.text.DecimalFormat;
 
+import com.simplesoft.simplesofttemplate.main.view.AppInfo;
+
 /**
  * StringUtil.java
  * @author: duongdt3
@@ -153,6 +155,18 @@ public class StringUtil {
 	public static String formatNumber(double number, String format){
 		DecimalFormat df = new DecimalFormat(format);
 		return df.format(number);
+	}
+	
+	/**
+	 * return string from resource id
+	 * @author: DungNX
+	 * @param id
+	 * @return
+	 * @return: String
+	 * @throws:
+	*/
+	public static String getString(int id){
+		return AppInfo.getInstance().getString(id);
 	}
 	
 }
