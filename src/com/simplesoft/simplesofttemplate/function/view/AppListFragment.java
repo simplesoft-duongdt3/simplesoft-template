@@ -4,15 +4,15 @@
  */
 package com.simplesoft.simplesofttemplate.function.view;
 
-import com.simplesoft.simplesappspermissions.R;
-import com.simplesoft.simplesofttemplate.main.view.BaseActivityFragment;
-import com.simplesoft.simplesofttemplate.main.view.BaseFragment;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ListView;
+
+import com.simplesoft.simplesappspermissions.R;
+import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
+import com.simplesoft.simplesofttemplate.main.view.BaseFragment;
 
 /**
  * AppListFragment.java
@@ -23,18 +23,21 @@ import android.widget.Button;
  */
 public class AppListFragment extends BaseFragment {
 	
+	ListView appList;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		ViewGroup vgroup = (ViewGroup) inflater.inflate(R.layout.frag_app_list, null, false);
-		((Button)vgroup.findViewById(R.id.button1)).setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				((BaseActivityFragment)parent).switchFragment(new AppPaidFragment(), false);
-			}
-		});
+		appList = (ListView) vgroup.findViewById(R.id.appList);
+		
 		return super.onCreateView(inflater, vgroup, savedInstanceState);
+	}
+
+	@Override
+	public void handleViewDataResponse(ResponseData rspData) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

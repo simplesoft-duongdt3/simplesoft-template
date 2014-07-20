@@ -1,6 +1,7 @@
 package com.simplesoft.simplesofttemplate.main.view;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -14,14 +15,20 @@ import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.simplesoft.simplesappspermissions.R;
+import com.simplesoft.simplesofttemplate.main.controller.BaseController.RequestAction;
+import com.simplesoft.simplesofttemplate.main.controller.BaseController.RequestData;
+import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
+import com.simplesoft.simplesofttemplate.main.controller.IRequestView;
+import com.simplesoft.simplesofttemplate.main.controller.SimpleController;
 import com.startapp.android.publish.StartAppAd;
 import com.startapp.android.publish.StartAppSDK;
 import com.startapp.android.publish.splash.SplashConfig;
 import com.startapp.android.publish.splash.SplashConfig.Theme;
 
-public abstract class BaseActivity extends FragmentActivity {
+public abstract class BaseActivity extends FragmentActivity implements IRequestView {
 	private StartAppAd startAppAd = new StartAppAd(this);
 
 	private DrawerLayout mDrawerLayout;
@@ -215,5 +222,27 @@ public abstract class BaseActivity extends FragmentActivity {
 		}
 
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void sendViewRequest(RequestAction rqAction) {
+		sendViewRequest(rqAction, new Bundle());
+	}
+	
+	public void sendViewRequest(RequestAction rqAction, Bundle data) {
+		RequestData rData = new RequestData();
+		rData.action = rqAction;
+		rData.sender = this;
+		rData.viewData = data;
+		SimpleController.getInstance().handleViewRequest(rData);
+	}
+	
+	@Override
+	public void handleViewDataResponseError(ResponseData rspData) {
+		Toast.makeText(this, rspData.errorMessage, Toast.LENGTH_LONG).show();
+	}
+	
+	@Override
+	public Activity getActivityContext() {
+		return this;
 	}
 }

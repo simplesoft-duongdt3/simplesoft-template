@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 
 import com.simplesoft.simplesappspermissions.R;
+import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
 import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
 import com.simplesoft.simplesofttemplate.main.view.BaseActivityViewPager;
 
@@ -46,6 +47,12 @@ public class MainActivity extends BaseActivityViewPager {
 	@Override
 	protected boolean isShowAdsWhenStart() {
 		return false;
+	}
+
+	@Override
+	public void handleViewDataResponse(ResponseData rspData) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

@@ -4,12 +4,12 @@
  */
 package com.simplesoft.simplesofttemplate.main.utils;
 
-import android.annotation.SuppressLint;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import android.annotation.SuppressLint;
 
 /**
  * DateUtil.java

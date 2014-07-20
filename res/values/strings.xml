@@ -4,6 +4,7 @@
     <string name="app_name">Simple Apps Permissions</string>
     <string name="contentDescription">SimpleSoft Image</string>
     <string name="menu_draw">Menu</string>
+    <string name="text_error">fail</string>
 
     <string-array name="operating_systems">
         <item>Android</item>

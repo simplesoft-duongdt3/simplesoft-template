@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.simplesoft.simplesappspermissions.R;
+import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
 import com.simplesoft.simplesofttemplate.main.view.BaseFragment;
 
 /**
@@ -26,5 +27,11 @@ public class AppPaidFragment extends BaseFragment {
 			Bundle savedInstanceState) {
 		ViewGroup vgroup = (ViewGroup) inflater.inflate(R.layout.frag_app_paid, null, false);
 		return super.onCreateView(inflater, vgroup, savedInstanceState);
+	}
+
+	@Override
+	public void handleViewDataResponse(ResponseData rspData) {
+		// TODO Auto-generated method stub
+		
 	}
 }

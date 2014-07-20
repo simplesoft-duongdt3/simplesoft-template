@@ -1,7 +1,11 @@
 package com.simplesoft.simplesofttemplate.function.view;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
 
+import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
 import com.simplesoft.simplesofttemplate.main.view.BaseActivityFragment;
 
 public class MainFragmentActivity extends BaseActivityFragment {
@@ -9,20 +13,17 @@ public class MainFragmentActivity extends BaseActivityFragment {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		//switchActivity(MainActivity.class);
-	}
-	
-	@Override
-	protected void onDrawMenuChange(int position) {
-		
-	}
-	
-	@Override
-	protected boolean isShowAdsWhenStop() {
-		return true;
 	}
 
+	@Override
+	protected void onDrawMenuChange(int position) {
+
+	}
+
+	@Override
+	protected boolean isShowAdsWhenStop() {
+		return false;
+	}
 
 	@Override
 	protected boolean isShowDrawMenu() {
@@ -31,7 +32,40 @@ public class MainFragmentActivity extends BaseActivityFragment {
 
 	@Override
 	protected boolean isShowAdsWhenStart() {
-		return true;
+		return false;
 	}
-	
+
+	class TabsPagerAdapter extends FragmentPagerAdapter {
+
+		public TabsPagerAdapter(FragmentManager fm) {
+			super(fm);
+		}
+
+		@Override
+		public Fragment getItem(int pos) {
+			Fragment frag = null;
+			switch (pos) {
+			case 0:
+				frag = new AppListFragment();
+				break;
+			case 1:
+				break;
+			default:
+				break;
+			}
+			return frag;
+		}
+
+		@Override
+		public int getCount() {
+			return 2;
+		}
+
+	}
+
+	@Override
+	public void handleViewDataResponse(ResponseData rspData) {
+		// TODO Auto-generated method stub
+		
+	}
 }
