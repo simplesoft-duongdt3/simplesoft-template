@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">SimpleSoft Template</string>
+    <string name="app_name">Simple Apps Template</string>
     <string name="contentDescription">SimpleSoft Image</string>
-    
-    <string name="hello_world">Hello world!</string>
     <string name="menu_draw">Menu</string>
     <string name="text_error">fail</string>
+    <string name="text_version">Version</string>
 
     <string-array name="operating_systems">
         <item>Android</item>
         <item>iPhone</item>
         <item>Windows Mobile</item>
     </string-array>
+    <string name="cat_all">All apps</string>
 
 </resources>

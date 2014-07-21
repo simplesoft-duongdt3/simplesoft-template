@@ -4,11 +4,14 @@
  */
 package com.simplesoft.simplesofttemplate.main.view;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 
+import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
 import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
 
 /**
@@ -22,10 +25,12 @@ public class AppInfo extends Application {
 	
 	private static AppInfo instance = null;
 	Activity activityContext = null;
-	
+	// khong doi
 	public static final String DEV_ID = "107535046";
+	// doi
 	public static final String APP_ID = "207236345";
 	
+	public List<AppItemInfo> listAppInfo;
 	
 	@Override
 	public void onCreate() {

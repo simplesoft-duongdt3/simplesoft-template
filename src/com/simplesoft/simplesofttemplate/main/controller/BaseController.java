@@ -4,12 +4,9 @@
  */
 package com.simplesoft.simplesofttemplate.main.controller;
 
-import java.io.Serializable;
-
 import android.os.AsyncTask;
-import android.os.Bundle;
 
-import com.simplesoft.simplesofttemplate.R;
+import com.simplesoft.simplesappstemplate.R;
 import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 
@@ -77,39 +74,8 @@ public abstract class BaseController {
 	 */
 	abstract protected Object requestDataByView(RequestData e) throws Exception;
 	
-    public static class RequestData implements Serializable{
-		private static final long serialVersionUID = -4413016828948977395L;
-		public RequestAction action;
-		public Bundle viewData;
-		public IRequestView sender;
-    }
-    
-    
-    public static class ResponseData implements Serializable{
-		private static final long serialVersionUID = 7574659583474540680L;
-		public RequestData rqData;
-		public Object data;
-		public ErrorCode errorCode;
-		public String errorMessage;
-    }
-    
     public enum ErrorCode{
     	SUSSESS,
     	ERROR_COMMON;
-    }
-    
-    public enum RequestAction{
-    	GET_LIST_APP("Get list app");
-    	private String rquestName;
-    	private RequestAction(String rquestName){
-    		this.rquestName = rquestName;
-    	}
-    	
-    	/**
-		 * @return the rquestName
-		 */
-		public String getRquestName() {
-			return rquestName;
-		}
     }
 }

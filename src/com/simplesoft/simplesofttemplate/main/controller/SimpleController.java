@@ -41,7 +41,7 @@ public class SimpleController extends BaseController {
 	protected Object requestDataByView(RequestData e) throws Exception {
 		Object data = null;
 		if (e.action == RequestAction.GET_LIST_APP) {
-			data = SimpleModel.getAppList(e);
+			data = SimpleModel.getAllAppInfo();
 		}
 		return data;
 	}
