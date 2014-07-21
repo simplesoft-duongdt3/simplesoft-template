@@ -12,5 +12,6 @@
         <item>iPhone</item>
         <item>Windows Mobile</item>
     </string-array>
+    <string name="cat_all">All apps</string>
 
 </resources>

@@ -14,10 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.simplesoft.simplesappspermissions.R;
-import com.simplesoft.simplesofttemplate.main.controller.BaseController.RequestAction;
-import com.simplesoft.simplesofttemplate.main.controller.BaseController.RequestData;
-import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
 import com.simplesoft.simplesofttemplate.main.controller.IRequestView;
+import com.simplesoft.simplesofttemplate.main.controller.RequestAction;
+import com.simplesoft.simplesofttemplate.main.controller.RequestData;
+import com.simplesoft.simplesofttemplate.main.controller.ResponseData;
 import com.simplesoft.simplesofttemplate.main.controller.SimpleController;
 
 /**

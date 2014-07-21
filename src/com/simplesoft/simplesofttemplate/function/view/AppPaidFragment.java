@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.simplesoft.simplesappspermissions.R;
-import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
+import com.simplesoft.simplesofttemplate.main.controller.ResponseData;
 import com.simplesoft.simplesofttemplate.main.view.BaseFragment;
 
 /**

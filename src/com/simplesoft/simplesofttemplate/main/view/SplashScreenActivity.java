@@ -8,9 +8,9 @@ import android.view.View;
 
 import com.simplesoft.simplesappspermissions.R;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
-import com.simplesoft.simplesofttemplate.function.view.MainFragmentActivity;
-import com.simplesoft.simplesofttemplate.main.controller.BaseController.RequestAction;
-import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
+import com.simplesoft.simplesofttemplate.function.view.MainActivity;
+import com.simplesoft.simplesofttemplate.main.controller.RequestAction;
+import com.simplesoft.simplesofttemplate.main.controller.ResponseData;
 
 public class SplashScreenActivity extends BaseActivity {
 
@@ -64,7 +64,7 @@ public class SplashScreenActivity extends BaseActivity {
 			     }
 
 			     public void onFinish() {
-			    	 switchActivity(MainFragmentActivity.class);
+			    	 switchActivity(MainActivity.class);
 			    	 SplashScreenActivity.this.finish();
 			     }
 			  }.start();

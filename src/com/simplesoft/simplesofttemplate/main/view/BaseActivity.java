@@ -10,7 +10,6 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -25,10 +24,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.simplesoft.simplesappspermissions.R;
-import com.simplesoft.simplesofttemplate.main.controller.BaseController.RequestAction;
-import com.simplesoft.simplesofttemplate.main.controller.BaseController.RequestData;
-import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
 import com.simplesoft.simplesofttemplate.main.controller.IRequestView;
+import com.simplesoft.simplesofttemplate.main.controller.RequestAction;
+import com.simplesoft.simplesofttemplate.main.controller.RequestData;
+import com.simplesoft.simplesofttemplate.main.controller.ResponseData;
 import com.simplesoft.simplesofttemplate.main.controller.SimpleController;
 import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
 import com.startapp.android.publish.StartAppAd;
@@ -258,11 +257,6 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	}
 	
 	
-	public static class ViewPagerInfo{
-		public String [] tabTitle;
-		public FragmentPagerAdapter vPagerAdapter;
-	}
-	
 	/**
 	 * Add ViewPagerInfo and Tab ActionBar
 	 * @author: duongdt3
@@ -289,12 +283,13 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 		
 		actionBar.removeAllTabs();
 		// Adding Tabs
-        for (String tab_name : vPagerInfo.tabTitle) {
+		String [] tabTitles = vPagerInfo.getTabTitle();
+        for (String tab_name : tabTitles) {
         	Tab tab = actionBar.newTab().setText(tab_name).setTabListener(tabListener);
         	actionBar.addTab(tab);
         }
         viewPager.setOnPageChangeListener(pageChangeListener);
-        viewPager.setAdapter(vPagerInfo.vPagerAdapter);
+        viewPager.setAdapter(vPagerInfo.getvPagerAdapter());
         viewPager.setCurrentItem(0);
         onViewPagerChange(0);
 	}

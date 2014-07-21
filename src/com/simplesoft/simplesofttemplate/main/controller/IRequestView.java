@@ -7,9 +7,6 @@ package com.simplesoft.simplesofttemplate.main.controller;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.simplesoft.simplesofttemplate.main.controller.BaseController.RequestAction;
-import com.simplesoft.simplesofttemplate.main.controller.BaseController.ResponseData;
-
 /**
  * IRequestView.java
  * @author: duongdt3
