@@ -38,7 +38,7 @@ public class AppListFragment extends BaseFragment implements ListViewEventReceiv
 			Bundle savedInstanceState) {
 		ViewGroup vgroup = (ViewGroup) inflater.inflate(R.layout.frag_app_list, null, false);
 		appList = (ListView) vgroup.findViewById(R.id.appList);
-		ListAdapter adapter = new BaseListAdapter<AppItemInfo>(parent, AppInfo.getInstance().listAppInfo, new ViewHolderAppList(), this);
+		ListAdapter adapter = new BaseListAdapter<AppItemInfo>(AppInfo.getInstance().listAppInfo, new ViewHolderAppList(), this);
 		appList.setAdapter(adapter);
 		return super.onCreateView(inflater, vgroup, savedInstanceState);
 	}

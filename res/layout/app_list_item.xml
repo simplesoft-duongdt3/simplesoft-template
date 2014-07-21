@@ -25,8 +25,7 @@
             android:id="@+id/tvAppName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="App name"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="App name" />
 
         <TextView
             android:id="@+id/tvVersion"
