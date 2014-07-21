@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.simplesoft.simplesappspermissions.R;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
-import com.simplesoft.simplesofttemplate.function.adapter.ViewHolderAppList;
+import com.simplesoft.simplesofttemplate.function.viewholder.ViewHolderAppList;
 import com.simplesoft.simplesofttemplate.main.controller.ResponseData;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 import com.simplesoft.simplesofttemplate.main.view.BaseFragment;

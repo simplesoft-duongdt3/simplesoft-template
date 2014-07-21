@@ -2,7 +2,7 @@
  * Copyright 2014 Viettel Telecom. All rights reserved.
  * VIETTEL PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
  */
-package com.simplesoft.simplesofttemplate.function.adapter;
+package com.simplesoft.simplesofttemplate.function.viewholder;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
