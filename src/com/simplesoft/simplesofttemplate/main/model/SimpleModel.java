@@ -5,6 +5,7 @@
 package com.simplesoft.simplesofttemplate.main.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import android.content.pm.ApplicationInfo;
@@ -23,7 +24,6 @@ import com.simplesoft.simplesofttemplate.main.view.AppInfo;
  * @time: 14:06:17 20 Jul 2014
  */
 public class SimpleModel {
-
 	/**
 	 * Mo ta muc dich cua ham
 	 * @author: DungNX
@@ -59,6 +59,7 @@ public class SimpleModel {
 			listAppGlobal.add(itemInfo);
 		}
 		
+		Collections.sort(listAppGlobal, new AppItemInfo.PerDescComparator());
 		return listAppGlobal;
 	}
 }
