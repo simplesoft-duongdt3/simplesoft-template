@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="AppThemeBlue" parent="@style/_AppThemeBlue" />
+    
+    <style name="_AppThemeBlue" parent="android:Theme.Holo">
+        <item name="android:editTextBackground">@drawable/appthemeblue_edit_text_holo_dark</item>
+        <item name="android:textColorHighlight">#990099cc</item>
+        <item name="android:textSelectHandleLeft">@drawable/appthemeblue_text_select_handle_left</item>
+        <item name="android:textSelectHandleRight">@drawable/appthemeblue_text_select_handle_right</item>
+        <item name="android:textSelectHandle">@drawable/appthemeblue_text_select_handle_middle</item>
+        <item name="android:autoCompleteTextViewStyle">@style/AutoCompleteTextViewAppThemeBlue</item>
+        <item name="android:listChoiceIndicatorMultiple">@drawable/appthemeblue_btn_check_holo_dark</item>
+        <item name="android:listChoiceIndicatorSingle">@drawable/appthemeblue_btn_radio_holo_dark</item>
+        <item name="android:buttonStyle">@style/ButtonAppThemeBlue</item>
+        <item name="android:imageButtonStyle">@style/ImageButtonAppThemeBlue</item>
+        <item name="android:dropDownSpinnerStyle">@style/SpinnerAppThemeBlue</item>
+        <item name="android:progressBarStyleHorizontal">@style/ProgressBarAppThemeBlue</item>
+        <item name="android:seekBarStyle">@style/SeekBarAppThemeBlue</item>
+        <item name="android:ratingBarStyle">@style/RatingBarAppThemeBlue</item>
+        <item name="android:ratingBarStyleIndicator">@style/RatingBarBigAppThemeBlue</item>
+        <item name="android:ratingBarStyleSmall">@style/RatingBarSmallAppThemeBlue</item>
+        <item name="android:buttonStyleToggle">@style/ToggleAppThemeBlue</item>
+        <item name="android:listChoiceBackgroundIndicator">@drawable/appthemeblue_list_selector_holo_dark</item>
+        <item name="android:activatedBackgroundIndicator">@drawable/appthemeblue_activated_background_holo_dark</item>
+        <item name="android:fastScrollThumbDrawable">@drawable/appthemeblue_fastscroll_thumb_holo</item>
+        <item name="android:actionBarItemBackground">@drawable/selectable_background_appthemeblue</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Appthemeblue</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Appthemeblue</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Appthemeblue</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Appthemeblue</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Appthemeblue</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_appthemeblue</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_appthemeblue</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Appthemeblue</item>
+    </style>
+
+</resources>

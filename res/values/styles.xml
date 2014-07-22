@@ -17,8 +17,9 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
     
-    <style name="BaseTheme">
-        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    
+    <style name="BaseTheme" parent="AppThemeBlue">
+        <!-- AppThemeLightBlue  AppThemeBlue All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
 </resources>

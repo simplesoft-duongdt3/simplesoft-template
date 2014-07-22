@@ -36,6 +36,7 @@ public class ViewHolderAppList extends BaseViewHolder<AppItemInfo> {
 	ImageView ivAppIcon;
 	TextView tvAppName;
 	TextView tvVersion;
+	TextView tvNumPermission;
 	
 	@Override
 	public View initView() {
@@ -43,6 +44,7 @@ public class ViewHolderAppList extends BaseViewHolder<AppItemInfo> {
 		this.ivAppIcon = (ImageView) rowView.findViewById(R.id.ivAppIcon);
 		this.tvAppName = (TextView) rowView.findViewById(R.id.tvAppName);
 		this.tvVersion = (TextView) rowView.findViewById(R.id.tvVersion);
+		this.tvNumPermission = (TextView) rowView.findViewById(R.id.tvNumPermission);
 		rowView.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -69,6 +71,7 @@ public class ViewHolderAppList extends BaseViewHolder<AppItemInfo> {
 		}
 		this.tvAppName.setText(dto.name);
 		this.tvVersion.setText(StringUtil.getString(R.string.text_version) + ": " + dto.versionName);
+		this.tvNumPermission.setText(String.valueOf(dto.permissions.length));
 	}
 
 	@Override

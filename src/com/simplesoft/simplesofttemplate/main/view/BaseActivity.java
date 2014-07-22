@@ -70,7 +70,7 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 		// Set the list's click listener
 		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-				R.drawable.ic_drawer, R.string.menu_draw, R.string.menu_draw) {
+				R.drawable.appthemeblue_ic_navigation_drawer, R.string.menu_draw, R.string.menu_draw) {
 
 			public void onDrawerClosed(View view) {
 				// getActionBar().setTitle(title);

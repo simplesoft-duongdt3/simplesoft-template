@@ -10,6 +10,7 @@ import java.util.List;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PermissionInfo;
 
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
@@ -47,7 +48,7 @@ public class SimpleModel {
 			itemInfo.versionCode = pkInfo.versionCode;
 			itemInfo.versionName = pkInfo.versionName;
 			pkInfo = pm.getPackageInfo(itemInfo.packageName, PackageManager.GET_PERMISSIONS);
-			itemInfo.permissions = pkInfo.permissions;
+			itemInfo.permissions = pkInfo.permissions != null ? pkInfo.permissions : new PermissionInfo[] {};
 			pkInfo = pm.getPackageInfo(itemInfo.packageName, PackageManager.GET_PROVIDERS);
 			itemInfo.providers = pkInfo.providers;
 			pkInfo = pm.getPackageInfo(itemInfo.packageName, PackageManager.GET_RECEIVERS);

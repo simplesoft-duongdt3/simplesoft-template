@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Generated with http://android-holo-colors.com -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <style name="AutoCompleteTextViewAppThemeLightBlue" parent="android:Widget.Holo.Light.AutoCompleteTextView">
+      <item name="android:dropDownSelector">@drawable/appthemelightblue_list_selector_holo_light</item>
+	    <item name="android:background">@drawable/appthemelightblue_edit_text_holo_light</item>
+  </style>
+
+  <style name="ButtonAppThemeLightBlue" parent="android:Widget.Holo.Light.Button">
+	  <item name="android:background">@drawable/appthemelightblue_btn_default_holo_light</item>
+  </style>
+
+  <style name="ImageButtonAppThemeLightBlue" parent="android:Widget.Holo.Light.ImageButton">
+	  <item name="android:background">@drawable/appthemelightblue_btn_default_holo_light</item>
+  </style>
+
+  <style name="SpinnerAppThemeLightBlue" parent="android:Widget.Holo.Light.Spinner">
+      <item name="android:background">@drawable/appthemelightblue_spinner_background_holo_light</item>
+      <item name="android:dropDownSelector">@drawable/appthemelightblue_list_selector_holo_light</item>
+  </style>
+
+  <style name="TabAppThemeLightBlue">
+      <item name="android:gravity">center_horizontal</item>
+      <item name="android:paddingLeft">16dip</item>
+      <item name="android:paddingRight">16dip</item>
+      <item name="android:background">@drawable/appthemelightblue_tab_indicator_holo</item>
+      <item name="android:layout_width">0dip</item>
+      <item name="android:layout_weight">1</item>
+      <item name="android:minWidth">80dip</item>
+  </style>
+
+  <style name="TabTextAppThemeLightBlue">
+	  <item name="android:textColor">#000000</item>
+      <item name="android:textSize">12sp</item>
+      <item name="android:textStyle">bold</item>
+      <!-- v14 <item name="android:textAllCaps">true</item> -->
+      <item name="android:ellipsize">marquee</item>
+      <item name="android:maxLines">2</item>
+      <item name="android:maxWidth">180dip</item>
+  </style>
+
+  <style name="ProgressBarAppThemeLightBlue" parent="android:Widget.Holo.Light.ProgressBar.Horizontal">
+      <item name="android:progressDrawable">@drawable/appthemelightblue_progress_horizontal_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/appthemelightblue_progress_indeterminate_horizontal_holo_light</item>
+  </style>
+
+  <style name="SeekBarAppThemeLightBlue" parent="android:Widget.Holo.Light.SeekBar">
+      <item name="android:progressDrawable">@drawable/appthemelightblue_scrubber_progress_horizontal_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/appthemelightblue_scrubber_progress_horizontal_holo_light</item>
+      <item name="android:thumb">@drawable/appthemelightblue_scrubber_control_selector_holo_light</item>
+  </style>
+
+  <style name="RatingBarAppThemeLightBlue" parent="android:Widget.Holo.Light.RatingBar">
+      <item name="android:progressDrawable">@drawable/appthemelightblue_ratingbar_full_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/appthemelightblue_ratingbar_full_holo_light</item>
+  </style>
+
+  <style name="RatingBarBigAppThemeLightBlue" parent="android:Widget.Holo.Light.RatingBar.Indicator">
+      <item name="android:progressDrawable">@drawable/appthemelightblue_ratingbar_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/appthemelightblue_ratingbar_holo_light</item>
+  </style>
+
+  <style name="RatingBarSmallAppThemeLightBlue" parent="android:Widget.Holo.Light.RatingBar.Small">
+      <item name="android:progressDrawable">@drawable/appthemelightblue_ratingbar_small_holo_light</item>
+      <item name="android:indeterminateDrawable">@drawable/appthemelightblue_ratingbar_small_holo_light</item>
+  </style>
+
+  <style name="ToggleAppThemeLightBlue" parent="android:Widget.Holo.Light.Button.Toggle">
+      <item name="android:background">@drawable/appthemelightblue_btn_toggle_holo_light</item>
+  </style>
+  
+  <style name="ActionBar.Solid.Appthemelightblue" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@drawable/ab_background_textured_appthemelightblue</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_appthemelightblue</item>
+        <item name="android:backgroundSplit">@drawable/ab_background_textured_appthemelightblue</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Appthemelightblue</item>
+    </style>
+
+    <style name="ActionBar.Transparent.Appthemelightblue" parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">@drawable/ab_transparent_appthemelightblue</item>
+        <item name="android:progressBarStyle">@style/ProgressBar.Appthemelightblue</item>
+    </style>
+
+    <style name="PopupMenu.Appthemelightblue" parent="@android:style/Widget.Holo.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_appthemelightblue</item>	
+    </style>
+
+    <style name="DropDownListView.Appthemelightblue" parent="@android:style/Widget.Holo.ListView.DropDown">
+        <item name="android:listSelector">@drawable/selectable_background_appthemelightblue</item>
+    </style>
+
+    <style name="ActionBarTabStyle.Appthemelightblue" parent="@android:style/Widget.Holo.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_appthemelightblue</item>
+    </style>
+
+    <style name="DropDownNav.Appthemelightblue" parent="@android:style/Widget.Holo.Spinner">
+        <item name="android:background">@drawable/spinner_background_ab_appthemelightblue</item>
+        <item name="android:popupBackground">@drawable/menu_dropdown_panel_appthemelightblue</item>
+        <item name="android:dropDownSelector">@drawable/selectable_background_appthemelightblue</item>
+    </style>
+    
+    <style name="ProgressBar.Appthemelightblue" parent="@android:style/Widget.Holo.ProgressBar.Horizontal">
+        <item name="android:progressDrawable">@drawable/progress_horizontal_appthemelightblue</item>
+    </style>
+    
+    <style name="ActionButton.CloseMode.Appthemelightblue" parent="@android:style/Widget.Holo.ActionButton.CloseMode">
+        <item name="android:background">@drawable/btn_cab_done_appthemelightblue</item>
+    </style>
+
+    <!-- this style is only referenced in a Light.DarkActionBar based theme -->
+    <style name="Theme.Appthemelightblue.Widget" parent="@android:style/Theme.Holo">
+        <item name="android:popupMenuStyle">@style/PopupMenu.Appthemelightblue</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Appthemelightblue</item>
+    </style>
+
+</resources>
