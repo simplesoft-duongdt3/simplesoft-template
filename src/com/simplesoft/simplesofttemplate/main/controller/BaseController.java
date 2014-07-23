@@ -5,6 +5,7 @@
 package com.simplesoft.simplesofttemplate.main.controller;
 
 import android.os.AsyncTask;
+import android.os.SystemClock;
 
 import com.simplesoft.simplesappspermissions.R;
 import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
@@ -18,9 +19,42 @@ import com.simplesoft.simplesofttemplate.main.view.AppInfo;
  * @since:  1.0
  * @time: 13:46:00 20 Jul 2014
  */
-public abstract class BaseController {
-    abstract public void handleModelResponse(ResponseData reqData);
-    abstract public void handleModelResponseError(ResponseData reqData);
+public abstract class BaseController {  
+    public final void handleModelResponseData(final ResponseData rspData){
+    	//tính toán thời gian truy vấn dữ liệu
+    	rspData.rqData.timeEnd = SystemClock.elapsedRealtime();
+    	rspData.rqData.timeExecute = rspData.rqData.timeEnd - rspData.rqData.timeStart;
+    	//ghi log thời gian thực thi render
+	    LogUtil.log("Time execute " + rspData.rqData.action.getRquestName() + ": " + rspData.rqData.timeExecute);
+	    
+    	if (rspData.rqData.sender != null && rspData.rqData.sender.getActivityContext() != null) {
+			rspData.rqData.sender.getActivityContext().runOnUiThread(new Runnable() {
+				public void run() {
+					switch (rspData.errorCode) {
+					case SUSSESS:
+						rspData.rqData.sender.handleViewDataResponseSuccess(rspData);
+						break;
+					case ERROR_COMMON:
+						rspData.rqData.sender.handleViewDataResponseError(rspData);
+						break;
+					default:
+						break;
+				}    	
+					
+				//tính toán thời gian render
+				rspData.rqData.timeEndRender = SystemClock.elapsedRealtime();
+			    rspData.rqData.timeExecuteRender = rspData.rqData.timeEndRender - rspData.rqData.timeEnd;
+			    //ghi log thời gian thực thi render
+			    LogUtil.log("Time execute render " + rspData.rqData.action.getRquestName() + ": " + rspData.rqData.timeExecuteRender);
+			    
+			    //tính thời gian tổng
+			    rspData.rqData.timeTotal = rspData.rqData.timeExecute + rspData.rqData.timeExecuteRender;
+			    //ghi log thời gian thực thi
+			    LogUtil.log("Total time execute " + rspData.rqData.action.getRquestName() + ": " + rspData.rqData.timeTotal);
+				}
+			});
+		}
+    }
     
     /**
 	 * Xử lý event lấy dữ liệu từ View, xử lý lỗi, trả kết quả về View
@@ -42,19 +76,19 @@ public abstract class BaseController {
 					}
 					rpData.data = dto;
 					rpData.errorCode = ErrorCode.SUSSESS;
-					BaseController.this.handleModelResponse(rpData);
 				} catch (Exception ex) {
 					String exceptionMessage = LogUtil.getExceptionMessage(ex);
 					rpData.errorCode = ErrorCode.ERROR_COMMON;
 					rpData.errorMessage = e.action.getRquestName() 
 							+ " " + AppInfo.getInstance().getString(R.string.text_error);
-					BaseController.this.handleModelResponseError(rpData);
 					//chi tiết lỗi sẽ gồm tên Controller + action
 					String logDecription = String
 							.format("Controller: %s ActionCode: %s",
 									BaseController.this.getClass().getName(), e.action);
 					//log to Console 
 					LogUtil.log(logDecription + "\r\n" + exceptionMessage);
+				} finally{
+					BaseController.this.handleModelResponseData(rpData);
 				}
 				return null;
 			}

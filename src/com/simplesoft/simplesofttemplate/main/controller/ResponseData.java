@@ -12,6 +12,6 @@ public class ResponseData implements Serializable{
 	private static final long serialVersionUID = 7574659583474540680L;
 	public RequestData rqData;
 	public Object data;
-	public ErrorCode errorCode;
+	public ErrorCode errorCode = ErrorCode.SUSSESS;
 	public String errorMessage;
 }

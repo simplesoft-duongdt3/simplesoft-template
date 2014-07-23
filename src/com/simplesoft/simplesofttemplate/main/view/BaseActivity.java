@@ -98,6 +98,22 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	}
 
 	/**
+	 * Switch Activity + Bundle data. 
+	 * @author: duongdt3
+	 * @since: 1.0
+	 * @time: 02:47:44 24 Jul 2014
+	 * @return: void
+	 * @throws:  
+	 * @param activityClass
+	 * @param data
+	 */
+	public void switchActivity(Class<?> activityClass, Bundle data) {
+		Intent intent = new Intent(this, activityClass);
+		intent.putExtras(data);
+		switchActivity(intent);
+	}
+	
+	/**
 	 * Switch Activity with Intent
 	 * 
 	 * @author: duongdt3

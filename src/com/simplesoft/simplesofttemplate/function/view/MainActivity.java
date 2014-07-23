@@ -74,7 +74,7 @@ public class MainActivity extends BaseActivity {
 	}
 
 	@Override
-	public void handleViewDataResponse(ResponseData rspData) {
+	public void handleViewDataResponseSuccess(ResponseData rspData) {
 		
 	}
 

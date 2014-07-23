@@ -5,7 +5,6 @@
 package com.simplesoft.simplesofttemplate.main.model;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import android.content.pm.ApplicationInfo;
@@ -55,11 +54,11 @@ public class SimpleModel {
 			itemInfo.receivers = pkInfo.receivers;
 			pkInfo = pm.getPackageInfo(itemInfo.packageName, PackageManager.GET_SERVICES);
 			itemInfo.services = pkInfo.services;
+			itemInfo.isSystemApp = ((item.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
 			
 			listAppGlobal.add(itemInfo);
 		}
 		
-		Collections.sort(listAppGlobal, new AppItemInfo.PerDescComparator());
 		return listAppGlobal;
 	}
 }
