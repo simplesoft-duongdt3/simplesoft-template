@@ -40,8 +40,13 @@ public class SimpleController extends BaseController {
 	@Override
 	protected Object requestDataByView(RequestData e) throws Exception {
 		Object data = null;
-		if (e.action == RequestAction.GET_LIST_APP) {
-			data = SimpleModel.getAllAppInfo();
+		switch (e.action) {
+			case GET_LIST_APP:
+				data = SimpleModel.getAllAppInfo();
+				break;
+	
+			default:
+				break;
 		}
 		return data;
 	}

@@ -54,20 +54,25 @@ public class SplashScreenActivity extends BaseActivity {
 	@SuppressWarnings("unchecked")
 	@Override
 	public void handleViewDataResponse(ResponseData rspData) {
-		if (rspData.rqData.action == RequestAction.GET_LIST_APP) {
-			List<AppItemInfo> data = (List<AppItemInfo>) rspData.data;
-			AppInfo.getInstance().listAppInfo = data;
-			
-			new CountDownTimer(1000, 1000) {
-
-			     public void onTick(long millisUntilFinished) {
-			     }
-
-			     public void onFinish() {
-			    	 switchActivity(MainActivity.class);
-			    	 SplashScreenActivity.this.finish();
-			     }
-			  }.start();
+		switch (rspData.rqData.action) {
+			case GET_LIST_APP:
+				List<AppItemInfo> data = (List<AppItemInfo>) rspData.data;
+				AppInfo.getInstance().listAppInfo = data;
+				
+				new CountDownTimer(1000, 1000) {
+					
+					public void onTick(long millisUntilFinished) {
+					}
+					
+					public void onFinish() {
+						switchActivity(MainActivity.class);
+						SplashScreenActivity.this.finish();
+					}
+				}.start();
+				break;
+	
+			default:
+				break;
 		}
 	}
 
