@@ -263,6 +263,11 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	}
 	
 	@Override
+	public void handleViewDataResponseSuccess(ResponseData rspData) {
+		Toast.makeText(this, rspData.rqData.action.getRquestName() + " ", Toast.LENGTH_LONG).show();
+	}
+	
+	@Override
 	public void handleViewDataResponseError(ResponseData rspData) {
 		Toast.makeText(this, rspData.errorMessage, Toast.LENGTH_LONG).show();
 	}
@@ -291,7 +296,7 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 			ViewGroup parent = (ViewGroup) vgroup.findViewById(R.id.parent);
 			viewPager = (ViewPager) vgroup.findViewById(R.id.pager);
 			parent.removeAllViews();
-			
+			//viewPager.setPageTransformer(true, new DefaultTransformer());
 			fragHolder.removeAllViews();
 			fragHolder.addView(viewPager);        
 			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
@@ -343,7 +348,6 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 
     protected abstract void onViewPagerChange(int pos);
     
-    
     /**
      * Switch fragment
      * @author: duongdt3
@@ -364,6 +368,7 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 		}
     	FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
+
 		if (isRemoveBackStack) {
 			removeAllInBackStack(fm);
 		}
@@ -375,7 +380,10 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 		}
 		ft.add(R.id.fragHolder, frag, TAG);
 		ft.addToBackStack(TAG);
-		ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		//ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		ft.setCustomAnimations(
+				R.anim.card_flip_right_in, R.anim.card_flip_right_out,
+				R.anim.card_flip_left_in, R.anim.card_flip_left_out);
 		ft.commit();
 	}
     
@@ -387,4 +395,21 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 			LogUtil.log(e);
 		}
 	}
+    
+    @Override
+    public void onBackPressed() {
+    	if (viewPager == null) {
+    		super.onBackPressed();
+		} else{
+	    	if (viewPager.getCurrentItem() == 0) {
+	            // If the user is currently looking at the first step, allow the system to handle the
+	            // Back button. This calls finish() on this activity and pops the back stack.
+	            super.onBackPressed();
+	        } else {
+	            // Otherwise, select the previous step.
+	        	viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
+	        }
+		}
+
+    }
 }

@@ -17,7 +17,6 @@ import android.widget.Toast;
 import com.simplesoft.simplesappspermissions.R;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
 import com.simplesoft.simplesofttemplate.function.viewholder.ViewHolderAppList;
-import com.simplesoft.simplesofttemplate.main.controller.ResponseData;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.MultiComparator;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.MultiCondition;
@@ -46,27 +45,24 @@ public class AppListFragment extends BaseFragment implements ListViewEventReceiv
 		ViewGroup vgroup = (ViewGroup) inflater.inflate(R.layout.frag_app_list, null, false);
 		appList = (ListView) vgroup.findViewById(R.id.appList);
 		
-		//lọc danh sách những apps có quyền > 0 + không phải ứng dụng hệ thống
-		List<AppItemInfo> arrFilter = CollectionUtil.filter(AppInfo.getInstance().listAppInfo
-				, new MultiCondition<AppItemInfo>()
+		if (AppInfo.getInstance().listAppInfo != null) {
+			//lọc danh sách những apps có quyền > 0 + không phải ứng dụng hệ thống
+			List<AppItemInfo> arrFilter = CollectionUtil.filter(AppInfo.getInstance().listAppInfo
+					, new MultiCondition<AppItemInfo>()
 					.addCondition(new AppItemInfo.HavePerCondition().setOperator(Operator.IS))
 					.addCondition(new AppItemInfo.IsSystemAppCondition().setOperator(Operator.NOT)));
-		
-		//sắp xếp theo số lượng Per giảm dần + theo tên tăng dần
-		MultiComparator<AppItemInfo> comparetor = new MultiComparator<AppItemInfo>()
+			
+			//sắp xếp theo số lượng Per giảm dần + theo tên tăng dần
+			MultiComparator<AppItemInfo> comparetor = new MultiComparator<AppItemInfo>()
 					.addComparator(new AppItemInfo.PerComparator().setWay(OrderBy.DESC))
 					.addComparator(new AppItemInfo.NameComparator().setWay(OrderBy.ASC));
-		CollectionUtil.sort(arrFilter, comparetor);
-		
-		//hiển thị danh sách
-		ListAdapter adapter = new BaseListAdapter<AppItemInfo>(arrFilter, new ViewHolderAppList(), this);
-		appList.setAdapter(adapter);
+			CollectionUtil.sort(arrFilter, comparetor);
+			
+			//hiển thị danh sách
+			ListAdapter adapter = new BaseListAdapter<AppItemInfo>(arrFilter, new ViewHolderAppList(), this);
+			appList.setAdapter(adapter);
+		}
 		return super.onCreateView(inflater, vgroup, savedInstanceState);
-	}
-
-	@Override
-	public void handleViewDataResponseSuccess(ResponseData rspData) {
-		
 	}
 
 	@Override
