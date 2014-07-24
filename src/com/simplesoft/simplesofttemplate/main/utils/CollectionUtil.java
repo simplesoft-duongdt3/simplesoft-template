@@ -85,10 +85,6 @@ public class CollectionUtil {
 	public static class MultiComparator<T> implements Comparator<T> {
 
 		List<IComparator<? super T>> coms = new ArrayList<CollectionUtil.IComparator<? super T>>();
-
-		public MultiComparator() {
-			
-		}
 		
 		public MultiComparator<T> addComparator(IComparator<? super T> pCom){
 			if (pCom != null) {
@@ -163,28 +159,6 @@ public class CollectionUtil {
 	    return result;
 	}
 	
-	public static <T> List<T> filterNot(List<T> list, ICondition<? super T> condition) {
-		List<T> result = new ArrayList<T>();
-	    for (T element: list) {
-	    	//chỉ cần ko thoả thì thêm vào mảng
-	        if (!condition.isVailCondition(element)) {
-	            result.add(element);
-	        }
-	    }
-	    return result;
-	}
-	
-	public static <T> List<T> filterNotAndDoAction(List<T> list, IConditionDoAction<? super T> condition) {
-		List<T> result = new ArrayList<T>();
-	    for (T element: list) {
-	        if (!condition.isVailCondition(element)) {
-	        	condition.doAction(element);
-	            result.add(element);
-	        }
-	    }
-	    return result;
-	}
-	
 	public static <T> void filterIn(List<T> list, ICondition<? super T> condition) {
 		for (int i = list.size() - 1; i >= 0 ; i--) {
 	    	//ko thoả thì bỏ khỏi mảng
@@ -194,28 +168,11 @@ public class CollectionUtil {
 		}
 	}
 	
-	public static <T> void filterInNot(List<T> list, ICondition<? super T> condition) {
-		for (int i = list.size() - 1; i >= 0 ; i--) {
-	    	//nếu thoả thì bỏ khỏi mảng
-			if (condition.isVailCondition(list.get(i))) {
-				list.remove(i);
-			}
-		}
-	}
-	
 	public static <T> void filterInAndDoAction(List<T> list, IConditionDoAction<? super T> condition) {
 		 for (T element: list) {
 			if (condition.isVailCondition(element)) {
 				condition.doAction(element);
 	        }
-		}
-	}
-	
-	public static <T> void filterInNotAndDoAction(List<T> list, IConditionDoAction<? super T> condition) {
-		 for (T element: list) {
-			if (!condition.isVailCondition(element)) {
-				condition.doAction(element);
-			}
 		}
 	}
 	
