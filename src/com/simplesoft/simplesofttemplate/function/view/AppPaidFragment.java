@@ -30,7 +30,7 @@ public class AppPaidFragment extends BaseFragment {
 	}
 
 	@Override
-	public void handleViewDataResponse(ResponseData rspData) {
+	public void handleViewDataResponseSuccess(ResponseData rspData) {
 		// TODO Auto-generated method stub
 		
 	}

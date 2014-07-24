@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.simplesoft.simplesappstemplate.R;
-import com.simplesoft.simplesofttemplate.main.controller.ResponseData;
 import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
 import com.simplesoft.simplesofttemplate.main.view.BaseActivity;
 import com.simplesoft.simplesofttemplate.main.view.ViewPagerInfo;
@@ -22,7 +21,6 @@ public class MainActivity extends BaseActivity {
 		
 		ViewPagerInfo vPagerInfo = new ViewPagerInfo(tabTitle, vPagerAdapter);
 		setViewPagerInfo(vPagerInfo);
-
 	}
 
 	@Override
@@ -71,11 +69,6 @@ public class MainActivity extends BaseActivity {
 			return 1;
 		}
 
-	}
-
-	@Override
-	public void handleViewDataResponse(ResponseData rspData) {
-		
 	}
 
 	@Override

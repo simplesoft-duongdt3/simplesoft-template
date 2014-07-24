@@ -14,34 +14,16 @@ import com.simplesoft.simplesofttemplate.main.model.SimpleModel;
  * @time: 14:02:13 20 Jul 2014
  */
 public class SimpleController extends BaseController {
-
-	@Override
-	public void handleModelResponse(final ResponseData rspData) {
-		if (rspData.rqData.sender != null && rspData.rqData.sender.getActivityContext() != null) {
-			rspData.rqData.sender.getActivityContext().runOnUiThread(new Runnable() {
-				public void run() {
-					rspData.rqData.sender.handleViewDataResponse(rspData);
-				}
-			});
-		}
-	}
-
-	@Override
-	public void handleModelResponseError(final ResponseData rspData) {
-		if (rspData.rqData.sender != null && rspData.rqData.sender.getActivityContext() != null) {
-			rspData.rqData.sender.getActivityContext().runOnUiThread(new Runnable() {
-				public void run() {
-					rspData.rqData.sender.handleViewDataResponseError(rspData);
-				}
-			});
-		}
-	}
-
 	@Override
 	protected Object requestDataByView(RequestData e) throws Exception {
 		Object data = null;
-		if (e.action == RequestAction.GET_LIST_APP) {
-			data = SimpleModel.getAllAppInfo();
+		switch (e.action) {
+			case GET_LIST_APP:
+				data = SimpleModel.getAllAppInfo();
+				break;
+	
+			default:
+				break;
 		}
 		return data;
 	}

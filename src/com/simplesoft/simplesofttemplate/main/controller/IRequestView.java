@@ -17,7 +17,7 @@ import android.os.Bundle;
 public interface IRequestView {
 	void sendViewRequest(RequestAction action);
 	void sendViewRequest(RequestAction action, Bundle data);
-	void handleViewDataResponse(ResponseData rspData);
+	void handleViewDataResponseSuccess(ResponseData rspData);
 	void handleViewDataResponseError(ResponseData rspData);
 	Activity getActivityContext();
 }

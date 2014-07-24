@@ -27,10 +27,14 @@ import com.simplesoft.simplesofttemplate.main.controller.SimpleController;
  * @since:  1.0
  * @time: 09:39:33 19 Jul 2014
  */
-public abstract class BaseFragment extends Fragment implements IRequestView{
+public class BaseFragment extends Fragment implements IRequestView{
 	
 	protected BaseActivity parent;
 	protected LinearLayout viewRoot;
+	
+	public BaseFragment() {
+		super();
+	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -74,11 +78,17 @@ public abstract class BaseFragment extends Fragment implements IRequestView{
 	
 	@Override
 	public void handleViewDataResponseError(ResponseData rspData) {
-		Toast.makeText(parent, rspData.errorMessage, Toast.LENGTH_LONG).show();
+		Toast.makeText(parent, rspData.responseMessage, Toast.LENGTH_LONG).show();
+	}
+		
+	@Override
+	public void handleViewDataResponseSuccess(ResponseData rspData) {
+		Toast.makeText(parent, rspData.rqData.action.getRquestName() + " ", Toast.LENGTH_LONG).show();
 	}
 	
 	@Override
 	public Activity getActivityContext() {
 		return parent;
 	}
+
 }

@@ -53,21 +53,35 @@ public class SplashScreenActivity extends BaseActivity {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void handleViewDataResponse(ResponseData rspData) {
-		if (rspData.rqData.action == RequestAction.GET_LIST_APP) {
-			List<AppItemInfo> data = (List<AppItemInfo>) rspData.data;
-			AppInfo.getInstance().listAppInfo = data;
-			
-			new CountDownTimer(1000, 1000) {
-
-			     public void onTick(long millisUntilFinished) {
-			     }
-
-			     public void onFinish() {
-			    	 switchActivity(MainActivity.class);
-			    	 SplashScreenActivity.this.finish();
-			     }
-			  }.start();
+	public void handleViewDataResponseSuccess(ResponseData rspData) {
+		switch (rspData.rqData.action) {
+			case GET_LIST_APP:
+				List<AppItemInfo> data = (List<AppItemInfo>) rspData.data;
+				AppInfo.getInstance().listAppInfo = data;
+				
+				//nếu thời gian thực thi trong khoảng cho phép 
+				//thì hiện thêm Splash Screen 1s nữa
+				if (rspData.rqData.timeExecute <= 2500) {
+					new CountDownTimer(1000, 1000) {
+						
+						public void onTick(long millisUntilFinished) {
+							
+						}
+						
+						public void onFinish() {
+							switchActivity(MainActivity.class);
+							SplashScreenActivity.this.finish();
+						}
+					}.start();
+				} else {
+					//quá thời gian thì tiến hành chuyển Activity luôn
+					switchActivity(MainActivity.class);
+					SplashScreenActivity.this.finish();
+				}
+				break;
+	
+			default:
+				break;
 		}
 	}
 

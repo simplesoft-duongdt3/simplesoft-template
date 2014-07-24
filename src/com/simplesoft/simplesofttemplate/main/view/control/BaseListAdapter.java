@@ -6,12 +6,12 @@ package com.simplesoft.simplesofttemplate.main.view.control;
 
 import java.util.List;
 
-import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 import com.simplesoft.simplesappstemplate.R;
+import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 
 /**
  * AppListAdapter.java
@@ -26,8 +26,8 @@ public class BaseListAdapter<T> extends ArrayAdapter<T> {
 	List<T> listObject;
 	BaseViewHolder<T> viewHolder;
 	ListViewEventReceiver<T> eventReceiver;
-	public BaseListAdapter(Context context, List<T> objects, BaseViewHolder<T> viewHolder, ListViewEventReceiver<T> eventReceiver) {
-		super(context, R.layout.app_list_item, objects);
+	public BaseListAdapter(List<T> objects, BaseViewHolder<T> viewHolder, ListViewEventReceiver<T> eventReceiver) {
+		super(AppInfo.getInstance(), R.layout.app_list_item, objects);
 		this.listObject = objects;
 		this.viewHolder = viewHolder; 
 		this.eventReceiver = eventReceiver;
