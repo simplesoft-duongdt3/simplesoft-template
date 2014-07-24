@@ -21,7 +21,6 @@ public class MainActivity extends BaseActivity {
 		
 		ViewPagerInfo vPagerInfo = new ViewPagerInfo(tabTitle, vPagerAdapter);
 		setViewPagerInfo(vPagerInfo);
-
 	}
 
 	@Override

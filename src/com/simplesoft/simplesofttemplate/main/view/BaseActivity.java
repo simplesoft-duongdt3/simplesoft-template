@@ -5,6 +5,7 @@ import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -30,12 +31,13 @@ import com.simplesoft.simplesofttemplate.main.controller.RequestData;
 import com.simplesoft.simplesofttemplate.main.controller.ResponseData;
 import com.simplesoft.simplesofttemplate.main.controller.SimpleController;
 import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
+import com.squareup.seismic.ShakeDetector;
 import com.startapp.android.publish.StartAppAd;
 import com.startapp.android.publish.StartAppSDK;
 import com.startapp.android.publish.splash.SplashConfig;
 import com.startapp.android.publish.splash.SplashConfig.Theme;
 
-public abstract class BaseActivity extends FragmentActivity implements IRequestView {
+public abstract class BaseActivity extends FragmentActivity implements IRequestView, ShakeDetector.Listener{
 	private StartAppAd startAppAd = new StartAppAd(this);
 
 	private DrawerLayout mDrawerLayout;
@@ -52,6 +54,12 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 		super.onCreate(savedInstanceState);
 		// save last activity
 		AppInfo.getInstance().setActivityContext(this);
+		
+		//detect shake
+		SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+	    ShakeDetector sd = new ShakeDetector(this);
+	    sd.start(sensorManager);
+	    
 		StartAppSDK.init(this, AppInfo.DEV_ID, AppInfo.APP_ID, true);
 
 		if (isShowAdsWhenStart()) {
@@ -264,12 +272,12 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	
 	@Override
 	public void handleViewDataResponseSuccess(ResponseData rspData) {
-		Toast.makeText(this, rspData.rqData.action.getRquestName() + " ", Toast.LENGTH_LONG).show();
+		Toast.makeText(this, rspData.responseMessage, Toast.LENGTH_SHORT).show();
 	}
 	
 	@Override
 	public void handleViewDataResponseError(ResponseData rspData) {
-		Toast.makeText(this, rspData.errorMessage, Toast.LENGTH_LONG).show();
+		Toast.makeText(this, rspData.responseMessage, Toast.LENGTH_SHORT).show();
 	}
 	
 	@Override
@@ -396,7 +404,8 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 		}
 	}
     
-    @Override
+    //Back quay lại trang trước
+/*    @Override
     public void onBackPressed() {
     	if (viewPager == null) {
     		super.onBackPressed();
@@ -410,6 +419,10 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	        	viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
 	        }
 		}
-
-    }
+    }*/
+    
+    @Override
+	public void hearShake() {
+    	Toast.makeText(this, "Shake!", Toast.LENGTH_SHORT).show();
+	}
 }

@@ -78,7 +78,7 @@ public class BaseFragment extends Fragment implements IRequestView{
 	
 	@Override
 	public void handleViewDataResponseError(ResponseData rspData) {
-		Toast.makeText(parent, rspData.errorMessage, Toast.LENGTH_LONG).show();
+		Toast.makeText(parent, rspData.responseMessage, Toast.LENGTH_LONG).show();
 	}
 		
 	@Override

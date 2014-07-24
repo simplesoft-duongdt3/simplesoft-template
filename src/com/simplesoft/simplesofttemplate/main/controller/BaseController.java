@@ -30,7 +30,7 @@ public abstract class BaseController {
     	if (rspData.rqData.sender != null && rspData.rqData.sender.getActivityContext() != null) {
 			rspData.rqData.sender.getActivityContext().runOnUiThread(new Runnable() {
 				public void run() {
-					switch (rspData.errorCode) {
+					switch (rspData.responseCode) {
 					case SUSSESS:
 						rspData.rqData.sender.handleViewDataResponseSuccess(rspData);
 						break;
@@ -75,11 +75,12 @@ public abstract class BaseController {
 						throw new Exception("ResponseData null");
 					}
 					rpData.data = dto;
-					rpData.errorCode = ErrorCode.SUSSESS;
+					rpData.responseCode = ResponseCode.SUSSESS;
+					rpData.responseMessage = e.action.getRquestName() + " " + AppInfo.getInstance().getString(R.string.text_success);
 				} catch (Exception ex) {
 					String exceptionMessage = LogUtil.getExceptionMessage(ex);
-					rpData.errorCode = ErrorCode.ERROR_COMMON;
-					rpData.errorMessage = e.action.getRquestName() 
+					rpData.responseCode = ResponseCode.ERROR_COMMON;
+					rpData.responseMessage = e.action.getRquestName() 
 							+ " " + AppInfo.getInstance().getString(R.string.text_error);
 					//chi tiết lỗi sẽ gồm tên Controller + action
 					String logDecription = String
@@ -108,7 +109,7 @@ public abstract class BaseController {
 	 */
 	abstract protected Object requestDataByView(RequestData e) throws Exception;
 	
-    public enum ErrorCode{
+    public enum ResponseCode{
     	SUSSESS,
     	ERROR_COMMON;
     }

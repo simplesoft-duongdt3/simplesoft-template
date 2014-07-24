@@ -5,6 +5,7 @@
     <string name="contentDescription">SimpleSoft Image</string>
     <string name="menu_draw">Menu</string>
     <string name="text_error">fail</string>
+    <string name="text_success">success</string>
     <string name="text_version">Version</string>
 
     <string-array name="operating_systems">
