@@ -6,16 +6,14 @@ package com.simplesoft.simplesofttemplate.function.viewholder;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.simplesoft.simplesappspermissions.R;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
-import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
 import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 import com.simplesoft.simplesofttemplate.main.view.control.BaseViewHolder;
@@ -39,8 +37,8 @@ public class ViewHolderAppList extends BaseViewHolder<AppItemInfo> {
 	TextView tvNumPermission;
 	
 	@Override
-	public View initView() {
-		View rowView = inflater.inflate(R.layout.app_list_item, null, false);
+	public View initView(ViewGroup parent) {
+		View rowView = inflater.inflate(R.layout.app_list_item, parent, false);
 		this.ivAppIcon = (ImageView) rowView.findViewById(R.id.ivAppIcon);
 		this.tvAppName = (TextView) rowView.findViewById(R.id.tvAppName);
 		this.tvVersion = (TextView) rowView.findViewById(R.id.tvVersion);
@@ -62,16 +60,12 @@ public class ViewHolderAppList extends BaseViewHolder<AppItemInfo> {
 	
 	@Override
 	public void renderView(AppItemInfo dto) {
-		Drawable icon = null;
-		try {
-			icon = pm.getApplicationIcon(dto.packageName);
-			this.ivAppIcon.setImageDrawable(icon);
-		} catch (NameNotFoundException e) {
-			LogUtil.log(e);
+		if (dto.drawable != null) {
+			this.ivAppIcon.setImageDrawable(dto.drawable);
 		}
 		this.tvAppName.setText(dto.name);
 		this.tvVersion.setText(StringUtil.getString(R.string.text_version) + ": " + dto.versionName);
-		this.tvNumPermission.setText(String.valueOf(dto.permissions.length));
+		this.tvNumPermission.setText(String.valueOf(dto.permissions.size() + dto.userPermissions.size()));
 	}
 
 	@Override

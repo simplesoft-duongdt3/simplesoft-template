@@ -16,14 +16,15 @@ import android.widget.Toast;
 
 import com.simplesoft.simplesappspermissions.R;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
+import com.simplesoft.simplesofttemplate.function.DTO.ListAppItemInfo;
 import com.simplesoft.simplesofttemplate.function.viewholder.ViewHolderAppList;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.MultiComparator;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.MultiCondition;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.Operator;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.OrderBy;
-import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 import com.simplesoft.simplesofttemplate.main.view.BaseFragment;
+import com.simplesoft.simplesofttemplate.main.view.BundleKey;
 import com.simplesoft.simplesofttemplate.main.view.control.BaseListAdapter;
 import com.simplesoft.simplesofttemplate.main.view.control.ListViewEventData;
 import com.simplesoft.simplesofttemplate.main.view.control.ListViewEventReceiver;
@@ -39,23 +40,33 @@ public class AppListFragment extends BaseFragment implements ListViewEventReceiv
 
 	ListView appList;
 	
+	private ListAppItemInfo listAppDto;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		ViewGroup vgroup = (ViewGroup) inflater.inflate(R.layout.frag_app_list, null, false);
+		ViewGroup vgroup = (ViewGroup) inflater.inflate(R.layout.frag_app_list, container, false);
 		appList = (ListView) vgroup.findViewById(R.id.appList);
 		
-		if (AppInfo.getInstance().listAppInfo != null) {
+		if (getArguments().containsKey(BundleKey.DATA_APP_LIST.getName())) {
+			listAppDto = (ListAppItemInfo) getArguments().getParcelable(BundleKey.DATA_APP_LIST.getName());
+		} else {
+			if (savedInstanceState.containsKey(BundleKey.DATA_APP_LIST.getName())) {
+				listAppDto = (ListAppItemInfo) savedInstanceState.getParcelable(BundleKey.DATA_APP_LIST.getName());
+			}
+		}
+		
+		if (listAppDto != null) {
 			//lọc danh sách những apps có quyền > 0 + không phải ứng dụng hệ thống
-			List<AppItemInfo> arrFilter = CollectionUtil.filter(AppInfo.getInstance().listAppInfo
-					, new MultiCondition<AppItemInfo>()
+			List<AppItemInfo> arrFilter = CollectionUtil.filter(listAppDto.listApp
+					,new MultiCondition<AppItemInfo>()
 					.addCondition(new AppItemInfo.HavePerCondition().setOperator(Operator.IS))
-					.addCondition(new AppItemInfo.IsSystemAppCondition().setOperator(Operator.NOT)));
+					//.addCondition(new AppItemInfo.IsSystemAppCondition().setOperator(Operator.NOT))
+					, new AppItemInfo.ActionSetDrawable());
 			
 			//sắp xếp theo số lượng Per giảm dần + theo tên tăng dần
 			MultiComparator<AppItemInfo> comparetor = new MultiComparator<AppItemInfo>()
-					.addComparator(new AppItemInfo.PerComparator().setWay(OrderBy.DESC))
-					.addComparator(new AppItemInfo.NameComparator().setWay(OrderBy.ASC));
+					.addComparator(new AppItemInfo.PerComparator().setWay(OrderBy.ASC))
+					.addComparator(new AppItemInfo.NameComparator().setWay(OrderBy.DESC));
 			CollectionUtil.sort(arrFilter, comparetor);
 			
 			//hiển thị danh sách

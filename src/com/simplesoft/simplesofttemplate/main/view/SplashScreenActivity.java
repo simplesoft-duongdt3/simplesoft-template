@@ -1,13 +1,11 @@
 package com.simplesoft.simplesofttemplate.main.view;
 
-import java.util.List;
-
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 
 import com.simplesoft.simplesappspermissions.R;
-import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
+import com.simplesoft.simplesofttemplate.function.DTO.ListAppItemInfo;
 import com.simplesoft.simplesofttemplate.function.view.MainActivity;
 import com.simplesoft.simplesofttemplate.main.controller.RequestAction;
 import com.simplesoft.simplesofttemplate.main.controller.ResponseData;
@@ -51,13 +49,15 @@ public class SplashScreenActivity extends BaseActivity {
 		return false;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public void handleViewDataResponseSuccess(ResponseData rspData) {
 		switch (rspData.rqData.action) {
 			case GET_LIST_APP:
-				List<AppItemInfo> data = (List<AppItemInfo>) rspData.data;
-				AppInfo.getInstance().listAppInfo = data;
+				final ListAppItemInfo data = (ListAppItemInfo) rspData.data;
+				//AppInfo.getInstance().listAppInfo = data;
+				
+				final Bundle b = new Bundle();
+				b.putParcelable(BundleKey.DATA_APP_LIST.getName(), data);
 				
 				//nếu thời gian thực thi trong khoảng cho phép 
 				//thì hiện thêm Splash Screen 1s nữa
@@ -69,13 +69,13 @@ public class SplashScreenActivity extends BaseActivity {
 						}
 						
 						public void onFinish() {
-							switchActivity(MainActivity.class);
+							switchActivity(MainActivity.class, b);
 							SplashScreenActivity.this.finish();
 						}
 					}.start();
 				} else {
 					//quá thời gian thì tiến hành chuyển Activity luôn
-					switchActivity(MainActivity.class);
+					switchActivity(MainActivity.class, b);
 					SplashScreenActivity.this.finish();
 				}
 				break;

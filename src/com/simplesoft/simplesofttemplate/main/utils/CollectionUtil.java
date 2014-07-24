@@ -33,10 +33,11 @@ public class CollectionUtil {
 		}
 	}
 
-	public static abstract class IConditionDoAction<T> {
+	public static interface IDoAction<T>{
+		void doAction(T object);
+	}
+	public static abstract class IConditionDoAction<T> implements IDoAction<T>{
 		protected abstract boolean isVailCondition(T object);
-
-		protected abstract void doAction(T object);
 	}
 	
 	public static enum Operator{
@@ -136,11 +137,14 @@ public class CollectionUtil {
 		}
 	}
 	
-	public static <T> List<T> filter(List<T> list, ICondition<? super T> condition) {
+	public static <T> List<T> filter(List<T> list, ICondition<? super T> condition, IDoAction<T> doAction) {
 		List<T> result = new ArrayList<T>();
 	    for (T element: list) {
 	    	//nếu thoả thì add vào mảng
-			if (condition.isVailCondition(element)) {
+			if (condition == null || condition.isVailCondition(element)) {
+				if (doAction != null) {
+					doAction.doAction(element);
+				}
 				result.add(element);
 			}
 	    }
@@ -219,7 +223,7 @@ public class CollectionUtil {
 				protected boolean doCondition(T object) {
 					return comparator.compare(object, min) == 0;
 				}
-			});
+			}, null);
 		}
 		return result;
 	}
@@ -237,7 +241,7 @@ public class CollectionUtil {
 				protected boolean doCondition(T object) {
 					return comparator.compare(object, min) == 0;
 				}
-			});
+			}, null);
 		}
 		return result;
 	}
@@ -257,7 +261,5 @@ public class CollectionUtil {
 		int count = count(list, condition);
 		int countNot = size - count;
 		return countNot;
-	}
-	
-	
+	}	
 }

@@ -41,7 +41,7 @@ public class BaseListAdapter<T> extends ArrayAdapter<T> {
 		if(rowView == null){
 			BaseViewHolder<T> vHolder = this.viewHolder.clone();
 			vHolder.setListViewEventReceiver(eventReceiver);
-			rowView = vHolder.initView();
+			rowView = vHolder.initView(parent);
 			rowView.setTag(vHolder);
 		}
 		

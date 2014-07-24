@@ -5,6 +5,7 @@
 package com.simplesoft.simplesofttemplate.main.view.control;
 
 import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * IViewHolder.java
@@ -16,7 +17,7 @@ import android.view.View;
 public abstract class BaseViewHolder<T> {
 	private ListViewEventReceiver<T> event;
 	private T dto;
-	public abstract View initView();
+	public abstract View initView(ViewGroup parent);
 	protected abstract void resetView();
 	protected abstract void renderView(T dto);
 	public abstract BaseViewHolder<T> clone();
