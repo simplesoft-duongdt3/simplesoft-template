@@ -53,11 +53,9 @@ public class SplashScreenActivity extends BaseActivity {
 	public void handleViewDataResponseSuccess(ResponseData rspData) {
 		switch (rspData.rqData.action) {
 			case GET_LIST_APP:
-				final ListAppItemInfo data = (ListAppItemInfo) rspData.data;
-				//AppInfo.getInstance().listAppInfo = data;
-				
-				final Bundle b = new Bundle();
-				b.putParcelable(BundleKey.DATA_APP_LIST.getName(), data);
+				AppInfo.getInstance().listData = (ListAppItemInfo) rspData.data;
+				//final Bundle b = new Bundle();
+				//b.putParcelable(BundleKey.DATA_APP_LIST.getName(), data);
 				
 				//nếu thời gian thực thi trong khoảng cho phép 
 				//thì hiện thêm Splash Screen 1s nữa
@@ -69,13 +67,13 @@ public class SplashScreenActivity extends BaseActivity {
 						}
 						
 						public void onFinish() {
-							switchActivity(MainActivity.class, b);
+							switchActivity(MainActivity.class);
 							SplashScreenActivity.this.finish();
 						}
 					}.start();
 				} else {
 					//quá thời gian thì tiến hành chuyển Activity luôn
-					switchActivity(MainActivity.class, b);
+					switchActivity(MainActivity.class);
 					SplashScreenActivity.this.finish();
 				}
 				break;

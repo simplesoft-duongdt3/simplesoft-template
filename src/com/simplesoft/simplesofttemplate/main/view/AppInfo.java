@@ -9,6 +9,7 @@ import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 
+import com.simplesoft.simplesofttemplate.function.DTO.ListAppItemInfo;
 import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
 
 /**
@@ -27,7 +28,9 @@ public class AppInfo extends Application {
 	// doi
 	public static final String APP_ID = "207236345";
 	
-	//public List<AppItemInfo> listAppInfo;
+	boolean isForeground = false;
+	String lastActivityCall = "";
+	public ListAppItemInfo listData;
 	
 	@Override
 	public void onCreate() {
@@ -61,8 +64,6 @@ public class AppInfo extends Application {
 		this.activityContext = activityContext;
 	}
 	
-	boolean isForeground = false;
-	String lastActivityCall = "";
 	
 	/**
 	 * call it when stop activity

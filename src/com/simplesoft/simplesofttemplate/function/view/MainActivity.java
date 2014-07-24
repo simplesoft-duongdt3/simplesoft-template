@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.simplesoft.simplesappspermissions.R;
 import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
+import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 import com.simplesoft.simplesofttemplate.main.view.BaseActivity;
 import com.simplesoft.simplesofttemplate.main.view.BundleKey;
 import com.simplesoft.simplesofttemplate.main.view.ViewPagerInfo;
@@ -21,6 +22,9 @@ public class MainActivity extends BaseActivity {
 			bundleData = savedInstanceState;
 		} else if (getIntent() != null && getIntent().getExtras() != null && getIntent().getExtras().containsKey(BundleKey.DATA_APP_LIST.getName())) {
 			bundleData = getIntent().getExtras();
+		} else if(AppInfo.getInstance().listData != null){
+			bundleData = new Bundle();
+			bundleData.putParcelable(BundleKey.DATA_APP_LIST.getName(), AppInfo.getInstance().listData);
 		}
 		
 		if (bundleData != null) {
