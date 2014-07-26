@@ -7,12 +7,17 @@
     <string name="text_error">fail</string>
     <string name="text_success">success</string>
     <string name="text_version">Version</string>
+    <string name="text_NA">N/A</string>
 
     <string-array name="operating_systems">
         <item>Android</item>
         <item>iPhone</item>
         <item>Windows Mobile</item>
     </string-array>
+
     <string name="cat_all">All apps</string>
+    <string name="cat_paid">May cost money</string>
+    
+    <string name="text_is_get_sys_app">Show system app</string>
 
 </resources>

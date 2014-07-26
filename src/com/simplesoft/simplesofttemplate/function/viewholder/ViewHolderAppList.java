@@ -64,8 +64,11 @@ public class ViewHolderAppList extends BaseViewHolder<AppItemInfo> {
 			this.ivAppIcon.setImageDrawable(dto.drawable);
 		}
 		this.tvAppName.setText(dto.name);
+		if(StringUtil.isEmptyStr(dto.versionName)){
+			dto.versionName = StringUtil.getString(R.string.text_NA);
+		}
 		this.tvVersion.setText(StringUtil.getString(R.string.text_version) + ": " + dto.versionName);
-		this.tvNumPermission.setText(String.valueOf(dto.permissions.size() + dto.userPermissions.size()));
+		this.tvNumPermission.setText(String.valueOf(dto.numPermissions));
 	}
 
 	@Override

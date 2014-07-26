@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.simplesoft.simplesofttemplate.constance.PermissionGroup;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.IComparator;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.ICondition;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.IDoAction;
@@ -36,6 +37,8 @@ public class AppItemInfo implements Parcelable {
 	public List<ItemInfo> providers;
 	public List<ItemInfo> receivers;
 	public List<ItemInfo> services;
+	
+	public int numPermissions;
 
 	public static class ItemInfo implements Parcelable{
 		public ItemInfo(String pName, String pGroup) {
@@ -85,9 +88,9 @@ public class AppItemInfo implements Parcelable {
 		@Override
 		public int doCompare(AppItemInfo lhs, AppItemInfo rhs) {
 			int result = 0;
-			if (lhs.permissions.size() > rhs.permissions.size()) {
+			if (lhs.numPermissions > rhs.numPermissions) {
 				result = 1;
-			} else if (lhs.permissions.size() < rhs.permissions.size()) {
+			} else if (lhs.numPermissions < rhs.numPermissions) {
 				result = -1;	
 			}
 			return result;
@@ -146,6 +149,36 @@ public class AppItemInfo implements Parcelable {
 		@Override
 		protected boolean doCondition(AppItemInfo object) {
 			return object.isSystemApp;
+		}
+	}
+
+	/**
+	 * @author xdung
+	 *
+	 */
+	public static final class IsCostMoneyApp extends ICondition<AppItemInfo>{
+		@Override
+		protected boolean doCondition(AppItemInfo object) {
+			boolean isCostMoneyApp = false;
+			if(object.processName.equals("ss.simplesoft.torchlight")){
+				object.userPermissions = new ArrayList<AppItemInfo.ItemInfo>();
+			}
+
+			for (ItemInfo item : object.permissions) {
+				if(item.group.contains(PermissionGroup.COST_MONEY.name())){
+					isCostMoneyApp = true;
+					break;
+				}
+			}
+			if (!isCostMoneyApp) {
+				for (ItemInfo item : object.userPermissions) {
+					if (item.group.contains(PermissionGroup.COST_MONEY.name())) {
+						isCostMoneyApp = true;
+						break;
+					}
+				}
+			}
+			return isCostMoneyApp;
 		}
 	}
 

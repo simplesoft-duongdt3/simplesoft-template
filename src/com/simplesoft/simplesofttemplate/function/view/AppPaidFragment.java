@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -36,16 +39,22 @@ import com.simplesoft.simplesofttemplate.main.view.control.ListViewEventReceiver
  * @since:  1.0
  * @time: 13:14:19 19 Jul 2014
  */
-public class AppPaidFragment extends BaseFragment  implements ListViewEventReceiver<AppItemInfo> {
+public class AppPaidFragment extends BaseFragment  implements ListViewEventReceiver<AppItemInfo>, OnCheckedChangeListener {
 	ListView appList;
+	private CheckBox cbIsGetSysApp;
+	
 	private ListAppItemInfo listAppDto;
+	private List<AppItemInfo> arrFilter;
+	private ListAdapter adapter;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		ViewGroup vgroup = (ViewGroup) inflater.inflate(R.layout.frag_app_list, container, false);
 		appList = (ListView) vgroup.findViewById(R.id.appList);
-		
+		cbIsGetSysApp = (CheckBox) vgroup.findViewById(R.id.cbIsGetSysApp);
+		cbIsGetSysApp.setOnCheckedChangeListener(this);
+
 		if (getArguments().containsKey(BundleKey.DATA_APP_LIST.getName())) {
 			listAppDto = (ListAppItemInfo) getArguments().getParcelable(BundleKey.DATA_APP_LIST.getName());
 		} else {
@@ -55,19 +64,8 @@ public class AppPaidFragment extends BaseFragment  implements ListViewEventRecei
 		}
 		
 		if (listAppDto != null) {
-			//lọc danh sách những apps có quyền > 0 + không phải ứng dụng hệ thống
-			List<AppItemInfo> arrFilter = CollectionUtil.filter(listAppDto.listApp
-					,new MultiCondition<AppItemInfo>()
-					.addCondition(new AppItemInfo.HavePerCondition().setOperator(Operator.NOT))
-					//.addCondition(new AppItemInfo.IsSystemAppCondition().setOperator(Operator.IS))
-					, new AppItemInfo.ActionSetDrawable());
-			
-			//sắp xếp theo số lượng Per giảm dần + theo tên tăng dần
-			MultiComparator<AppItemInfo> comparetor = new MultiComparator<AppItemInfo>()
-					.addComparator(new AppItemInfo.PerComparator().setWay(OrderBy.DESC))
-					.addComparator(new AppItemInfo.NameComparator().setWay(OrderBy.ASC));
-			CollectionUtil.sort(arrFilter, comparetor);
-			
+			filterAndSort(Operator.NOT);
+
 			//hiển thị danh sách
 			ListAdapter adapter = new BaseListAdapter<AppItemInfo>(arrFilter, new ViewHolderAppList(), this);
 			appList.setAdapter(adapter);
@@ -85,5 +83,37 @@ public class AppPaidFragment extends BaseFragment  implements ListViewEventRecei
 	public void onListViewSendEvent(ListViewEventData<AppItemInfo> data) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+		// TODO Auto-generated method stub
+		if (buttonView == cbIsGetSysApp) {
+			if (isChecked) {
+				filterAndSort(Operator.IS);
+			} else {
+				filterAndSort(Operator.NOT);
+			}
+			adapter = new BaseListAdapter<AppItemInfo>(arrFilter, new ViewHolderAppList(), this);
+			appList.setAdapter(adapter);
+		}
+	}
+	
+	/**
+	 * mo ta ham
+	 * @author: Nguyen Xuan Dung
+	 * @param op
+	 * @return void
+	 */
+	private void filterAndSort(Operator... op) {
+		arrFilter = CollectionUtil.filter(listAppDto.listApp
+				,new MultiCondition<AppItemInfo>()
+				.addCondition(new AppItemInfo.IsSystemAppCondition().setOperator(op[0]))
+				.addCondition(new AppItemInfo.IsCostMoneyApp().setOperator(Operator.IS))
+				, new AppItemInfo.ActionSetDrawable());
+		MultiComparator<AppItemInfo> comparetor = new MultiComparator<AppItemInfo>()
+				.addComparator(new AppItemInfo.PerComparator().setWay(OrderBy.DESC))
+				.addComparator(new AppItemInfo.NameComparator().setWay(OrderBy.ASC));
+		CollectionUtil.sort(arrFilter, comparetor);
 	}
 }

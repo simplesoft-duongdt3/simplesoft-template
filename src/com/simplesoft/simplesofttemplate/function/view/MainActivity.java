@@ -1,5 +1,7 @@
 package com.simplesoft.simplesofttemplate.function.view;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,7 +30,7 @@ public class MainActivity extends BaseActivity {
 		}
 		
 		if (bundleData != null) {
-			String[] tabTitle = new String[] {StringUtil.getString(R.string.cat_all),StringUtil.getString(R.string.cat_all),StringUtil.getString(R.string.cat_all),StringUtil.getString(R.string.cat_all)};
+			String[] tabTitle = new String[] {StringUtil.getString(R.string.cat_all),StringUtil.getString(R.string.cat_paid),StringUtil.getString(R.string.cat_all),StringUtil.getString(R.string.cat_all)};
 			TabsPagerAdapter vPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager(), bundleData);
 			
 			ViewPagerInfo vPagerInfo = new ViewPagerInfo(tabTitle, vPagerAdapter);
@@ -59,9 +61,11 @@ public class MainActivity extends BaseActivity {
 	class TabsPagerAdapter extends FragmentPagerAdapter {
 
 		Bundle data;
+		ArrayList<Fragment> listFrag;
 		public TabsPagerAdapter(FragmentManager fm, Bundle pData) {
 			super(fm);
 			this.data = pData;
+			this.listFrag = new ArrayList<Fragment>();
 		}
 
 		@Override
@@ -84,6 +88,9 @@ public class MainActivity extends BaseActivity {
 				break;
 			}
 			frag.setArguments(data);
+			if (!listFrag.contains(frag)) {
+				listFrag.add(frag);
+			}
 			return frag;
 		}
 

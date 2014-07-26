@@ -15,9 +15,11 @@ import android.content.pm.PermissionInfo;
 import android.content.pm.ProviderInfo;
 import android.content.pm.ServiceInfo;
 
+import com.simplesoft.simplesappspermissions.R;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo.ItemInfo;
 import com.simplesoft.simplesofttemplate.function.DTO.ListAppItemInfo;
+import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 
 /**
@@ -50,7 +52,6 @@ public class SimpleModel {
 			PackageInfo pkInfo = pm.getPackageInfo(itemInfo.packageName
 					,PackageManager.GET_ACTIVITIES|PackageManager.GET_PERMISSIONS|PackageManager.GET_PROVIDERS|PackageManager.GET_RECEIVERS|PackageManager.GET_SERVICES);
 			
-			
 			itemInfo.name = item.loadLabel(pm).toString();
 			itemInfo.versionCode = pkInfo.versionCode;
 			itemInfo.versionName = pkInfo.versionName;
@@ -58,6 +59,9 @@ public class SimpleModel {
 			if (pkInfo.permissions != null) {
 				for (int i = 0; i < pkInfo.permissions.length; i++) {
 					PermissionInfo element = pkInfo.permissions[i];
+					if(StringUtil.isEmptyStr(element.group)){
+						element.group = StringUtil.getString(R.string.text_NA);
+					}
 					itemInfo.permissions.add(new ItemInfo(element.name, element.group));
 				}
 			}
@@ -65,8 +69,19 @@ public class SimpleModel {
 			itemInfo.userPermissions = new ArrayList<AppItemInfo.ItemInfo>();
 			if (pkInfo.requestedPermissions != null) {
 				for (int i = 0; i < pkInfo.requestedPermissions.length; i++) {
-					String element = pkInfo.requestedPermissions[i];
-					itemInfo.permissions.add(new ItemInfo(element, "USER_PERMISSION"));
+					PermissionInfo element = null;
+					try {
+						element = pm.getPermissionInfo(
+								pkInfo.requestedPermissions[i],
+								PackageManager.GET_META_DATA);
+						if(StringUtil.isEmptyStr(element.group)){
+							element.group = StringUtil.getString(R.string.text_NA);
+						}
+						itemInfo.userPermissions.add(new ItemInfo(element.name, element.group));
+					} catch (Exception e) {
+						// TODO: handle exception
+						itemInfo.userPermissions.add(new ItemInfo(pkInfo.requestedPermissions[i], StringUtil.getString(R.string.text_NA)));
+					}
 				}
 			}
 			
@@ -93,6 +108,8 @@ public class SimpleModel {
 					itemInfo.services.add(new ItemInfo(element.name, "SERVICE"));
 				}
 			}
+			
+			itemInfo.numPermissions = itemInfo.permissions.size() + itemInfo.userPermissions.size();
 			
 			itemInfo.isSystemApp = ((item.flags & ApplicationInfo.FLAG_SYSTEM) != 0);
 			result.listApp.add(itemInfo);

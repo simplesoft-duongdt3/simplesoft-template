@@ -32,7 +32,7 @@ public class BaseListAdapter<T> extends ArrayAdapter<T> {
 		this.viewHolder = viewHolder; 
 		this.eventReceiver = eventReceiver;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
