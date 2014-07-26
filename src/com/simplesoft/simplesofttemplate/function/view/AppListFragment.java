@@ -15,6 +15,7 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.simplesoft.simplesappspermissions.R;
@@ -22,6 +23,7 @@ import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
 import com.simplesoft.simplesofttemplate.function.DTO.ListAppItemInfo;
 import com.simplesoft.simplesofttemplate.function.viewholder.ViewHolderAppList;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil;
+import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.MultiComparator;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.MultiCondition;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.Operator;
@@ -43,6 +45,7 @@ public class AppListFragment extends BaseFragment implements ListViewEventReceiv
 
 	private ListView appList;
 	private CheckBox cbIsGetSysApp;
+	private TextView tvNumApps;
 	
 	private ListAppItemInfo listAppDto;
 	private List<AppItemInfo> arrFilter;
@@ -55,6 +58,7 @@ public class AppListFragment extends BaseFragment implements ListViewEventReceiv
 		appList = (ListView) vgroup.findViewById(R.id.appList);
 		cbIsGetSysApp = (CheckBox) vgroup.findViewById(R.id.cbIsGetSysApp);
 		cbIsGetSysApp.setOnCheckedChangeListener(this);
+		tvNumApps = (TextView) vgroup.findViewById(R.id.tvNumApps);
 		
 		if (getArguments().containsKey(BundleKey.DATA_APP_LIST.getName())) {
 			listAppDto = (ListAppItemInfo) getArguments().getParcelable(BundleKey.DATA_APP_LIST.getName());
@@ -66,7 +70,7 @@ public class AppListFragment extends BaseFragment implements ListViewEventReceiv
 		
 		if (listAppDto != null) {
 			filterAndSort(Operator.NOT);
-			
+			tvNumApps.setText(StringUtil.getString(R.string.text_num_app) + " " + arrFilter.size());
 			//hiá»ƒn thá»‹ danh sÃ¡ch
 			adapter = new BaseListAdapter<AppItemInfo>(arrFilter, new ViewHolderAppList(), this);
 			appList.setAdapter(adapter);
@@ -88,6 +92,7 @@ public class AppListFragment extends BaseFragment implements ListViewEventReceiv
 			} else {
 				filterAndSort(Operator.NOT);
 			}
+			tvNumApps.setText(StringUtil.getString(R.string.text_num_app) + " " + arrFilter.size());
 			adapter = new BaseListAdapter<AppItemInfo>(arrFilter, new ViewHolderAppList(), this);
 			appList.setAdapter(adapter);
 		}

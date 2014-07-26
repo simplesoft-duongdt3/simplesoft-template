@@ -18,6 +18,7 @@
     <string name="cat_all">All apps</string>
     <string name="cat_paid">May cost money</string>
     
+    <string name="text_num_app">Num aps:</string>
     <string name="text_is_get_sys_app">Show system app</string>
-
+    
 </resources>
