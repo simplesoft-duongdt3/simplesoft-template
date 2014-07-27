@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/itemSystemApps"
+        android:actionLayout="@layout/abar_cb_system_app"
+        android:checkable="true"
+        android:checked="false"
+        android:enabled="true"
+        android:showAsAction="always"
+        android:title="@string/system_app"
+        android:visible="true">
+    </item>
+    <item
+        android:id="@+id/action_search"
+        android:actionViewClass="android.widget.SearchView"
+        android:icon="@drawable/ic_search"
+        android:showAsAction="ifRoom|collapseActionView"
+        android:title="@string/search"/>
+
+</menu>

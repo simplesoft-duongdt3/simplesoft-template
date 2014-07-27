@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Simple Apps Permissions</string>
+    <string name="app_name">Simple Permissions</string>
     <string name="contentDescription">SimpleSoft Image</string>
     <string name="menu_draw">Menu</string>
     <string name="text_error">fail</string>
@@ -20,5 +20,6 @@
     
     <string name="text_num_app">Num aps:</string>
     <string name="text_is_get_sys_app">Show system app</string>
-    
+    <string name="system_app">Sys Apps</string>
+    <string name="search">Search</string>
 </resources>
