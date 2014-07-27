@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.simplesoft.simplesappspermissions.R;
+import com.simplesoft.simplesofttemplate.constance.PermissionGroup;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
 import com.simplesoft.simplesofttemplate.function.DTO.ListAppItemInfo;
 import com.simplesoft.simplesofttemplate.function.viewholder.ViewHolderAppList;
@@ -48,9 +49,9 @@ public class AppListFragment extends BaseFragment  implements ListViewEventRecei
 	private List<AppItemInfo> arrFilter;
 	private BaseListAdapter<AppItemInfo> adapter;
 	private MultiCondition<AppItemInfo> condition;
-	private String group;
+	private PermissionGroup group;
 
-	public AppListFragment(String pGroup, MultiCondition<AppItemInfo> pCondition) {
+	public AppListFragment(PermissionGroup pGroup, MultiCondition<AppItemInfo> pCondition) {
 		this.condition = pCondition;
 		this.group = pGroup;
 	}
@@ -84,7 +85,7 @@ public class AppListFragment extends BaseFragment  implements ListViewEventRecei
 
 	@Override
 	public void onListViewSendEvent(ListViewEventData<AppItemInfo> data) {
-		Toast.makeText(AppInfo.getInstance(), "IN GROUP " + group + ": " + data.dto.name, Toast.LENGTH_SHORT).show();		
+		Toast.makeText(AppInfo.getInstance(), "IN GROUP " + group.getName() + ": " + data.dto.name, Toast.LENGTH_SHORT).show();		
 	}
 	
 	/**

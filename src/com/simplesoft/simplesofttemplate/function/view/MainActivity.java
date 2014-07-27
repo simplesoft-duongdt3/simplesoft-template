@@ -84,22 +84,29 @@ public class MainActivity extends BaseActivity {
 		public Fragment getItem(int pos) {
 			
 			MultiCondition<AppItemInfo> multiCondition = new MultiCondition<AppItemInfo>();
-			String group = "";
+			PermissionGroup group = PermissionGroup.ALL;
 			Fragment frag = null;
 			switch (pos) {
 			case 0:
-				group = "";
+				group = PermissionGroup.ALL;
 				break;
 			case 1:
-				multiCondition.addCondition(new AppItemInfo.IsCostMoneyApp().setOperator(Operator.IS));
-				group = PermissionGroup.COST_MONEY.getName();
+				group = PermissionGroup.COST_MONEY;
 				break;
 			case 2:
-				group = "";
+				group = PermissionGroup.SYSTEM;
 				break;
 			case 3:
-				multiCondition.addCondition(new AppItemInfo.IsCostMoneyApp().setOperator(Operator.IS));
-				group = PermissionGroup.COST_MONEY.getName();
+				group = PermissionGroup.PERSONAL_INFO;
+				break;
+			case 4:
+				group = PermissionGroup.AFFECTS_BATTERY;
+				break;
+			case 5:
+				group = PermissionGroup.NETWORK;
+				break;
+			case 6:
+				group = PermissionGroup.CAMERA_MICROPHONE;
 				break;
 			default:
 				break;

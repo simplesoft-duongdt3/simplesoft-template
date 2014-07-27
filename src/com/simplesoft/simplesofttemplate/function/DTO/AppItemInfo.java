@@ -192,26 +192,23 @@ public class AppItemInfo implements Parcelable {
 	@SuppressLint("DefaultLocale")
 	public static final class CheckGroupCondition extends ICondition<AppItemInfo> {
 		
-		private String groupCheck;
-		public CheckGroupCondition(String pGroupCheck) {
+		private PermissionGroup groupCheck;
+		public CheckGroupCondition(PermissionGroup pGroupCheck) {
 			this.groupCheck = pGroupCheck;
-			if (!StringUtil.isEmptyStr(this.groupCheck)) {
-				this.groupCheck = this.groupCheck.toLowerCase();
-			}
 		}
 		
 		@Override
 		protected boolean doCondition(AppItemInfo object) {
-			boolean res = true;
-			if (StringUtil.isEmptyStr(this.groupCheck)) {
-				res = true;
-			} else{
+			boolean res = false;
+			if (this.groupCheck != PermissionGroup.ALL) {
 				for (ItemInfo per : object.permissions) {
-					res = this.groupCheck.equals(per.group.toLowerCase());
+					res = this.groupCheck.contain(per.group);
 					if (res) {
 						break;
 					}
 				}
+			} else {
+				res = true;
 			}
 			return res;
 		}
