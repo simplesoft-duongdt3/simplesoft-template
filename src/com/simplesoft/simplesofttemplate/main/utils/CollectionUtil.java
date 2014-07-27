@@ -115,6 +115,14 @@ public class CollectionUtil {
 
 		public MultiCondition<T> addCondition(ICondition<? super T> pCon){
 			if (pCon != null) {
+				String className = pCon.getClass().getName();
+				//loai bo dieu kien chung 1 class
+				for (int size = this.cons.size(), i = size - 1; i >= 0; i--) {
+					if (className.equals(this.cons.get(i).getClass().getName())) {
+						this.cons.remove(i);
+					}
+				}
+				
 				this.cons.add(pCon);
 			}
 			return this;
@@ -137,7 +145,7 @@ public class CollectionUtil {
 		}
 	}
 	
-	public static <T> List<T> filter(List<T> list, ICondition<? super T> condition, IDoAction<T> doAction) {
+	public static <T> List<T> filter(List<T> list, ICondition<T> condition, IDoAction<T> doAction) {
 		List<T> result = new ArrayList<T>();
 	    for (T element: list) {
 	    	//nếu thoả thì add vào mảng
@@ -152,32 +160,18 @@ public class CollectionUtil {
 	    return result;
 	}
 	
-	public static <T> List<T> filterAndDoAction(List<T> list, IConditionDoAction<? super T> condition) {
+	public static <T> void filterIn(List<T> list, ICondition<? super T> condition, IDoAction<T> doAction) {
 		List<T> result = new ArrayList<T>();
 	    for (T element: list) {
-	        if (condition.isVailCondition(element)) {
-	        	condition.doAction(element);
-	            result.add(element);
-	        }
+	    	//nếu ko thoả thì remove khỏi mảng
+			if (condition != null && !condition.isVailCondition(element)) {
+				result.remove(element);
+			} else{
+				if (doAction != null) {
+					doAction.doAction(element);
+				}
+			}
 	    }
-	    return result;
-	}
-	
-	public static <T> void filterIn(List<T> list, ICondition<? super T> condition) {
-		for (int i = list.size() - 1; i >= 0 ; i--) {
-	    	//ko thoả thì bỏ khỏi mảng
-	        if (!condition.isVailCondition(list.get(i))) {
-	            list.remove(i);
-	        }
-		}
-	}
-	
-	public static <T> void filterInAndDoAction(List<T> list, IConditionDoAction<? super T> condition) {
-		 for (T element: list) {
-			if (condition.isVailCondition(element)) {
-				condition.doAction(element);
-	        }
-		}
 	}
 	
 	public static <T> T firstElement(List<T> list, ICondition<? super T> condition) {

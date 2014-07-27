@@ -4,7 +4,9 @@
  */
 package com.simplesoft.simplesofttemplate.main.view;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -27,18 +29,41 @@ import com.simplesoft.simplesofttemplate.main.controller.SimpleController;
  * @since:  1.0
  * @time: 09:39:33 19 Jul 2014
  */
-public class BaseFragment extends Fragment implements IRequestView{
+public abstract class BaseFragment extends Fragment implements IRequestView, IBroadCastReceiver{
 	
 	protected BaseActivity parent;
 	protected LinearLayout viewRoot;
+	BaseBroadcastReceiver receiver = new BaseBroadcastReceiver(this);
 	
 	public BaseFragment() {
 		super();
 	}
 	
 	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		parent = (BaseActivity) activity;		
+	}
+	
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		//register Broadcast Receiver
+		IntentFilter filter = new IntentFilter(BaseBroadcastReceiver.BC_ACTION_SIMPLESOFT);
+		AppInfo.getInstance().registerReceiver(receiver, filter);
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+	}
+	
+	@SuppressLint("InflateParams")
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
 		View view = inflater.inflate(R.layout.fragment_base, null, false);
 		viewRoot = (LinearLayout) view.findViewById(R.id.llMain);
 		viewRoot.addView(container);
@@ -46,11 +71,6 @@ public class BaseFragment extends Fragment implements IRequestView{
 	}
 	
 	
-	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		parent = (BaseActivity) activity;
-	}
 
 
 	/**
@@ -91,4 +111,18 @@ public class BaseFragment extends Fragment implements IRequestView{
 		return parent;
 	}
 
+	@Override
+	public void onReceiverBroadCastSend(String action, Bundle data) {
+		//nếu chứa action thì thực hiện
+		if (data.containsKey(BundleKey.BC_ACTION_SEND.getName())) {
+			BroadCastAction bcAction = (BroadCastAction) data.getSerializable(BundleKey.BC_ACTION_SEND.getName());
+			doActionBroadCast(bcAction, data);
+		}
+	}
+	
+	@Override
+	public void onStop() {
+		super.onStop();
+		AppInfo.getInstance().unregisterReceiver(receiver);
+	}
 }

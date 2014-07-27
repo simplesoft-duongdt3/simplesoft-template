@@ -87,4 +87,9 @@ public class SplashScreenActivity extends BaseActivity {
 	protected void onViewPagerChange(int pos) {
 		
 	}
+
+	@Override
+	public void doActionBroadCast(BroadCastAction action, Bundle data) {
+		
+	}
 }

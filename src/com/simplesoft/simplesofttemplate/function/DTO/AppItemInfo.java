@@ -3,6 +3,7 @@ package com.simplesoft.simplesofttemplate.function.DTO;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.graphics.drawable.Drawable;
 import android.os.Parcel;
@@ -13,7 +14,9 @@ import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.IComparator;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.ICondition;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.IDoAction;
 import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
+import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
+//import com.simplesoft.simplesofttemplate.constance.PermissionGroup;
 
 /**
  * Mo ta muc dich cua class
@@ -78,7 +81,7 @@ public class AppItemInfo implements Parcelable {
 		 
 		   @Override
 		   public ItemInfo[] newArray(int size) {
-		      return new ItemInfo[0];
+		      return new ItemInfo[size];
 		   }
 		};
 	}
@@ -120,7 +123,7 @@ public class AppItemInfo implements Parcelable {
 	public static final class HavePerCondition extends ICondition<AppItemInfo>{
 		@Override
 		protected boolean doCondition(AppItemInfo object) {
-			return object.permissions.size() + object.userPermissions.size() > 0;
+			return object.numPermissions > 0;
 		}
 	}
 	
@@ -160,19 +163,15 @@ public class AppItemInfo implements Parcelable {
 		@Override
 		protected boolean doCondition(AppItemInfo object) {
 			boolean isCostMoneyApp = false;
-			if(object.processName.equals("ss.simplesoft.torchlight")){
-				object.userPermissions = new ArrayList<AppItemInfo.ItemInfo>();
-			}
-
 			for (ItemInfo item : object.permissions) {
-				if(item.group.contains(PermissionGroup.COST_MONEY.name())){
+				if(item.group.contains(PermissionGroup.COST_MONEY.getName())){
 					isCostMoneyApp = true;
 					break;
 				}
 			}
 			if (!isCostMoneyApp) {
 				for (ItemInfo item : object.userPermissions) {
-					if (item.group.contains(PermissionGroup.COST_MONEY.name())) {
+					if (item.group.contains(PermissionGroup.COST_MONEY.getName())) {
 						isCostMoneyApp = true;
 						break;
 					}
@@ -182,6 +181,74 @@ public class AppItemInfo implements Parcelable {
 		}
 	}
 
+	/**
+	 * check group of app
+	 * AppItemInfo.java
+	 * @author: duongdt3
+	 * @version: 1.0 
+	 * @since:  1.0
+	 * @time: 13:46:03 27 Jul 2014
+	 */
+	@SuppressLint("DefaultLocale")
+	public static final class CheckGroupCondition extends ICondition<AppItemInfo> {
+		
+		private String groupCheck;
+		public CheckGroupCondition(String pGroupCheck) {
+			this.groupCheck = pGroupCheck;
+			if (!StringUtil.isEmptyStr(this.groupCheck)) {
+				this.groupCheck = this.groupCheck.toLowerCase();
+			}
+		}
+		
+		@Override
+		protected boolean doCondition(AppItemInfo object) {
+			boolean res = true;
+			if (StringUtil.isEmptyStr(this.groupCheck)) {
+				res = true;
+			} else{
+				for (ItemInfo per : object.permissions) {
+					res = this.groupCheck.equals(per.group.toLowerCase());
+					if (res) {
+						break;
+					}
+				}
+			}
+			return res;
+		}
+	}
+	
+	/**
+	 * Check name apps
+	 * AppItemInfo.java
+	 * @author: duongdt3
+	 * @version: 1.0 
+	 * @since:  1.0
+	 * @time: 11:54:17 27 Jul 2014
+	 */
+	@SuppressLint("DefaultLocale")
+	public static final class CheckNameCondition  extends ICondition<AppItemInfo>{
+
+		private String nameCheck;
+		public CheckNameCondition(String pNameCheck) {
+			this.nameCheck = pNameCheck;
+			if (!StringUtil.isEmptyStr(this.nameCheck)) {
+				this.nameCheck = this.nameCheck.toLowerCase();
+			}
+		}
+		
+		@Override
+		protected boolean doCondition(AppItemInfo object) {
+			boolean res = true;
+			if (StringUtil.isEmptyStr(this.nameCheck)) {
+				res = true;
+			} else{
+				res = object.name.toLowerCase().contains(this.nameCheck);
+			}
+			return res;
+		}
+
+	}
+	
 	@Override
 	public int describeContents() {
 		return 0;
@@ -242,7 +309,9 @@ public class AppItemInfo implements Parcelable {
 	 
 	   @Override
 	   public AppItemInfo[] newArray(int size) {
-	      return new AppItemInfo[0];
+	      return new AppItemInfo[size];
 	   }
 	};
+	
+	
 }

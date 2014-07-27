@@ -23,9 +23,9 @@ public class LogUtil {
 		log(LOG_TAG, getExceptionMessage(e));
 	}
 	
-	public static void log(String msg){
+	public static void log(Object msg){
 		if (isDebugMode) {
-			log(LOG_TAG, msg);
+			log(LOG_TAG, String.valueOf(msg));
 		}
 	}
 	

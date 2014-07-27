@@ -50,4 +50,40 @@ public class BaseListAdapter<T> extends ArrayAdapter<T> {
 		vHolder.render(dto);
 		return rowView;
 	}
+
+	/**
+	 * @author: duongdt3
+	 * @since: 1.0
+	 * @time: 12:44:51 27 Jul 2014
+	 * @return: void
+	 * @throws:  
+	 * @param listApp
+	 * @param condition
+	 * @param actionSetDrawable
+	 * @param comparetor
+	 *//*
+	public synchronized void filterAndSort(List<T> listObjectOrginal,
+			ICondition<T> condition,
+			IDoAction<T> doAction,
+			MultiComparator<T> comparetor) {
+		//nếu yêu cầu filter sẽ filter
+		listObject.clear();
+		for (T element : listObjectOrginal) {
+			// nếu thoả thì add vào mảng
+			if (condition == null || condition.isVailCondition(element)) {
+				if (doAction != null) {
+					doAction.doAction(element);
+				}
+				listObject.add(element);
+			}
+		}
+		
+		//nếu yêu cầu sort sẽ sort
+		if (comparetor != null) {
+			CollectionUtil.sort(listObject, comparetor);
+		}
+		
+		this.notifyDataSetChanged();
+	}*/
+	
 }

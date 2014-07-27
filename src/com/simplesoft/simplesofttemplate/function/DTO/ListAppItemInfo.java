@@ -41,7 +41,7 @@ public final class ListAppItemInfo implements Parcelable{
 	 
 	   @Override
 	   public ListAppItemInfo[] newArray(int size) {
-	      return new ListAppItemInfo[0];
+	      return new ListAppItemInfo[size];
 	   }
 	};
 }

@@ -1,9 +1,11 @@
 package com.simplesoft.simplesofttemplate.main.view;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -37,7 +39,7 @@ import com.startapp.android.publish.StartAppSDK;
 import com.startapp.android.publish.splash.SplashConfig;
 import com.startapp.android.publish.splash.SplashConfig.Theme;
 
-public abstract class BaseActivity extends FragmentActivity implements IRequestView, ShakeDetector.Listener{
+public abstract class BaseActivity extends FragmentActivity implements IRequestView, ShakeDetector.Listener, IBroadCastReceiver{
 	private StartAppAd startAppAd = new StartAppAd(this);
 
 	private DrawerLayout mDrawerLayout;
@@ -48,13 +50,14 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	protected FrameLayout fragHolder;
 	protected LinearLayout llAds;
 	private ViewPager viewPager;
+	BaseBroadcastReceiver receiver = new BaseBroadcastReceiver(this);
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// save last activity
 		AppInfo.getInstance().setActivityContext(this);
-		
+				
 		//detect shake
 		SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
 	    ShakeDetector sd = new ShakeDetector(this);
@@ -171,10 +174,15 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 		mDrawerList.setAdapter(adapter);
 	}
 
+	
 	@Override
 	protected void onResume() {
 		super.onResume();
 		AppInfo.getInstance().callActivityResume(this);
+		//register Broadcast Receiver
+		IntentFilter filter = new IntentFilter(BaseBroadcastReceiver.BC_ACTION_SIMPLESOFT);
+		AppInfo.getInstance().registerReceiver(receiver, filter);
+
 		startAppAd.onResume();
 		startAppAd.loadAd();
 	}
@@ -189,6 +197,7 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	protected void onStop() {
 		super.onStop();
 		AppInfo.getInstance().callActivityStop(this);
+		AppInfo.getInstance().unregisterReceiver(receiver);
 		if (isShowAdsWhenStop()) {
 			startAppAd.onBackPressed();
 		}
@@ -295,6 +304,7 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	 * @throws:  
 	 * @param vPagerInfo
 	 */
+	@SuppressLint("InflateParams")
 	protected void setViewPagerInfo(ViewPagerInfo vPagerInfo){
 		removeAllInBackStack(getSupportFragmentManager());
 		
@@ -424,5 +434,22 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
     @Override
 	public void hearShake() {
     	Toast.makeText(this, "Shake!", Toast.LENGTH_SHORT).show();
+	}
+    
+    protected void sendBroadCastSimpleSoft(Bundle pData){
+		Intent intent = new Intent();
+    	intent.setAction(BaseBroadcastReceiver.BC_ACTION_SIMPLESOFT);
+    	intent.putExtras(pData);
+    	
+		sendBroadcast(intent);
+	}
+	
+	@Override
+	public void onReceiverBroadCastSend(String action, Bundle data) {
+		//nếu chứa action thì thực hiện
+		if(data.containsKey(BundleKey.BC_ACTION_SEND.getName())){
+			BroadCastAction bcAction = (BroadCastAction) data.getSerializable(BundleKey.BC_ACTION_SEND.getName());
+			doActionBroadCast(bcAction, data);
+		}
 	}
 }

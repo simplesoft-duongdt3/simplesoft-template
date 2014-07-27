@@ -12,7 +12,11 @@ package com.simplesoft.simplesofttemplate.main.view;
  * @time: 02:42:43 24 Jul 2014
  */
 public enum BundleKey {
-	DATA_APP_LIST("DATA_APP_LIST");
+	DATA_APP_LIST("DATA_APP_LIST"),
+	BC_ID_SEND("BC_ID_SEND"),
+	BC_ACTION_SEND("BC_ACTION_SEND"), 
+	SEARCH_QUERY("SEARCH_QUERY"),
+	;
 	
 	private String keyName;
 	private BundleKey(String pKeyName){
