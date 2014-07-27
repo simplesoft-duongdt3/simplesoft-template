@@ -200,15 +200,24 @@ public class AppItemInfo implements Parcelable {
 		@Override
 		protected boolean doCondition(AppItemInfo object) {
 			boolean res = false;
-			if (this.groupCheck != PermissionGroup.ALL) {
+			if (this.groupCheck == PermissionGroup.ALL) {
+				res = true;
+			} else {
 				for (ItemInfo per : object.permissions) {
 					res = this.groupCheck.contain(per.group);
 					if (res) {
 						break;
 					}
 				}
-			} else {
-				res = true;
+				
+				if (!res) {
+					for (ItemInfo per : object.userPermissions) {
+						res = this.groupCheck.contain(per.group);
+						if (res) {
+							break;
+						}
+					}
+				}
 			}
 			return res;
 		}

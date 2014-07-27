@@ -19,6 +19,7 @@ import com.simplesoft.simplesappspermissions.R;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo.ItemInfo;
 import com.simplesoft.simplesofttemplate.function.DTO.ListAppItemInfo;
+import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
 import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 
@@ -62,6 +63,7 @@ public class SimpleModel {
 					if(StringUtil.isEmptyStr(element.group)){
 						element.group = StringUtil.getString(R.string.text_NA);
 					}
+					LogUtil.log(itemInfo.packageName + ": " + element.name + " " + element.group);
 					itemInfo.permissions.add(new ItemInfo(element.name, element.group));
 				}
 			}
@@ -78,10 +80,12 @@ public class SimpleModel {
 							element.group = StringUtil.getString(R.string.text_NA);
 						}
 						itemInfo.userPermissions.add(new ItemInfo(element.name, element.group));
+						LogUtil.log(itemInfo.packageName + ": " + element.name + " " + element.group);
 					} catch (Exception e) {
-						// TODO: handle exception
 						itemInfo.userPermissions.add(new ItemInfo(pkInfo.requestedPermissions[i], StringUtil.getString(R.string.text_NA)));
+						LogUtil.log(itemInfo.name + ": " + "NA");
 					}
+					
 				}
 			}
 			

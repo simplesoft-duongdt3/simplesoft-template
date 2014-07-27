@@ -25,6 +25,7 @@ import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.MultiComparat
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.MultiCondition;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.Operator;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.OrderBy;
+import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
 import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 import com.simplesoft.simplesofttemplate.main.view.BaseFragment;
@@ -52,6 +53,7 @@ public class AppListFragment extends BaseFragment  implements ListViewEventRecei
 	private PermissionGroup group;
 
 	public AppListFragment(PermissionGroup pGroup, MultiCondition<AppItemInfo> pCondition) {
+		LogUtil.log("AppListFragmentp" + pGroup.getDisplayName());
 		this.condition = pCondition;
 		this.group = pGroup;
 	}
@@ -95,10 +97,10 @@ public class AppListFragment extends BaseFragment  implements ListViewEventRecei
 	 * @return void
 	 */
 	private void filterAndSort(Operator opSystemApp, String strFilter) {
-		if (condition != null) {
+		if (this.condition != null) {
 			//them 2 dieu kien chung
-			condition.addCondition(new AppItemInfo.IsSystemAppCondition().setOperator(opSystemApp))
-			.addCondition(new AppItemInfo.CheckNameCondition(strFilter).setOperator(Operator.IS));
+			this.condition.addCondition(new AppItemInfo.IsSystemAppCondition().setOperator(opSystemApp))
+				.addCondition(new AppItemInfo.CheckNameCondition(strFilter).setOperator(Operator.IS));
 		}
 		
 		MultiComparator<AppItemInfo> comparetor = new MultiComparator<AppItemInfo>()

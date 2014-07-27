@@ -16,10 +16,9 @@ import android.widget.SearchView;
 import com.simplesoft.simplesappspermissions.R;
 import com.simplesoft.simplesofttemplate.constance.PermissionGroup;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
-import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
-import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.MultiCondition;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.Operator;
+import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 import com.simplesoft.simplesofttemplate.main.view.BaseActivity;
 import com.simplesoft.simplesofttemplate.main.view.BroadCastAction;
@@ -42,7 +41,21 @@ public class MainActivity extends BaseActivity {
 		}
 		
 		if (bundleData != null) {
-			String[] tabTitle = new String[] {StringUtil.getString(R.string.cat_all),StringUtil.getString(R.string.cat_paid),StringUtil.getString(R.string.cat_all),StringUtil.getString(R.string.cat_all)};
+			String[] tabTitle = new String[]{
+					PermissionGroup.ALL.getDisplayName(),
+					PermissionGroup.COST_MONEY.getDisplayName(),
+					PermissionGroup.SYSTEM.getDisplayName(),
+					PermissionGroup.AFFECTS_BATTERY.getDisplayName(),
+					PermissionGroup.CAMERA_MICROPHONE.getDisplayName(),
+					PermissionGroup.NETWORK.getDisplayName(),
+					PermissionGroup.PERSONAL_INFO.getDisplayName()					
+			};
+			/*int i = 0;
+			for (PermissionGroup group : PermissionGroup.values()) {
+				tabTitle[i] = group.getDisplayName();
+				i++;
+			}*/
+			
 			TabsPagerAdapter vPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager(), bundleData);
 			
 			ViewPagerInfo vPagerInfo = new ViewPagerInfo(tabTitle, vPagerAdapter);
@@ -83,9 +96,7 @@ public class MainActivity extends BaseActivity {
 		@Override
 		public Fragment getItem(int pos) {
 			
-			MultiCondition<AppItemInfo> multiCondition = new MultiCondition<AppItemInfo>();
 			PermissionGroup group = PermissionGroup.ALL;
-			Fragment frag = null;
 			switch (pos) {
 			case 0:
 				group = PermissionGroup.ALL;
@@ -97,24 +108,26 @@ public class MainActivity extends BaseActivity {
 				group = PermissionGroup.SYSTEM;
 				break;
 			case 3:
-				group = PermissionGroup.PERSONAL_INFO;
+				group = PermissionGroup.AFFECTS_BATTERY;
 				break;
 			case 4:
-				group = PermissionGroup.AFFECTS_BATTERY;
+				group = PermissionGroup.CAMERA_MICROPHONE;
 				break;
 			case 5:
 				group = PermissionGroup.NETWORK;
 				break;
 			case 6:
-				group = PermissionGroup.CAMERA_MICROPHONE;
+				group = PermissionGroup.PERSONAL_INFO;
 				break;
+
 			default:
 				break;
 			}
+			LogUtil.log("getItem" + group.getDisplayName() + pos);
+			MultiCondition<AppItemInfo> multiCondition = new MultiCondition<AppItemInfo>()
+					.addCondition(new AppItemInfo.CheckGroupCondition(group).setOperator(Operator.IS));
+			Fragment frag = new AppListFragment(group, multiCondition);
 			//theem ddieu kien check group
-			multiCondition.addCondition(new AppItemInfo.CheckGroupCondition(group).setOperator(Operator.IS));
-			
-			frag = new AppListFragment(group, multiCondition);
 			frag.setArguments(data);
 			if (!listFrag.contains(frag)) {
 				listFrag.add(frag);
@@ -124,7 +137,7 @@ public class MainActivity extends BaseActivity {
 
 		@Override
 		public int getCount() {
-			return 4;
+			return 7;
 		}
 	}
 

@@ -16,7 +16,12 @@
     </string-array>
 
     <string name="cat_all">All apps</string>
-    <string name="cat_paid">May cost money</string>
+    <string name="cat_cost_money">Cost money</string>
+    <string name="cat_personal_info">Personal info</string>
+    <string name="cat_affect_battery">Affect battery</string>
+    <string name="cat_network">Network</string>
+    <string name="cat_camera_microphone">Camera/Audio record</string>
+    <string name="cat_system_change">Change system</string>
     
     <string name="text_num_app">Num aps:</string>
     <string name="text_is_get_sys_app">Show system app</string>

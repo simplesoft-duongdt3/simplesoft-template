@@ -6,6 +6,8 @@ package com.simplesoft.simplesofttemplate.main.utils;
 
 import android.util.Log;
 
+import com.google.code.microlog4android.LoggerFactory;
+
 /**
  * LogUtil.java
  * @author: duongdt3
@@ -15,6 +17,7 @@ import android.util.Log;
  */
 public class LogUtil {
 
+	public static final com.google.code.microlog4android.Logger fileLogger = LoggerFactory.getLogger();
 	public static boolean isDebugMode = false;
 	public static final String LOG_TAG = "simplesoft";
 	
@@ -29,9 +32,10 @@ public class LogUtil {
 		}
 	}
 	
-	private static void log(String tag, String msg){
+	private static synchronized void log(String tag, String msg){
 		if (isDebugMode) {
 			Log.e(tag, msg);
+			fileLogger.debug(tag + ": " + msg + "\r\n");
 		}
 	}
 	
