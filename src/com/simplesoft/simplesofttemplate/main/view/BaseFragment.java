@@ -113,10 +113,12 @@ public abstract class BaseFragment extends Fragment implements IRequestView, IBr
 
 	@Override
 	public void onReceiverBroadCastSend(String action, Bundle data) {
-		//nếu chứa action thì thực hiện
-		if (data.containsKey(BundleKey.BC_ACTION_SEND.getName())) {
-			BroadCastAction bcAction = (BroadCastAction) data.getSerializable(BundleKey.BC_ACTION_SEND.getName());
-			doActionBroadCast(bcAction, data);
+		if (this != null && this.isVisible()) {
+			//nếu chứa action thì thực hiện
+			if (data.containsKey(BundleKey.BC_ACTION_SEND.getName())) {
+				BroadCastAction bcAction = (BroadCastAction) data.getSerializable(BundleKey.BC_ACTION_SEND.getName());
+				doActionBroadCast(bcAction, data);
+			}
 		}
 	}
 	

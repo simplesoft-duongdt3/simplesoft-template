@@ -204,7 +204,7 @@ public class AppItemInfo implements Parcelable {
 				res = true;
 			} else {
 				for (ItemInfo per : object.permissions) {
-					res = this.groupCheck.contain(per.group);
+					res = this.groupCheck.contain(per);
 					if (res) {
 						break;
 					}
@@ -212,7 +212,7 @@ public class AppItemInfo implements Parcelable {
 				
 				if (!res) {
 					for (ItemInfo per : object.userPermissions) {
-						res = this.groupCheck.contain(per.group);
+						res = this.groupCheck.contain(per);
 						if (res) {
 							break;
 						}

@@ -24,6 +24,8 @@ import com.simplesoft.simplesofttemplate.main.view.BaseActivity;
 import com.simplesoft.simplesofttemplate.main.view.BroadCastAction;
 import com.simplesoft.simplesofttemplate.main.view.BundleKey;
 import com.simplesoft.simplesofttemplate.main.view.ViewPagerInfo;
+import com.simplesoft.simplesofttemplate.main.view.control.CheckBoxActionProvider;
+import com.simplesoft.simplesofttemplate.main.view.control.IViewActionSender;
 
 public class MainActivity extends BaseActivity {
 	Bundle bundleData;
@@ -160,17 +162,34 @@ public class MainActivity extends BaseActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.menu_base, menu);
+		
+		//menu search
 		MenuItem itemSearch = menu.findItem(R.id.action_search);
 		SearchView searchView = (SearchView) itemSearch.getActionView();
 		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false);  
         searchView.setOnQueryTextListener(searchTextChangeListener);
-        
 		itemSearch.setOnActionExpandListener(searchExpandListener);
+		
+		//menu system apps
+		MenuItem itemcbSysApps = menu.findItem(R.id.action_cbSystemApps);
+		CheckBoxActionProvider cbSystemProvider = (CheckBoxActionProvider) itemcbSysApps.getActionProvider();
+		cbSystemProvider.setViewActionSender(cbSysAppViewActionSender);
 		return true;
 	}
 
+	IViewActionSender cbSysAppViewActionSender = new IViewActionSender() {
+		
+		@Override
+		public void sendViewAction(Object... data) {
+			boolean isSystemApp = (Boolean) data[0];
+			AppInfo.getInstance().opSystemApp = isSystemApp ? Operator.IS : Operator.NOT;
+			sendBroadCastSimpleSoft(BroadCastAction.FILTER_SYSTEM_APPS, null);
+		}
+	};
+	
+	
     OnActionExpandListener searchExpandListener = new OnActionExpandListener() {
         @Override
         public boolean onMenuItemActionCollapse(MenuItem item) {
@@ -188,19 +207,13 @@ public class MainActivity extends BaseActivity {
 	SearchView.OnQueryTextListener searchTextChangeListener = new SearchView.OnQueryTextListener(){
 	    @Override
 	    public boolean onQueryTextChange(String newText){
-	    	Bundle pData = new Bundle();
 	    	AppInfo.getInstance().strQueryApp = newText;
-	    	pData.putSerializable(BundleKey.BC_ACTION_SEND.getName(), BroadCastAction.SEARCH);
-			sendBroadCastSimpleSoft(pData);
+			sendBroadCastSimpleSoft(BroadCastAction.SEARCH, null);
 	        return true;
 	    }
 	    
 	    @Override
 	    public boolean onQueryTextSubmit(String query){
-	    	Bundle pData = new Bundle();
-	    	AppInfo.getInstance().strQueryApp = query;
-	    	pData.putSerializable(BundleKey.BC_ACTION_SEND.getName(), BroadCastAction.SEARCH);
-			sendBroadCastSimpleSoft(pData);
 	        return true;
 	    }
 	};

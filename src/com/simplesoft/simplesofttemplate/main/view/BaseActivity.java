@@ -302,10 +302,11 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	 * @time: 18:32:37 19 Jul 2014
 	 * @return: void
 	 * @throws:  
-	 * @param vPagerInfo
+	 * @param vPagerInfo new ViewPagerInfo()
+	 * @param navigationMode ActionBar.NAVIGATION_MODE_STANDARD ActionBar.NAVIGATION_MODE_LIST ActionBar.NAVIGATION_MODE_TABS
 	 */
 	@SuppressLint("InflateParams")
-	protected void setViewPagerInfo(ViewPagerInfo vPagerInfo){
+	protected void setViewPagerInfo(ViewPagerInfo vPagerInfo, int navigationMode){
 		removeAllInBackStack(getSupportFragmentManager());
 		
 		if (viewPager == null) {
@@ -317,20 +318,27 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 			//viewPager.setPageTransformer(true, new DefaultTransformer());
 			fragHolder.removeAllViews();
 			fragHolder.addView(viewPager);        
-			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 		}
 		
-		actionBar.removeAllTabs();
-		// Adding Tabs
-		String [] tabTitles = vPagerInfo.getTabTitle();
-        for (String tab_name : tabTitles) {
-        	Tab tab = actionBar.newTab().setText(tab_name).setTabListener(tabListener);
-        	actionBar.addTab(tab);
-        }
+		if (actionBar != null) {
+			actionBar.removeAllTabs();
+			// Adding Tabs
+			String [] tabTitles = vPagerInfo.getTabTitle();
+			for (String tab_name : tabTitles) {
+				Tab tab = actionBar.newTab().setText(tab_name).setTabListener(tabListener);
+				actionBar.addTab(tab);
+			}
+			actionBar.setNavigationMode(navigationMode);
+		}
+        
         viewPager.setOnPageChangeListener(pageChangeListener);
         viewPager.setAdapter(vPagerInfo.getvPagerAdapter());
         viewPager.setCurrentItem(0);
         onViewPagerChange(0);
+	}
+	
+	protected void setViewPagerInfo(ViewPagerInfo vPagerInfo){
+		setViewPagerInfo(vPagerInfo, ActionBar.NAVIGATION_MODE_TABS);
 	}
 
 	/** Defining ViewPager listener */
@@ -382,7 +390,6 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
     		viewPager = null;
     		fragHolder.removeAllViews();
     		actionBar.removeAllTabs();
-			actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		}
     	FragmentManager fm = getSupportFragmentManager();
 		FragmentTransaction ft = fm.beginTransaction();
@@ -436,12 +443,16 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
     	Toast.makeText(this, "Shake!", Toast.LENGTH_SHORT).show();
 	}
     
-    protected void sendBroadCastSimpleSoft(Bundle pData){
+    public void sendBroadCastSimpleSoft(BroadCastAction action, Bundle pData){
 		Intent intent = new Intent();
     	intent.setAction(BaseBroadcastReceiver.BC_ACTION_SIMPLESOFT);
+    	if (pData == null) {
+			pData = new Bundle();
+		}
+    	pData.putSerializable(BundleKey.BC_ACTION_SEND.getName(), action);
     	intent.putExtras(pData);
     	
-		sendBroadcast(intent);
+		AppInfo.getInstance().sendBroadcast(intent);
 	}
 	
 	@Override

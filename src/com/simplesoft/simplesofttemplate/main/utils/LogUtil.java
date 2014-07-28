@@ -4,9 +4,9 @@
  */
 package com.simplesoft.simplesofttemplate.main.utils;
 
-import android.util.Log;
-
 import com.google.code.microlog4android.LoggerFactory;
+import com.google.code.microlog4android.appender.FileAppender;
+import com.google.code.microlog4android.appender.LogCatAppender;
 
 /**
  * LogUtil.java
@@ -21,6 +21,31 @@ public class LogUtil {
 	public static boolean isDebugMode = false;
 	public static final String LOG_TAG = "simplesoft";
 	
+	/**
+	 * set debug mode
+	 * @author: duongdt3
+	 * @since: 1.0
+	 * @time: 10:07:24 28 Jul 2014
+	 * @return: void
+	 * @throws:  
+	 * @param isDebug
+	 */
+	public static void setIsDebugMode(boolean isDebug) {
+		initLogger(isDebug, isDebug);
+	}
+	
+	private static void initLogger(boolean logcat, boolean logFile){
+		if (logcat) {
+			LogCatAppender logcatApp = new LogCatAppender();
+			LogUtil.fileLogger.addAppender(logcatApp);
+		}
+		
+		if (logFile) {
+			FileAppender fileApp = new FileAppender();
+			fileApp.setFileName("simplesoft.log.txt");
+			LogUtil.fileLogger.addAppender(fileApp);
+		}
+	}
 	
 	public static void log(Throwable e){
 		log(LOG_TAG, getExceptionMessage(e));
@@ -32,10 +57,9 @@ public class LogUtil {
 		}
 	}
 	
-	private static synchronized void log(String tag, String msg){
+	private static void log(String tag, String msg){
 		if (isDebugMode) {
-			Log.e(tag, msg);
-			fileLogger.debug(tag + ": " + msg + "\r\n");
+			fileLogger.error(tag + ": " + msg + "\r\n");
 		}
 	}
 	
@@ -71,4 +95,5 @@ public class LogUtil {
 		}
 		return report;
 	}
+
 }

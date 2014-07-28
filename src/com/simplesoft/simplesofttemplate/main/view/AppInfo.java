@@ -9,7 +9,6 @@ import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 
-import com.google.code.microlog4android.appender.FileAppender;
 import com.simplesoft.simplesofttemplate.function.DTO.ListAppItemInfo;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.Operator;
 import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
@@ -42,15 +41,16 @@ public class AppInfo extends Application {
 		instance = this;
 		
 		//lấy thông in debug mode
+		boolean isDebug = false;
 		try {
 			PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-			LogUtil.isDebugMode = ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0);
-			/*FileAppender fileApp = new FileAppender();
-			fileApp.setFileName("simplesoft.txt");
-			LogUtil.fileLogger.addAppender(fileApp);*/
+			isDebug = ((packageInfo.applicationInfo.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0);
+			
 		} catch (Exception ex) {
-			LogUtil.isDebugMode = false;
+			isDebug = false;
 		}
+		//set debug mode to logger 
+		LogUtil.setIsDebugMode(isDebug); 
 	}
 	
 	public static AppInfo getInstance() {
