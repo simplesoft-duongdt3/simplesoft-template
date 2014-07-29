@@ -12,5 +12,5 @@ package com.simplesoft.simplesofttemplate.main.view.control;
  * @time: 12:28:22 21 Jul 2014
  */
 public interface ListViewEventReceiver<T> {
-	void onListViewSendEvent(ListViewEventData<T> data);
+	void handleListViewSendEvent(ListViewEventData<T> data);
 }

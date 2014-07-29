@@ -114,4 +114,10 @@
         <item name="android:popupMenuStyle">@style/PopupMenu.Appthemeblue</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Appthemeblue</item>
     </style>
+    
+    <style name="Dialog_Appthemeblue" parent="android:Theme.Holo.Dialog" >
+	    <item name="android:windowNoTitle">true</item>
+	    <item name="android:windowFullscreen">true</item>
+	    <item name="android:windowIsFloating">false</item>
+	</style>
 </resources>

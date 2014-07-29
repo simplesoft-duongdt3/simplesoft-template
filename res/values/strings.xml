@@ -28,4 +28,8 @@
     <string name="system_app">Sys Apps</string>
     <string name="search">Search</string>
     <string name="search_input">Input name</string>
+    
+    <string name="text_view_app_detail">App Info</string>
+    <string name="text_uninstall">Uninstall</string>
+    
 </resources>

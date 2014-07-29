@@ -7,19 +7,19 @@ package com.simplesoft.simplesofttemplate.function.view;
 import java.util.List;
 
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.simplesoft.simpleappspermissions.R;
 import com.simplesoft.simplesofttemplate.constance.PermissionGroup;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
 import com.simplesoft.simplesofttemplate.function.DTO.ListAppItemInfo;
+import com.simplesoft.simplesofttemplate.function.viewholder.ViewHolderAppDetail;
 import com.simplesoft.simplesofttemplate.function.viewholder.ViewHolderAppList;
-import com.simplesoft.simplesofttemplate.main.controller.ResponseData;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.MultiComparator;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.MultiCondition;
@@ -27,6 +27,7 @@ import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.Operator;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.OrderBy;
 import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
+import com.simplesoft.simplesofttemplate.main.view.BaseDialogFragment;
 import com.simplesoft.simplesofttemplate.main.view.BaseFragment;
 import com.simplesoft.simplesofttemplate.main.view.BroadCastAction;
 import com.simplesoft.simplesofttemplate.main.view.BundleKey;
@@ -78,14 +79,9 @@ public class AppListFragment extends BaseFragment  implements ListViewEventRecei
 	}
 
 	@Override
-	public void handleViewDataResponseSuccess(ResponseData rspData) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onListViewSendEvent(ListViewEventData<AppItemInfo> data) {
-		Toast.makeText(AppInfo.getInstance(), "IN GROUP " + group.getName() + ": " + data.dto.name, Toast.LENGTH_SHORT).show();		
+	public void handleListViewSendEvent(ListViewEventData<AppItemInfo> data) {
+		BaseDialogFragment<AppItemInfo> fragDialog = new BaseDialogFragment<AppItemInfo>(data.dto, new ViewHolderAppDetail(), null, true);
+		showDialog(fragDialog);
 	}
 	
 	/**

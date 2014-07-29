@@ -121,4 +121,12 @@ public abstract class BaseFragment extends Fragment implements IRequestView, IBr
 		super.onDestroy();
 		AppInfo.getInstance().unregisterReceiver(receiver);
 	}
+	
+	public <T> void showDialog(BaseDialogFragment<T> fragDialog){
+	    fragDialog.show(parent.getSupportFragmentManager(), "dialog");
+	}
+	
+	/*public <T> void showDialog(BaseDialogFragment<T> fragDialog, T dto){
+	    fragDialog.show(parent.getSupportFragmentManager(), "dialog");
+	}*/
 }

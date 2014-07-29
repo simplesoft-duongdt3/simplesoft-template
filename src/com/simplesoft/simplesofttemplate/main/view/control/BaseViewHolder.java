@@ -37,7 +37,7 @@ public abstract class BaseViewHolder<T> {
 			ListViewEventData<T> data = new ListViewEventData<T>();
 			data.action = action;
 			data.dto = this.dto;
-			this.event.onListViewSendEvent(data);
+			this.event.handleListViewSendEvent(data);
 		}
 	}
 }
