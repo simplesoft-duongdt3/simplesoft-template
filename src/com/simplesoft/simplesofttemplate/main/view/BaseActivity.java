@@ -22,7 +22,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -36,6 +35,7 @@ import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
 import com.squareup.seismic.ShakeDetector;
 import com.startapp.android.publish.StartAppAd;
 import com.startapp.android.publish.StartAppSDK;
+import com.startapp.android.publish.banner.Banner;
 import com.startapp.android.publish.splash.SplashConfig;
 import com.startapp.android.publish.splash.SplashConfig.Theme;
 
@@ -48,7 +48,7 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 
 	protected ActionBar actionBar;
 	protected FrameLayout fragHolder;
-	protected LinearLayout llAds;
+	protected Banner llAds;
 	private ViewPager viewPager;
 	BaseBroadcastReceiver receiver = new BaseBroadcastReceiver(this);
 	
@@ -73,7 +73,7 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 		setContentView(R.layout.activity_base_draw);
 		actionBar = getActionBar();
 		fragHolder = (FrameLayout) findViewById(R.id.fragHolder);
-		llAds = (LinearLayout)findViewById(R.id.llAds);
+		llAds = (Banner)findViewById(R.id.startAppBanner);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -104,7 +104,10 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 			actionBar.setHomeButtonEnabled(true);
 		}
 		
-		
+		// ad
+		StartAppAd.showSlider(this);
+		startAppAd.showAd();
+		startAppAd.loadAd();
 	}
 
 	/**
