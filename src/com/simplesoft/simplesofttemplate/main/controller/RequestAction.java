@@ -5,7 +5,7 @@
 package com.simplesoft.simplesofttemplate.main.controller;
 
 public enum RequestAction{
-	GET_LIST_APP("Get list app");
+	GET_LIST_APP("Get_list_app");
 	
 	private String rquestName;
 	private RequestAction(String rquestName){

@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 
-import com.simplesoft.simplesappspermissions.R;
+import com.simplesoft.simpleappspermissions.R;
 import com.simplesoft.simplesofttemplate.function.DTO.ListAppItemInfo;
 import com.simplesoft.simplesofttemplate.function.view.MainActivity;
 import com.simplesoft.simplesofttemplate.main.controller.RequestAction;

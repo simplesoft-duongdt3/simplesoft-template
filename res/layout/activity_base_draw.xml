@@ -18,14 +18,15 @@
         <LinearLayout
             android:id="@+id/llAds"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
             android:gravity="center"
             android:orientation="vertical" >
 
             <com.startapp.android.publish.banner.Banner
                 android:id="@+id/startAppBanner"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent" />
         </LinearLayout>
     </LinearLayout>
     <!-- The navigation drawer -->

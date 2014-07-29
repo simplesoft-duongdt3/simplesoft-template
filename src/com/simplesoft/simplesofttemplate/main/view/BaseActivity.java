@@ -26,7 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.simplesoft.simplesappspermissions.R;
+import com.simplesoft.simpleappspermissions.R;
 import com.simplesoft.simplesofttemplate.main.controller.IRequestView;
 import com.simplesoft.simplesofttemplate.main.controller.RequestAction;
 import com.simplesoft.simplesofttemplate.main.controller.RequestData;
@@ -64,7 +64,6 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	    sd.start(sensorManager);
 	    
 		StartAppSDK.init(this, AppInfo.DEV_ID, AppInfo.APP_ID, true);
-
 		if (isShowAdsWhenStart()) {
 			StartAppAd.showSplash(this, savedInstanceState, new SplashConfig()
 					.setTheme(Theme.SKY).setLogo(R.drawable.ic_launcher)
@@ -174,6 +173,10 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 		mDrawerList.setAdapter(adapter);
 	}
 
+	@Override
+	protected void onStart() {
+		super.onStart();
+	}
 	
 	@Override
 	protected void onResume() {
@@ -182,9 +185,7 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 		//register Broadcast Receiver
 		IntentFilter filter = new IntentFilter(BaseBroadcastReceiver.BC_ACTION_SIMPLESOFT);
 		AppInfo.getInstance().registerReceiver(receiver, filter);
-
 		startAppAd.onResume();
-		startAppAd.loadAd();
 	}
 
 	@Override

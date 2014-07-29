@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.simplesoft.simplesappspermissions.R;
+import com.simplesoft.simpleappspermissions.R;
 import com.simplesoft.simplesofttemplate.main.controller.IRequestView;
 import com.simplesoft.simplesofttemplate.main.controller.RequestAction;
 import com.simplesoft.simplesofttemplate.main.controller.RequestData;
@@ -45,18 +45,14 @@ public abstract class BaseFragment extends Fragment implements IRequestView, IBr
 		parent = (BaseActivity) activity;		
 	}
 	
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		//register Broadcast Receiver
-		IntentFilter filter = new IntentFilter(BaseBroadcastReceiver.BC_ACTION_SIMPLESOFT);
-		AppInfo.getInstance().registerReceiver(receiver, filter);
-	}
+	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		//register Broadcast Receiver
+		IntentFilter filter = new IntentFilter(BaseBroadcastReceiver.BC_ACTION_SIMPLESOFT);
+		AppInfo.getInstance().registerReceiver(receiver, filter);
 	}
 	
 	@SuppressLint("InflateParams")
@@ -70,10 +66,8 @@ public abstract class BaseFragment extends Fragment implements IRequestView, IBr
 		return view;
 	}
 	
-	
-
-
 	/**
+	 * get tag of fragment
 	 * @author: duongdt3
 	 * @since: 1.0
 	 * @time: 08:48:20 20 Jul 2014
@@ -123,8 +117,8 @@ public abstract class BaseFragment extends Fragment implements IRequestView, IBr
 	}
 	
 	@Override
-	public void onStop() {
-		super.onStop();
+	public void onDestroy() {
+		super.onDestroy();
 		AppInfo.getInstance().unregisterReceiver(receiver);
 	}
 }

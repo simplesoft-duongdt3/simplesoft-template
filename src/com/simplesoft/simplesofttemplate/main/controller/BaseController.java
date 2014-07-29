@@ -4,10 +4,9 @@
  */
 package com.simplesoft.simplesofttemplate.main.controller;
 
-import android.os.AsyncTask;
 import android.os.SystemClock;
 
-import com.simplesoft.simplesappspermissions.R;
+import com.simplesoft.simpleappspermissions.R;
 import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 
@@ -65,36 +64,37 @@ public abstract class BaseController {
 	 * @param e
 	 */
 	public void handleViewRequest(final RequestData e){
-		AsyncTask<Void, Void, Void> task = new AsyncTask<Void, Void, Void>() {
-			protected Void doInBackground(Void... params) {
-				ResponseData rpData = new ResponseData();
-				rpData.rqData = e;
-				try {
-					Object dto = requestDataByView(e);
-					if (dto == null) {
-						throw new Exception("ResponseData null");
-					}
-					rpData.data = dto;
-					rpData.responseCode = ResponseCode.SUSSESS;
-					rpData.responseMessage = e.action.getRquestName() + " " + AppInfo.getInstance().getString(R.string.text_success);
-				} catch (Exception ex) {
-					String exceptionMessage = LogUtil.getExceptionMessage(ex);
-					rpData.responseCode = ResponseCode.ERROR_COMMON;
-					rpData.responseMessage = e.action.getRquestName() 
-							+ " " + AppInfo.getInstance().getString(R.string.text_error);
-					//chi tiết lỗi sẽ gồm tên Controller + action
-					String logDecription = String
-							.format("Controller: %s ActionCode: %s",
-									BaseController.this.getClass().getName(), e.action);
-					//log to Console 
-					LogUtil.log(logDecription + "\r\n" + exceptionMessage);
-				} finally{
-					BaseController.this.handleModelResponseData(rpData);
-				}
-				return null;
-			}
-		};
-		task.execute();
+		final String newThreadName = e.action.getRquestName();
+		Thread thread = new Thread(newThreadName) {
+		      public void run(){
+		    	  LogUtil.log("Start thread " + newThreadName);
+		    	  
+		    	  ResponseData rpData = new ResponseData();
+		    	  rpData.rqData = e;
+		    	  try {
+		    		  Object dto = requestDataByView(e);
+		    		  if (dto == null) {
+		    			  throw new Exception("ResponseData null");
+		    		  }
+		    		  rpData.data = dto;
+		    		  rpData.responseCode = ResponseCode.SUSSESS;
+		    		  rpData.responseMessage = e.action.getRquestName() + " " + AppInfo.getInstance().getString(R.string.text_success);
+		    	  } catch (Exception ex) {
+		    		  rpData.responseCode = ResponseCode.ERROR_COMMON;
+		    		  rpData.responseMessage = e.action.getRquestName() 
+		    				  + " " + AppInfo.getInstance().getString(R.string.text_error);
+		    		  //chi tiết lỗi sẽ gồm tên Controller + action
+		    		  String logDecription = String.format("ActionCode: %s", e.action.getRquestName());
+		    		  //log to Console 
+		    		  LogUtil.log(logDecription, ex);
+		    	  } finally{
+		    		  BaseController.this.handleModelResponseData(rpData);
+		    		  
+		    		  LogUtil.log("End thread " + newThreadName);
+		    	  }
+		      }
+		   };
+		   thread.start();
 	}
 	
 	/**

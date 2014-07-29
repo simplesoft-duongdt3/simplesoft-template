@@ -23,8 +23,9 @@
     <string name="cat_camera_microphone">Camera/Audio record</string>
     <string name="cat_system_change">Change system</string>
     
-    <string name="text_num_app">Num aps:</string>
+    <string name="text_num_app">Num app:</string>
     <string name="text_is_get_sys_app">Show system app</string>
     <string name="system_app">Sys Apps</string>
     <string name="search">Search</string>
+    <string name="search_input">Input name</string>
 </resources>

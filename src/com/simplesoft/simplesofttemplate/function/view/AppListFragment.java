@@ -14,7 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.simplesoft.simplesappspermissions.R;
+import com.simplesoft.simpleappspermissions.R;
 import com.simplesoft.simplesofttemplate.constance.PermissionGroup;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
 import com.simplesoft.simplesofttemplate.function.DTO.ListAppItemInfo;
@@ -25,7 +25,6 @@ import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.MultiComparat
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.MultiCondition;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.Operator;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.OrderBy;
-import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
 import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 import com.simplesoft.simplesofttemplate.main.view.BaseFragment;
@@ -53,7 +52,6 @@ public class AppListFragment extends BaseFragment  implements ListViewEventRecei
 	private PermissionGroup group;
 
 	public AppListFragment(PermissionGroup pGroup, MultiCondition<AppItemInfo> pCondition) {
-		LogUtil.log("AppListFragmentp" + pGroup.getDisplayName());
 		this.condition = pCondition;
 		this.group = pGroup;
 	}

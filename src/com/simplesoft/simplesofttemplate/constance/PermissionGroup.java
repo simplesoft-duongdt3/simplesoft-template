@@ -1,6 +1,6 @@
 package com.simplesoft.simplesofttemplate.constance;
 
-import com.simplesoft.simplesappspermissions.R;
+import com.simplesoft.simpleappspermissions.R;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo.ItemInfo;
 import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
 

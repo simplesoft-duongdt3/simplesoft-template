@@ -13,12 +13,12 @@ import android.view.MenuItem;
 import android.view.MenuItem.OnActionExpandListener;
 import android.widget.SearchView;
 
-import com.simplesoft.simplesappspermissions.R;
+import com.simplesoft.simpleappspermissions.R;
 import com.simplesoft.simplesofttemplate.constance.PermissionGroup;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.MultiCondition;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.Operator;
-import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
+import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 import com.simplesoft.simplesofttemplate.main.view.BaseActivity;
 import com.simplesoft.simplesofttemplate.main.view.BroadCastAction;
@@ -125,7 +125,6 @@ public class MainActivity extends BaseActivity {
 			default:
 				break;
 			}
-			LogUtil.log("getItem" + group.getDisplayName() + pos);
 			MultiCondition<AppItemInfo> multiCondition = new MultiCondition<AppItemInfo>()
 					.addCondition(new AppItemInfo.CheckGroupCondition(group).setOperator(Operator.IS));
 			Fragment frag = new AppListFragment(group, multiCondition);
@@ -166,12 +165,12 @@ public class MainActivity extends BaseActivity {
 		//menu search
 		MenuItem itemSearch = menu.findItem(R.id.action_search);
 		SearchView searchView = (SearchView) itemSearch.getActionView();
+		searchView.setQueryHint(StringUtil.getString(R.string.search_input));
 		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false);  
         searchView.setOnQueryTextListener(searchTextChangeListener);
 		itemSearch.setOnActionExpandListener(searchExpandListener);
-		
 		//menu system apps
 		MenuItem itemcbSysApps = menu.findItem(R.id.action_cbSystemApps);
 		CheckBoxActionProvider cbSystemProvider = (CheckBoxActionProvider) itemcbSysApps.getActionProvider();
@@ -193,13 +192,11 @@ public class MainActivity extends BaseActivity {
     OnActionExpandListener searchExpandListener = new OnActionExpandListener() {
         @Override
         public boolean onMenuItemActionCollapse(MenuItem item) {
-        	LogUtil.log("onMenuItemActionCollapse");
             return true;
         }
         
         @Override
         public boolean onMenuItemActionExpand(MenuItem item) {
-        	LogUtil.log("onMenuItemActionExpand");
             return true;
         }
     };
@@ -207,8 +204,11 @@ public class MainActivity extends BaseActivity {
 	SearchView.OnQueryTextListener searchTextChangeListener = new SearchView.OnQueryTextListener(){
 	    @Override
 	    public boolean onQueryTextChange(String newText){
-	    	AppInfo.getInstance().strQueryApp = newText;
-			sendBroadCastSimpleSoft(BroadCastAction.SEARCH, null);
+	    	//nếu như khác query cũ, mới filter
+	    	if (!newText.equals(AppInfo.getInstance().strQueryApp)) {
+	    		AppInfo.getInstance().strQueryApp = newText;
+	    		sendBroadCastSimpleSoft(BroadCastAction.SEARCH, null);
+			}
 	        return true;
 	    }
 	    

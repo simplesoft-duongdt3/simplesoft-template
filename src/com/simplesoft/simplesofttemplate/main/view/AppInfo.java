@@ -4,6 +4,8 @@
  */
 package com.simplesoft.simplesofttemplate.main.view;
 
+import java.lang.Thread.UncaughtExceptionHandler;
+
 import android.app.Activity;
 import android.app.Application;
 import android.content.pm.ApplicationInfo;
@@ -39,7 +41,10 @@ public class AppInfo extends Application {
 	public void onCreate() {
 		super.onCreate();
 		instance = this;
-		
+		defaultUEH = Thread.getDefaultUncaughtExceptionHandler();
+        // setup handler for uncaught exception 
+        Thread.setDefaultUncaughtExceptionHandler(_unCaughtExceptionHandler);
+        
 		//lấy thông in debug mode
 		boolean isDebug = false;
 		try {
@@ -113,4 +118,31 @@ public class AppInfo extends Application {
 	public boolean isAppForeground(){
 		return isForeground;
 	}
+	
+	 // uncaught exception handler variable
+    private UncaughtExceptionHandler defaultUEH;
+
+    // handler listener
+    private Thread.UncaughtExceptionHandler _unCaughtExceptionHandler =
+        new Thread.UncaughtExceptionHandler() {
+            @Override
+            public void uncaughtException(Thread thread, Throwable ex) {
+
+               /* // here I do logging of exception to a db
+                PendingIntent myActivity = PendingIntent.getActivity(getContext(),
+                    192837, new Intent(getContext(), MyActivity.class),
+                    PendingIntent.FLAG_ONE_SHOT);
+
+                AlarmManager alarmManager;
+                alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+                alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 
+                    15000, myActivity );
+                System.exit(2);*/
+
+            	LogUtil.logWtf(ex);
+                // re-throw critical exception further to the os (important)
+                defaultUEH.uncaughtException(thread, ex);
+            }
+     };
+
 }

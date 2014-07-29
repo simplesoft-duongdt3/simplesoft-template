@@ -4,6 +4,7 @@
  */
 package com.simplesoft.simplesofttemplate.main.utils;
 
+import com.google.code.microlog4android.Logger;
 import com.google.code.microlog4android.LoggerFactory;
 import com.google.code.microlog4android.appender.FileAppender;
 import com.google.code.microlog4android.appender.LogCatAppender;
@@ -17,9 +18,11 @@ import com.google.code.microlog4android.appender.LogCatAppender;
  */
 public class LogUtil {
 
-	public static final com.google.code.microlog4android.Logger fileLogger = LoggerFactory.getLogger();
+	public static final Logger fileLogger = LoggerFactory.getLogger();
 	public static boolean isDebugMode = false;
-	public static final String LOG_TAG = "simplesoft";
+	private static final String LOG_TAG = "simplesoft";
+	private static final String LOG_TAG_WTF = "simplesoft_wtf";
+	private static final String LOG_FILE_NAME = "simplesoft.log.txt";
 	
 	/**
 	 * set debug mode
@@ -31,38 +34,40 @@ public class LogUtil {
 	 * @param isDebug
 	 */
 	public static void setIsDebugMode(boolean isDebug) {
-		initLogger(isDebug, isDebug);
+		isDebugMode = isDebug;
+		initLogger();
 	}
 	
-	private static void initLogger(boolean logcat, boolean logFile){
-		if (logcat) {
-			LogCatAppender logcatApp = new LogCatAppender();
-			LogUtil.fileLogger.addAppender(logcatApp);
-		}
+	private static void initLogger(){
+		LogCatAppender logcatApp = new LogCatAppender();
+		LogUtil.fileLogger.addAppender(logcatApp);
 		
-		if (logFile) {
-			FileAppender fileApp = new FileAppender();
-			fileApp.setFileName("simplesoft.log.txt");
-			LogUtil.fileLogger.addAppender(fileApp);
+		FileAppender fileApp = new FileAppender();
+		fileApp.setFileName(LOG_FILE_NAME);
+		LogUtil.fileLogger.addAppender(fileApp);
+	}
+	
+	public static void log(Object msg, Throwable e){
+		if (isDebugMode) {
+			fileLogger.error(LOG_TAG + ": " + String.valueOf(msg) + " - " + getExceptionMessage(e));
 		}
 	}
 	
 	public static void log(Throwable e){
-		log(LOG_TAG, getExceptionMessage(e));
+		if (isDebugMode) {
+			fileLogger.error(LOG_TAG + ": " + getExceptionMessage(e));
+		}
 	}
 	
 	public static void log(Object msg){
 		if (isDebugMode) {
-			log(LOG_TAG, String.valueOf(msg));
+			fileLogger.debug(LOG_TAG + ": " + msg + "\r\n");
 		}
 	}
 	
-	private static void log(String tag, String msg){
-		if (isDebugMode) {
-			fileLogger.error(tag + ": " + msg + "\r\n");
-		}
+	public static void logWtf(Throwable e){
+		fileLogger.error(LOG_TAG_WTF + ": " + getExceptionMessage(e));
 	}
-	
 	/**
 	 * Trích xuất thông tin cần thiết từ 1 Exception
 	 * @author: duongdt3
