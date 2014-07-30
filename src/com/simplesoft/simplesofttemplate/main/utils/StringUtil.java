@@ -169,4 +169,22 @@ public class StringUtil {
 		return AppInfo.getInstance().getString(id);
 	}
 	
+
+	/**
+	 * Mo ta muc dich cua ham
+	 * @author: DungNX
+	 * @param aString
+	 * @return
+	 * @return: String
+	 * @throws:
+	*/
+	public static String getStringResourceByName(String aString) {
+		String packageName = AppInfo.getInstance().getPackageName();
+		int resId = AppInfo.getInstance().getResources().getIdentifier(aString, "string", packageName);
+		if (resId == 0) {
+			return aString;
+		} else {
+			return AppInfo.getInstance().getString(resId);
+		}
+	}
 }

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.simplesoft.simpleappspermissions.R;
+import com.simplesoft.simplesofttemplate.constance.PermissionGroup;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo.ItemInfo;
 import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
@@ -43,6 +47,13 @@ public class ViewHolderAppDetail extends BaseViewHolder<AppItemInfo> implements 
 	private ListView lvPermissions;
 	private BaseListAdapter<ItemInfo> adapter;
 	private List<ItemInfo> arrFilter;
+	private AppItemInfo dto;
+	private PermissionGroup group;
+
+	public void setGroup(PermissionGroup group) {
+		this.group = group;
+	}
+
 	LayoutInflater inflater = (LayoutInflater) AppInfo.getInstance().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	@Override
 	public View initView(ViewGroup parent) {
@@ -67,6 +78,7 @@ public class ViewHolderAppDetail extends BaseViewHolder<AppItemInfo> implements 
 
 	@Override
 	protected void renderView(AppItemInfo dto) {
+		this.dto = dto;
 		ivAppIcon.setImageDrawable(dto.drawable);
 		tvAppName.setText(dto.name);
 		tvVersion.setText(StringUtil.getString(R.string.text_version) + ": " + dto.versionName);
@@ -80,7 +92,7 @@ public class ViewHolderAppDetail extends BaseViewHolder<AppItemInfo> implements 
 		
 		if (adapter == null) {
 			arrFilter = arrTemp ;
-			adapter = new BaseListAdapter<ItemInfo>(arrFilter, new ViewHolderItemInfo(), null);
+			adapter = new BaseListAdapter<ItemInfo>(arrFilter, new ViewHolderItemInfo(group), null);
 			lvPermissions.setAdapter(adapter);
 		} else{
 			arrFilter.clear();
@@ -98,7 +110,38 @@ public class ViewHolderAppDetail extends BaseViewHolder<AppItemInfo> implements 
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		
+		if(v == btAbout){
+			showAbout(dto.packageName);
+		} else if(v == btUninstall){
+			showUninstall(dto.packageName);
+		}
+	}
+	
+	/**
+	 * Mo ta muc dich cua ham
+	 * @author: DungNX
+	 * @param packageName
+	 * @return: void
+	 * @throws:
+	*/
+	private void showAbout(String packageName){
+        Uri packageUri = Uri.parse("package:" + packageName);
+        Intent appInfoIntent =
+          new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageUri);
+        AppInfo.getInstance().getActivityContext().startActivity(appInfoIntent);
 	}
 
+	/**
+	 * Mo ta muc dich cua ham
+	 * @author: DungNX
+	 * @param packageName
+	 * @return: void
+	 * @throws:
+	*/
+	private void showUninstall(String packageName){
+        Uri packageUri = Uri.parse("package:" + packageName);
+        Intent uninstallIntent =
+          new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageUri);
+        AppInfo.getInstance().getActivityContext().startActivity(uninstallIntent);
+	}
 }

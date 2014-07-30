@@ -60,6 +60,7 @@ public class AppItemInfo implements Parcelable {
 		
 		public String name;
 		public String group;
+		public boolean isInGroup;
 		
 		@Override
 		public int describeContents() {
