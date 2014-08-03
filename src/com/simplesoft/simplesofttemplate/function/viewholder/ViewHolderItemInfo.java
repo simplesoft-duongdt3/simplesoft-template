@@ -53,12 +53,8 @@ public class ViewHolderItemInfo extends BaseViewHolder<ItemInfo> {
 	@Override
 	protected void renderView(ItemInfo dto) {
 		tvName.setText(dto.name);
-		int resourceID = AppInfo.getInstance().getResources().getIdentifier(dto.name, "string", AppInfo.getInstance().getPackageName());
-		if (resourceID > 0) {
-			tvGroup.setText(StringUtil.getString(resourceID));
-		} else{
-			tvGroup.setText(StringUtil.getString(R.string.text_group) + ": " + dto.group);
-		}
+		String detailApp = StringUtil.getStringResourceByName(dto.name, StringUtil.getString(R.string.text_group) + ": " + dto.group);
+		tvGroup.setText(detailApp);
 		boolean isInGroup = group.contain(dto);
 		if(isInGroup){
 			tvName.setTextColor(AppInfo.getInstance().getResources().getColor(android.R.color.holo_blue_dark));

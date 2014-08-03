@@ -251,7 +251,7 @@ public class AppItemInfo implements Parcelable {
 		public CheckNameCondition(String pNameCheck) {
 			this.nameCheck = pNameCheck;
 			if (!StringUtil.isEmptyStr(this.nameCheck)) {
-				this.nameCheck = this.nameCheck.toLowerCase();
+				this.nameCheck = StringUtil.getEngString(this.nameCheck.toLowerCase());
 			}
 		}
 		
@@ -261,7 +261,7 @@ public class AppItemInfo implements Parcelable {
 			if (StringUtil.isEmptyStr(this.nameCheck)) {
 				res = true;
 			} else{
-				res = object.name.toLowerCase().contains(this.nameCheck);
+				res = StringUtil.getEngString(object.name.toLowerCase()).contains(this.nameCheck);
 			}
 			return res;
 		}
