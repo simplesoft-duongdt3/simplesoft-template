@@ -107,6 +107,9 @@ public class AppListFragment extends BaseFragment  implements ListViewEventRecei
 				, new AppItemInfo.ActionSetDrawable());
 		CollectionUtil.sort(arrTemp, comparetor);
 		
+		//change title activity
+		//parent.setTitleActivity(arrTemp.size() + StringUtil.getString(R.string.text_app));
+		
 		if (adapter == null) {
 			arrFilter = arrTemp;
 			adapter = new BaseListAdapter<AppItemInfo>(arrFilter, new ViewHolderAppList(), this);

@@ -484,4 +484,10 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 		super.onDestroy();
 		AppInfo.getInstance().unregisterReceiver(receiver);
 	}
+	
+	public void setTitleActivity(CharSequence title){
+		if (actionBar != null) {
+			actionBar.setTitle(title);
+		}
+	}
 }
