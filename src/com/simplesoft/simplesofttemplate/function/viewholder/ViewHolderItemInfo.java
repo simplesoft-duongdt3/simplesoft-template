@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.simplesoft.simpleappspermissions.R;
 import com.simplesoft.simplesofttemplate.constance.PermissionGroup;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo.ItemInfo;
+import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 import com.simplesoft.simplesofttemplate.main.view.control.BaseViewHolder;
 
@@ -30,9 +31,6 @@ public class ViewHolderItemInfo extends BaseViewHolder<ItemInfo> {
 	private TextView tvName;
 	private TextView tvGroup;
 	private PermissionGroup group;
-
-	public ViewHolderItemInfo(){
-	}
 
 	public ViewHolderItemInfo(PermissionGroup group){
 		this.group = group;
@@ -55,16 +53,19 @@ public class ViewHolderItemInfo extends BaseViewHolder<ItemInfo> {
 	@Override
 	protected void renderView(ItemInfo dto) {
 		tvName.setText(dto.name);
-		tvGroup.setText(dto.group);
-		// dungnx fix tam
-		// dto.isInGroup = false trong khi PermissionGroup.contain set = true
-		// ben do qua ben nay 2 doi tuong khac nhau?
-		group.contain(dto);
-		if(dto.isInGroup){
-			tvName.setTextColor(AppInfo.getInstance().getActivityContext().getResources().getColor(android.R.color.holo_blue_dark));
-		} else {
-			tvName.setTextColor(AppInfo.getInstance().getActivityContext().getResources().getColor(android.R.color.white));
+		int resourceID = AppInfo.getInstance().getResources().getIdentifier(dto.name, "string", AppInfo.getInstance().getPackageName());
+		if (resourceID > 0) {
+			tvGroup.setText(StringUtil.getString(resourceID));
+		} else{
+			tvGroup.setText(StringUtil.getString(R.string.text_group) + ": " + dto.group);
 		}
+		boolean isInGroup = group.contain(dto);
+		if(isInGroup){
+			tvName.setTextColor(AppInfo.getInstance().getResources().getColor(android.R.color.holo_blue_dark));
+		} else {
+			tvName.setTextColor(AppInfo.getInstance().getResources().getColor(android.R.color.white));
+		}
+		
 	}
 
 	@Override

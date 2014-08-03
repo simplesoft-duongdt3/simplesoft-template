@@ -145,7 +145,7 @@ public class CollectionUtil {
 		}
 	}
 	
-	public static <T> List<T> filter(List<T> list, ICondition<T> condition, IDoAction<T> doAction) {
+	public static <T> List<T> filter(List<T> list, ICondition<? super T> condition, IDoAction<T> doAction) {
 		List<T> result = new ArrayList<T>();
 	    for (T element: list) {
 	    	//nếu thoả thì add vào mảng
@@ -161,11 +161,11 @@ public class CollectionUtil {
 	}
 	
 	public static <T> void filterIn(List<T> list, ICondition<? super T> condition, IDoAction<T> doAction) {
-		List<T> result = new ArrayList<T>();
-	    for (T element: list) {
+		for (int i = list.size() - 1; i >= 0 ; i--) {
+			T element = list.get(i);
 	    	//nếu ko thoả thì remove khỏi mảng
 			if (condition != null && !condition.isVailCondition(element)) {
-				result.remove(element);
+				list.remove(i);
 			} else{
 				if (doAction != null) {
 					doAction.doAction(element);

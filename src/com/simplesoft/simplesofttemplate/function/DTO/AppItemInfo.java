@@ -60,7 +60,6 @@ public class AppItemInfo implements Parcelable {
 		
 		public String name;
 		public String group;
-		public boolean isInGroup;
 		
 		@Override
 		public int describeContents() {
@@ -85,6 +84,19 @@ public class AppItemInfo implements Parcelable {
 		      return new ItemInfo[size];
 		   }
 		};
+		
+		public static final class InGroupCondition extends ICondition<ItemInfo>{
+			
+			private PermissionGroup group;
+			public InGroupCondition(PermissionGroup group) {
+				this.group = group;
+			}
+			
+			@Override
+			protected boolean doCondition(ItemInfo object) {
+				return group.contain(object);
+			}
+		}
 	}
 	
 	public static final class PerComparator extends IComparator<AppItemInfo> {

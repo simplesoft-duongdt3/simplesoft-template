@@ -42,25 +42,17 @@ public class MainActivity extends BaseActivity {
 			bundleData.putParcelable(BundleKey.DATA_APP_LIST.getName(), AppInfo.getInstance().listData);
 		}
 		
+		tabTitles = new String[PermissionGroup.values().length];
+		int i = 0;
+		for (PermissionGroup group : PermissionGroup.values()) {
+			tabTitles[i] = group.getDisplayName();
+			i++;
+		}
+		
 		if (bundleData != null) {
-			String[] tabTitle = new String[]{
-					PermissionGroup.ALL.getDisplayName(),
-					PermissionGroup.COST_MONEY.getDisplayName(),
-					PermissionGroup.SYSTEM.getDisplayName(),
-					PermissionGroup.AFFECTS_BATTERY.getDisplayName(),
-					PermissionGroup.CAMERA_MICROPHONE.getDisplayName(),
-					PermissionGroup.NETWORK.getDisplayName(),
-					PermissionGroup.PERSONAL_INFO.getDisplayName()					
-			};
-			/*int i = 0;
-			for (PermissionGroup group : PermissionGroup.values()) {
-				tabTitle[i] = group.getDisplayName();
-				i++;
-			}*/
-			
 			TabsPagerAdapter vPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager(), bundleData);
 			
-			ViewPagerInfo vPagerInfo = new ViewPagerInfo(tabTitle, vPagerAdapter);
+			ViewPagerInfo vPagerInfo = new ViewPagerInfo(tabTitles, vPagerAdapter);
 			setViewPagerInfo(vPagerInfo);
 		}
 	}
@@ -97,34 +89,7 @@ public class MainActivity extends BaseActivity {
 
 		@Override
 		public Fragment getItem(int pos) {
-			
-			PermissionGroup group = PermissionGroup.ALL;
-			switch (pos) {
-			case 0:
-				group = PermissionGroup.ALL;
-				break;
-			case 1:
-				group = PermissionGroup.COST_MONEY;
-				break;
-			case 2:
-				group = PermissionGroup.SYSTEM;
-				break;
-			case 3:
-				group = PermissionGroup.AFFECTS_BATTERY;
-				break;
-			case 4:
-				group = PermissionGroup.CAMERA_MICROPHONE;
-				break;
-			case 5:
-				group = PermissionGroup.NETWORK;
-				break;
-			case 6:
-				group = PermissionGroup.PERSONAL_INFO;
-				break;
-
-			default:
-				break;
-			}
+			PermissionGroup group = PermissionGroup.values()[pos];
 			MultiCondition<AppItemInfo> multiCondition = new MultiCondition<AppItemInfo>()
 					.addCondition(new AppItemInfo.CheckGroupCondition(group).setOperator(Operator.IS));
 			Fragment frag = new AppListFragment(group, multiCondition);
@@ -138,7 +103,7 @@ public class MainActivity extends BaseActivity {
 
 		@Override
 		public int getCount() {
-			return 7;
+			return PermissionGroup.values().length;
 		}
 	}
 
@@ -217,5 +182,11 @@ public class MainActivity extends BaseActivity {
 	        return true;
 	    }
 	};
+
+	private String[] tabTitles;
+	@Override
+	protected boolean isShowAdSlider() {
+		return true;
+	}
 
 }

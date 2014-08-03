@@ -2,7 +2,6 @@ package com.simplesoft.simplesofttemplate.main.view;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.View;
 
 import com.simplesoft.simpleappspermissions.R;
 import com.simplesoft.simplesofttemplate.function.DTO.ListAppItemInfo;
@@ -18,7 +17,6 @@ public class SplashScreenActivity extends BaseActivity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
 		super.onCreate(savedInstanceState);
-        llAds.setVisibility(View.GONE);
         getLayoutInflater().inflate(R.layout.splash_screen_layout, fragHolder, true);
         
         sendViewRequest(RequestAction.GET_LIST_APP);
@@ -91,5 +89,10 @@ public class SplashScreenActivity extends BaseActivity {
 	@Override
 	public void doActionBroadCast(BroadCastAction action, Bundle data) {
 		
+	}
+
+	@Override
+	protected boolean isShowAdSlider() {
+		return true;
 	}
 }

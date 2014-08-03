@@ -105,9 +105,15 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 		}
 		
 		// ad
-		StartAppAd.showSlider(this);
+		if (isShowAdSlider()) {
+			StartAppAd.showSlider(this);
+		}
 		startAppAd.showAd();
 		startAppAd.loadAd();
+		
+		//register Broadcast Receiver
+		IntentFilter filter = new IntentFilter(BaseBroadcastReceiver.BC_ACTION_SIMPLESOFT);
+		AppInfo.getInstance().registerReceiver(receiver, filter);
 	}
 
 	/**
@@ -165,11 +171,14 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	 * @throws:
 	 * @return
 	 */
+	protected abstract boolean isShowAdSlider();
+	
 	protected abstract boolean isShowAdsWhenStop();
 
 	protected abstract boolean isShowAdsWhenStart();
 
 	protected abstract boolean isShowDrawMenu();
+	
 
 	protected void setDrawMenuAdapter(ArrayAdapter<?> adapter) {
 		// Set the adapter for the list view
@@ -185,9 +194,6 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	protected void onResume() {
 		super.onResume();
 		AppInfo.getInstance().callActivityResume(this);
-		//register Broadcast Receiver
-		IntentFilter filter = new IntentFilter(BaseBroadcastReceiver.BC_ACTION_SIMPLESOFT);
-		AppInfo.getInstance().registerReceiver(receiver, filter);
 		startAppAd.onResume();
 	}
 
@@ -201,7 +207,6 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	protected void onStop() {
 		super.onStop();
 		AppInfo.getInstance().callActivityStop(this);
-		AppInfo.getInstance().unregisterReceiver(receiver);
 		if (isShowAdsWhenStop()) {
 			startAppAd.onBackPressed();
 		}
@@ -466,5 +471,11 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 			BroadCastAction bcAction = (BroadCastAction) data.getSerializable(BundleKey.BC_ACTION_SEND.getName());
 			doActionBroadCast(bcAction, data);
 		}
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		AppInfo.getInstance().unregisterReceiver(receiver);
 	}
 }

@@ -62,6 +62,9 @@ public class SimpleModel {
 					if(StringUtil.isEmptyStr(element.group)){
 						element.group = StringUtil.getString(R.string.text_NA);
 					}
+					
+					element.name = element.name.replace("android.permission.", "");
+					element.group = element.group.replace("android.permission-group.", "");
 					itemInfo.permissions.add(new ItemInfo(element.name, element.group));
 				}
 			}
@@ -77,6 +80,9 @@ public class SimpleModel {
 						if(StringUtil.isEmptyStr(element.group)){
 							element.group = StringUtil.getString(R.string.text_NA);
 						}
+						element.name = element.name.replace("android.permission.", "");
+						element.group = element.group.replace("android.permission-group.", "");
+						
 						itemInfo.userPermissions.add(new ItemInfo(element.name, element.group));
 					} catch (Exception e) {
 						itemInfo.userPermissions.add(new ItemInfo(pkInfo.requestedPermissions[i], StringUtil.getString(R.string.text_NA)));

@@ -7,6 +7,7 @@ import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
 public enum PermissionGroup {
 	ALL("ALL", StringUtil.getString(R.string.cat_all), new String[]{""}, new String[]{}),
 	COST_MONEY("COST_MONEY",StringUtil.getString(R.string.cat_cost_money), new String[]{"COST_MONEY"}, new String[]{}),
+	BILLING("BILLING", StringUtil.getString(R.string.cat_billing), new String[]{}, new String[]{"vending.BILLING"}),
 	PERSONAL_INFO("PERSONAL_INFO", StringUtil
 			.getString(R.string.cat_personal_info), new String[] { "ACCOUNTS", "BOOKMARKS", "CALENDAR", "LOCATION", "MESSAGES", "PERSONAL_INFO", "SOCIAL_INFO",
 			"SYNC_SETTINGS", "USER_DICTIONARY", "VOICEMAIL", "WRITE_USER_DICTIONARY" }, new String[] { "USE_CREDENTIALS", "ACCOUNT_MANAGER", "MANAGE_ACCOUNTS",
@@ -38,7 +39,8 @@ public enum PermissionGroup {
 			"BROADCAST_PACKAGE_REMOVED","SET_ANIMATION_SCALE","BATTERY_STATS","UNINSTALL_SHORTCUT","FORCE_STOP_PACKAGES","GLOBAL_SEARCH_CONTROL",
 			"GET_APP_OPS_STATS","MODIFY_APPWIDGET_BIND_PERMISSIONS","ASEC_MOUNT_UNMOUNT","WRITE_SETTINGS","WRITE_DREAM_STATE","INTERACT_ACROSS_USERS",
 			"ACCESS_LOCATION_EXTRA_COMMANDS","ASEC_DESTROY","NET_TUNNELING","DIAGNOSTIC","SUBSCRIBED_FEEDS_WRITE","READ_DREAM_STATE", "SET_ALARM",
-			"SET_WALLPAPER_HINTS", "SET_WALLPAPER"});
+			"SET_WALLPAPER_HINTS", "SET_WALLPAPER"}),
+			;
 
 	private String name;
 	private String[] groups;
@@ -77,7 +79,6 @@ public enum PermissionGroup {
 				}
 			}
 		}
-		input.isInGroup = res;
 		return res;
 	}
 	

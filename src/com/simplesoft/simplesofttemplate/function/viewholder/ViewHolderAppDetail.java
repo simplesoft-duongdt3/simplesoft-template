@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,7 +25,7 @@ import com.simplesoft.simpleappspermissions.R;
 import com.simplesoft.simplesofttemplate.constance.PermissionGroup;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo.ItemInfo;
-import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
+import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 import com.simplesoft.simplesofttemplate.main.view.control.BaseListAdapter;
 import com.simplesoft.simplesofttemplate.main.view.control.BaseViewHolder;
@@ -42,15 +43,15 @@ public class ViewHolderAppDetail extends BaseViewHolder<AppItemInfo> implements 
 	ImageView ivAppIcon;
 	TextView tvAppName;
 	private TextView tvVersion;
+	private CheckBox cbViewAllPer;
 	private Button btAbout;
 	private Button btUninstall;
 	private ListView lvPermissions;
 	private BaseListAdapter<ItemInfo> adapter;
 	private List<ItemInfo> arrFilter;
-	private AppItemInfo dto;
 	private PermissionGroup group;
 
-	public void setGroup(PermissionGroup group) {
+	public ViewHolderAppDetail(PermissionGroup group) {
 		this.group = group;
 	}
 
@@ -60,6 +61,7 @@ public class ViewHolderAppDetail extends BaseViewHolder<AppItemInfo> implements 
 		View rowView = inflater.inflate(R.layout.item_appitem, parent, false);
 		ivAppIcon = (ImageView) rowView.findViewById(R.id.ivAppIcon);
 		tvAppName = (TextView) rowView.findViewById(R.id.tvAppName);
+		cbViewAllPer = (CheckBox) rowView.findViewById(R.id.cbViewAllPer);
 		tvVersion = (TextView) rowView.findViewById(R.id.tvVersion);
 		btAbout = (Button) rowView.findViewById(R.id.btAbout);
 		btUninstall = (Button) rowView.findViewById(R.id.btUninstall);
@@ -67,6 +69,8 @@ public class ViewHolderAppDetail extends BaseViewHolder<AppItemInfo> implements 
 		
 		btAbout.setOnClickListener(this);
 		btUninstall.setOnClickListener(this);
+		
+		cbViewAllPer.setOnClickListener(this);
 		return rowView;
 	}
 
@@ -78,11 +82,15 @@ public class ViewHolderAppDetail extends BaseViewHolder<AppItemInfo> implements 
 
 	@Override
 	protected void renderView(AppItemInfo dto) {
-		this.dto = dto;
 		ivAppIcon.setImageDrawable(dto.drawable);
 		tvAppName.setText(dto.name);
-		tvVersion.setText(StringUtil.getString(R.string.text_version) + ": " + dto.versionName);
+		tvVersion.setText(dto.versionName);
 		
+		renderListPermission();
+	}
+
+	
+	void renderListPermission(){
 		List<ItemInfo> arrTemp = new ArrayList<AppItemInfo.ItemInfo>();
 		arrTemp.addAll(dto.permissions);
 		arrTemp.addAll(dto.userPermissions);
@@ -90,8 +98,12 @@ public class ViewHolderAppDetail extends BaseViewHolder<AppItemInfo> implements 
 		arrTemp.addAll(dto.providers);
 		arrTemp.addAll(dto.receivers);
 		
+		if (!cbViewAllPer.isChecked()) {
+			CollectionUtil.filterIn(arrTemp, new ItemInfo.InGroupCondition(group), null);
+		}
+		
 		if (adapter == null) {
-			arrFilter = arrTemp ;
+			arrFilter = arrTemp;
 			adapter = new BaseListAdapter<ItemInfo>(arrFilter, new ViewHolderItemInfo(group), null);
 			lvPermissions.setAdapter(adapter);
 		} else{
@@ -101,10 +113,10 @@ public class ViewHolderAppDetail extends BaseViewHolder<AppItemInfo> implements 
 			adapter.notifyDataSetChanged();
 		}
 	}
-
+	
 	@Override
 	public BaseViewHolder<AppItemInfo> clone() {
-		return new ViewHolderAppDetail();	
+		return new ViewHolderAppDetail(group);	
 	}
 
 	@Override
@@ -114,7 +126,9 @@ public class ViewHolderAppDetail extends BaseViewHolder<AppItemInfo> implements 
 			showAbout(dto.packageName);
 		} else if(v == btUninstall){
 			showUninstall(dto.packageName);
-		}
+		} else if(v == cbViewAllPer){
+			renderListPermission();
+		} 
 	}
 	
 	/**
