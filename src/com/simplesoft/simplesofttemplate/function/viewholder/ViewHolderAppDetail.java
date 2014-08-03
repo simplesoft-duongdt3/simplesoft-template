@@ -142,7 +142,7 @@ public class ViewHolderAppDetail extends BaseViewHolder<AppItemInfo> implements 
         Uri packageUri = Uri.parse("package:" + packageName);
         Intent appInfoIntent =
           new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageUri);
-        AppInfo.getInstance().getActivityContext().startActivity(appInfoIntent);
+        AppInfo.getInstance().getActivityContext().switchActivity(appInfoIntent);
 	}
 
 	/**
@@ -156,6 +156,6 @@ public class ViewHolderAppDetail extends BaseViewHolder<AppItemInfo> implements 
         Uri packageUri = Uri.parse("package:" + packageName);
         Intent uninstallIntent =
           new Intent(Intent.ACTION_UNINSTALL_PACKAGE, packageUri);
-        AppInfo.getInstance().getActivityContext().startActivity(uninstallIntent);
+        AppInfo.getInstance().getActivityContext().switchActivity(uninstallIntent);
 	}
 }

@@ -64,7 +64,7 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	protected boolean isShowAdsWhenStop() {
-		return false;
+		return true;
 	}
 
 	@Override

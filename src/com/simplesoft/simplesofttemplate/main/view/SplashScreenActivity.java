@@ -93,6 +93,6 @@ public class SplashScreenActivity extends BaseActivity {
 
 	@Override
 	protected boolean isShowAdSlider() {
-		return true;
+		return false;
 	}
 }

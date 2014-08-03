@@ -51,6 +51,7 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	protected Banner llAds;
 	private ViewPager viewPager;
 	BaseBroadcastReceiver receiver = new BaseBroadcastReceiver(this);
+	protected boolean isSwitchActivity = false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -143,6 +144,7 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	 * @param intent
 	 */
 	public void switchActivity(Intent intent) {
+		isSwitchActivity = true;
 		startActivity(intent);
 	}
 
@@ -207,7 +209,11 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	protected void onStop() {
 		super.onStop();
 		AppInfo.getInstance().callActivityStop(this);
-		if (isShowAdsWhenStop()) {
+		
+		//nếu chủ động gọi để swucth activity thì sẽ ko hiện ad
+		if (isSwitchActivity) {
+			isSwitchActivity = false;
+		} else if (isShowAdsWhenStop()) {
 			startAppAd.onBackPressed();
 		}
 	}

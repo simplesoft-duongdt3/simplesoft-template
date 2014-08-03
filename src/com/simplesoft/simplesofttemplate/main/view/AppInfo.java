@@ -25,7 +25,7 @@ import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
 public class AppInfo extends Application {
 	
 	private static AppInfo instance = null;
-	Activity activityContext = null;
+	BaseActivity activityContext = null;
 	// khong doi
 	public static final String DEV_ID = "107535046";
 	// doi
@@ -65,14 +65,14 @@ public class AppInfo extends Application {
 	/**
 	 * @return the activityContext
 	 */
-	public Activity getActivityContext() {
+	public BaseActivity getActivityContext() {
 		return activityContext;
 	}
 	
 	/**
 	 * @param activityContext the activityContext to set
 	 */
-	public void setActivityContext(Activity activityContext) {
+	public void setActivityContext(BaseActivity activityContext) {
 		this.activityContext = activityContext;
 	}
 	
