@@ -75,14 +75,12 @@ public class AppListFragment extends BaseFragment  implements ListViewEventRecei
 	BaseDialogFragment<AppItemInfo> fragDialog = null;
 	@Override
 	public void handleListViewSendEvent(ListViewEventData<AppItemInfo> data) {
-		if (fragDialog == null) {
-			ViewHolderAppDetail viewHolder = new ViewHolderAppDetail(group);
-			fragDialog = new BaseDialogFragment<AppItemInfo>(data.dto, viewHolder, null, true);
-		} else{
-			fragDialog.renderDialog(data.dto);
+		if (fragDialog != null) {
 			fragDialog.dismiss();
 		}
 		
+		ViewHolderAppDetail viewHolder = new ViewHolderAppDetail(group);
+		fragDialog = new BaseDialogFragment<AppItemInfo>(data.dto, viewHolder, null, true);
 		showDialog(fragDialog);
 	}
 	

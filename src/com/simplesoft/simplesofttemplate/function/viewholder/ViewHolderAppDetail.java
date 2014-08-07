@@ -77,8 +77,9 @@ public class ViewHolderAppDetail extends BaseViewHolder<AppItemInfo> implements 
 
 	@Override
 	protected void resetView() {
-		// TODO Auto-generated method stub
-
+		tvAppName.setText("");
+		tvVersion.setText("");
+		cbViewAllPer.setChecked(false);
 	}
 
 	@Override
