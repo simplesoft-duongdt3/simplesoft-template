@@ -27,7 +27,7 @@ public class CollectionUtil {
 		protected abstract boolean doCondition(T object);
 		
 		public final boolean isVailCondition(T object){
-			boolean re = doCondition(object);
+			boolean re = object == null ? false : doCondition(object);
 			return (this.op == Operator.NOT? !re :re);
 			
 		}

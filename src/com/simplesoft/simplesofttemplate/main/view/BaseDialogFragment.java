@@ -40,7 +40,8 @@ public class BaseDialogFragment<T> extends DialogFragment {
 	private void setIsFullScreen(){
 		this.setStyle(DialogFragment.STYLE_NORMAL, R.style.Dialog_Appthemeblue);
 	}
-	private final void renderDialog(T dto){
+	
+	public final void renderDialog(T dto){
 		this.dto = dto;
 		viewHolder.render(dto);
 	}

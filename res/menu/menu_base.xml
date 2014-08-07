@@ -13,5 +13,21 @@
         android:showAsAction="always"
         android:title="@string/system_app">
     </item>
+    <item
+        android:id="@+id/action_sendMail"
+        android:showAsAction="never"
+        android:title="@string/text_send_mail">
+    </item>
+    <item
+        android:id="@+id/action_rate"
+        android:showAsAction="never"
+        android:title="@string/text_rate">
+    </item>
+    
+    <item
+        android:id="@+id/action_share"
+        android:showAsAction="never"
+        android:title="@string/text_share_with_friends">
+    </item>
 
 </menu>

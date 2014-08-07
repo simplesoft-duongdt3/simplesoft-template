@@ -215,6 +215,8 @@ public class AppItemInfo implements Parcelable {
 			boolean res = false;
 			if (this.groupCheck == PermissionGroup.ALL) {
 				res = true;
+			} else if (this.groupCheck == PermissionGroup.SERVICES) {
+				res = object.services.size() > 0;
 			} else {
 				for (ItemInfo per : object.permissions) {
 					res = this.groupCheck.contain(per);

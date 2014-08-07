@@ -18,6 +18,7 @@ import com.simplesoft.simplesofttemplate.constance.PermissionGroup;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.MultiCondition;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.Operator;
+import com.simplesoft.simplesofttemplate.main.utils.IntentUtil;
 import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 import com.simplesoft.simplesofttemplate.main.view.BaseActivity;
@@ -92,7 +93,9 @@ public class MainActivity extends BaseActivity {
 			PermissionGroup group = PermissionGroup.values()[pos];
 			MultiCondition<AppItemInfo> multiCondition = new MultiCondition<AppItemInfo>()
 					.addCondition(new AppItemInfo.CheckGroupCondition(group).setOperator(Operator.IS));
-			Fragment frag = new AppListFragment(group, multiCondition);
+			AppListFragment frag = new AppListFragment();
+			frag.setGroup(group);
+			frag.setMultiCondition(multiCondition);
 			//theem ddieu kien check group
 			frag.setArguments(data);
 			if (!listFrag.contains(frag)) {
@@ -153,8 +156,29 @@ public class MainActivity extends BaseActivity {
 		}
 	};
 	
-	
-    OnActionExpandListener searchExpandListener = new OnActionExpandListener() {
+	public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		boolean result = false;
+		switch (item.getItemId()) {
+		case R.id.action_rate:
+			this.isSwitchActivity = true;
+			//go to app market of this app
+			IntentUtil.goToMarketThisApp();
+			break;
+			
+		case R.id.action_sendMail:
+			this.isSwitchActivity = true;
+			IntentUtil.sendMailFeedBackThisApp();
+			break;
+			
+		case R.id.action_share:
+			this.isSwitchActivity = true;
+			IntentUtil.shareTextUrlThisApp();
+			break;
+		}
+		return result;
+	}
+
+	OnActionExpandListener searchExpandListener = new OnActionExpandListener() {
         @Override
         public boolean onMenuItemActionCollapse(MenuItem item) {
             return true;
@@ -186,7 +210,7 @@ public class MainActivity extends BaseActivity {
 	private String[] tabTitles;
 	@Override
 	protected boolean isShowAdSlider() {
-		return true;
+		return false;
 	}
 
 }

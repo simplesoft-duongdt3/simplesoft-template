@@ -21,6 +21,7 @@ public enum PermissionGroup {
 			"AFFECTS_BATTERY", StringUtil.getString(R.string.cat_affect_battery), new String[] { "AFFECTS_BATTERY" }, new String[] {
 					"CHANGE_WIFI_MULTICAST_STATE", "TRANSMIT_IR", "WAKE_LOCK", "VIBRATE", "FLASHLIGHT" }),	
 	NETWORK("NETWORK", StringUtil.getString(R.string.cat_network),  new String[]{"BLUETOOTH_NETWORK", "NETWORK"}, new String[]{"NFC","CHANGE_WIMAX_STATE","ACCESS_WIMAX_STATE","INTERNET","CHANGE_WIFI_STATE","LOOP_RADIO","ACCESS_WIFI_STATE","CONNECTIVITY_INTERNAL","CHANGE_NETWORK_STATE","RECEIVE_DATA_ACTIVITY_CHANGE","ACCESS_NETWORK_STATE"}),
+	SERVICES("SERVICES", StringUtil.getString(R.string.cat_services), new String[] { "SERVICE" }, new String[] {}),
 	CAMERA_MICROPHONE("CAMERA_MICROPHONE", StringUtil
 			.getString(R.string.cat_camera_microphone), new String[] { "CAMERA", "MICROPHONE" }, new String[] { "CAMERA", "CAMERA_DISABLE_TRANSMIT_LED",
 			"RECORD_AUDIO" }), 
@@ -79,6 +80,7 @@ public enum PermissionGroup {
 				}
 			}
 		}
+		
 		return res;
 	}
 	

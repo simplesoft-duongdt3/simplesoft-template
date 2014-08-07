@@ -50,11 +50,6 @@ public class AppListFragment extends BaseFragment  implements ListViewEventRecei
 	private BaseListAdapter<AppItemInfo> adapter;
 	private MultiCondition<AppItemInfo> condition;
 	private PermissionGroup group;
-
-	public AppListFragment(PermissionGroup pGroup, MultiCondition<AppItemInfo> pCondition) {
-		this.condition = pCondition;
-		this.group = pGroup;
-	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -77,10 +72,17 @@ public class AppListFragment extends BaseFragment  implements ListViewEventRecei
 		return super.onCreateView(inflater, vgroup, savedInstanceState);
 	}
 
+	BaseDialogFragment<AppItemInfo> fragDialog = null;
 	@Override
 	public void handleListViewSendEvent(ListViewEventData<AppItemInfo> data) {
-		ViewHolderAppDetail viewHolder = new ViewHolderAppDetail(group);
-		BaseDialogFragment<AppItemInfo> fragDialog = new BaseDialogFragment<AppItemInfo>(data.dto, viewHolder, null, true);
+		if (fragDialog == null) {
+			ViewHolderAppDetail viewHolder = new ViewHolderAppDetail(group);
+			fragDialog = new BaseDialogFragment<AppItemInfo>(data.dto, viewHolder, null, true);
+		} else{
+			fragDialog.renderDialog(data.dto);
+			fragDialog.dismiss();
+		}
+		
 		showDialog(fragDialog);
 	}
 	
@@ -133,5 +135,29 @@ public class AppListFragment extends BaseFragment  implements ListViewEventRecei
 		default:
 			break;
 		}
+	}
+
+	/**
+	 * @author: duongdt3
+	 * @since: 1.0
+	 * @time: 21:50:47 7 Aug 2014
+	 * @return: void
+	 * @throws:  
+	 * @param group2
+	 */
+	public void setGroup(PermissionGroup pGroup) {
+		this.group = pGroup;
+	}
+
+	/**
+	 * @author: duongdt3
+	 * @since: 1.0
+	 * @time: 21:51:09 7 Aug 2014
+	 * @return: void
+	 * @throws:  
+	 * @param multiCondition
+	 */
+	public void setMultiCondition(MultiCondition<AppItemInfo> pCondition) {
+		this.condition = pCondition;
 	}
 }

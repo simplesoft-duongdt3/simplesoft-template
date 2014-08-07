@@ -8,13 +8,15 @@
     <string name="text_success">success</string>
     <string name="text_version">Version</string>
     <string name="text_NA">App Permission</string>
-
-    <string-array name="operating_systems">
-        <item>Android</item>
-        <item>iPhone</item>
-        <item>Windows Mobile</item>
-    </string-array>
-
+    <string name="text_rate">Rate this app!</string>
+    <string name="text_send_mail">Send feeedback</string>
+    <string name="text_manufacturer">Manufacturer</string>
+    <string name="text_model">Model</string>
+    <string name="text_os_version">Os Version</string>
+    <string name="text_app_version">App Version</string>
+    <string name="text_feedback">FeedBack</string>
+    <string name="text_share_with_friends">Share with friends!</string>
+	
     <string name="cat_all">ALL</string>
     <string name="cat_cost_money">COST MONEY</string>
     <string name="cat_personal_info">PERSONAL INFO</string>
@@ -22,6 +24,7 @@
     <string name="cat_network">NETWORK</string>
     <string name="cat_camera_microphone">CAMERA, AUDIO RECORD</string>
     <string name="cat_system_change">CHANGE SYSTEM</string>
+    <string name="cat_services">HAS SERVICES</string>
     <string name="cat_billing">IN-APP PURCHASE</string>
     <string name="text_num_app">Num app:</string>
     <string name="text_is_get_sys_app">Show system app</string>
