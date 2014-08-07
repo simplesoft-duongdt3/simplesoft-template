@@ -12,7 +12,6 @@ import android.os.Parcelable;
 import com.simplesoft.simplesofttemplate.constance.PermissionGroup;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.IComparator;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.ICondition;
-import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.IDoAction;
 import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
 import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
@@ -33,7 +32,7 @@ public class AppItemInfo implements Parcelable {
 	public String versionName;
 	public String lastUpdateDate;
 	public boolean isSystemApp;
-	public Drawable drawable;
+	//public Drawable drawable;
 	
 	public List<ItemInfo> userPermissions;
 	public List<ItemInfo> permissions;
@@ -137,19 +136,6 @@ public class AppItemInfo implements Parcelable {
 		@Override
 		protected boolean doCondition(AppItemInfo object) {
 			return object.numPermissions > 0;
-		}
-	}
-	
-	public static class ActionSetDrawable implements IDoAction<AppItemInfo>{
-		@Override
-		public void doAction(AppItemInfo object) {
-			if (object.drawable == null) {
-				try {
-					object.drawable = AppInfo.getInstance().getPackageManager().getApplicationIcon(object.packageName);
-				} catch (NameNotFoundException e) {
-					LogUtil.log(e);
-				}
-			}
 		}
 	}
 	
@@ -273,6 +259,23 @@ public class AppItemInfo implements Parcelable {
 	@Override
 	public int describeContents() {
 		return 0;
+	}
+
+	/**
+	 * Mo ta muc dich cua ham
+	 * @author: DungNX
+	 * @return: void
+	 * @throws:
+	*/
+	
+	public Drawable resetDrawable() {
+		Drawable drawable = null;
+		try {
+			drawable = AppInfo.getInstance().getPackageManager().getApplicationIcon(this.packageName);
+		} catch (NameNotFoundException e) {
+			LogUtil.log(e);
+		}
+		return drawable;
 	}
 
 	@Override

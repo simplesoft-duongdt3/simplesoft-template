@@ -17,19 +17,21 @@ import android.view.ViewGroup;
 public abstract class BaseViewHolder<T> {
 	private ListViewEventReceiver<T> event;
 	protected T dto;
+	public int pos;
 	public abstract View initView(ViewGroup parent);
 	protected abstract void resetView();
-	protected abstract void renderView(T dto);
+	protected abstract void renderView(T dto, int pos);
 	public abstract BaseViewHolder<T> clone();
 	
 	public final void setListViewEventReceiver(ListViewEventReceiver<T> e){
 		this.event = e;
 	}
 	
-	public final void render(T dto){
+	public final void render(T dto, int pos){
+		this.pos = pos;
 		this.dto = dto;
 		this.resetView();
-		this.renderView(dto);
+		this.renderView(dto, pos);
 	}
 	
 	protected final void sendViewHolderEvent(ListViewEventAction action){

@@ -43,13 +43,15 @@ public class BaseDialogFragment<T> extends DialogFragment {
 	
 	public final void renderDialog(T dto){
 		this.dto = dto;
-		viewHolder.render(dto);
+		viewHolder.render(dto, -1);
 	}
 
 	@Override
 	public final View onCreateView(LayoutInflater inflater, ViewGroup container,
 	        Bundle savedInstanceState) {
 		View view = viewHolder.initView(container);
+		//back ground chung cho dialog
+		view.setBackgroundResource(R.drawable.bg_black_pattern);
 		renderDialog(dto);
 	    return view;
 	}

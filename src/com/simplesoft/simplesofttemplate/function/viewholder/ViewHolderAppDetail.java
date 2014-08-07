@@ -9,6 +9,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.Settings;
 import android.view.LayoutInflater;
@@ -81,8 +82,11 @@ public class ViewHolderAppDetail extends BaseViewHolder<AppItemInfo> implements 
 	}
 
 	@Override
-	protected void renderView(AppItemInfo dto) {
-		ivAppIcon.setImageDrawable(dto.drawable);
+	protected void renderView(AppItemInfo dto, int pos) {
+		Drawable draw = dto.resetDrawable();
+		if (draw != null) {
+			ivAppIcon.setImageDrawable(draw);
+		}
 		tvAppName.setText(dto.name);
 		tvVersion.setText(dto.versionName);
 		

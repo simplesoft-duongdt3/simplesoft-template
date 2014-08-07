@@ -6,6 +6,8 @@ package com.simplesoft.simplesofttemplate.function.viewholder;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,10 +61,11 @@ public class ViewHolderAppList extends BaseViewHolder<AppItemInfo> {
 	}
 	
 	@Override
-	public void renderView(AppItemInfo dto) {
-		if (dto.drawable != null) {
-			this.ivAppIcon.setImageDrawable(dto.drawable);
-		}
+	public void renderView(AppItemInfo dto, int pos) {
+		//load thumbnail
+		new ThumbnailTask(pos, this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+		
+		//load info
 		this.tvAppName.setText(dto.name);
 		if(StringUtil.isEmptyStr(dto.versionName)){
 			dto.versionName = StringUtil.getString(R.string.text_NA);
@@ -74,6 +77,31 @@ public class ViewHolderAppList extends BaseViewHolder<AppItemInfo> {
 	@Override
 	public BaseViewHolder<AppItemInfo> clone() {
 		return new ViewHolderAppList();
+	}
+	
+	private static class ThumbnailTask extends AsyncTask<Void, Void, Drawable> {
+	    private int mPosition;
+	    private ViewHolderAppList mHolder;
+
+	    public ThumbnailTask(int position, ViewHolderAppList holder) {
+	        mPosition = position;
+	        mHolder = holder;
+	    }
+
+	    @Override
+	    protected Drawable doInBackground(Void... arg) {
+	        Drawable drawable = mHolder.dto.resetDrawable();
+	    	return drawable;
+	    }
+
+	    @Override
+	    protected void onPostExecute(Drawable drawable) {
+	    	if (drawable != null) {
+	    		if (mHolder.pos == mPosition) {
+	    			mHolder.ivAppIcon.setImageDrawable(drawable);
+	    		}
+			}
+	    }
 	}
 
 }

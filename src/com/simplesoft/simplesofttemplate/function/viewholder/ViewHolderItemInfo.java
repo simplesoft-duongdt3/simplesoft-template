@@ -51,7 +51,7 @@ public class ViewHolderItemInfo extends BaseViewHolder<ItemInfo> {
 	}
 
 	@Override
-	protected void renderView(ItemInfo dto) {
+	protected void renderView(ItemInfo dto, int pos) {
 		tvName.setText(dto.name);
 		String detailApp = StringUtil.getStringResourceByName(dto.name, StringUtil.getString(R.string.text_group) + ": " + dto.group);
 		tvGroup.setText(detailApp);

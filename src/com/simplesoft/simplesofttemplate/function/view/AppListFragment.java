@@ -105,8 +105,8 @@ public class AppListFragment extends BaseFragment  implements ListViewEventRecei
 		
 		//hiển thị danh sách
 		List<AppItemInfo> arrTemp = CollectionUtil.filter(listAppDto.listApp
-				,this.condition
-				, new AppItemInfo.ActionSetDrawable());
+				, this.condition
+				, null);
 		CollectionUtil.sort(arrTemp, comparetor);
 		
 		//change title activity

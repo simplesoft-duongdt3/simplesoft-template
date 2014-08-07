@@ -47,7 +47,7 @@ public class BaseListAdapter<T> extends ArrayAdapter<T> {
 		
 		BaseViewHolder<T> vHolder = (BaseViewHolder<T>) rowView.getTag();
 		T dto = listObject.get(position);
-		vHolder.render(dto);
+		vHolder.render(dto, position);
 		return rowView;
 	}
 
