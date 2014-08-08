@@ -1,5 +1,7 @@
 package com.simplesoft.simplesofttemplate.main.view;
 
+import java.util.List;
+
 import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
@@ -20,18 +22,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.simplesoft.simpleappspermissions.R;
+import com.simplesoft.simplesofttemplate.function.DTO.ListViewItemInfo;
+import com.simplesoft.simplesofttemplate.function.viewholder.ViewHolderListViewItemInfo;
 import com.simplesoft.simplesofttemplate.main.controller.IRequestView;
 import com.simplesoft.simplesofttemplate.main.controller.RequestAction;
 import com.simplesoft.simplesofttemplate.main.controller.RequestData;
 import com.simplesoft.simplesofttemplate.main.controller.ResponseData;
 import com.simplesoft.simplesofttemplate.main.controller.SimpleController;
 import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
+import com.simplesoft.simplesofttemplate.main.view.control.BaseListAdapter;
+import com.simplesoft.simplesofttemplate.main.view.control.ListViewEventReceiver;
 import com.squareup.seismic.ShakeDetector;
 import com.startapp.android.publish.StartAppAd;
 import com.startapp.android.publish.StartAppSDK;
@@ -39,11 +45,12 @@ import com.startapp.android.publish.banner.Banner;
 import com.startapp.android.publish.splash.SplashConfig;
 import com.startapp.android.publish.splash.SplashConfig.Theme;
 
-public abstract class BaseActivity extends FragmentActivity implements IRequestView, ShakeDetector.Listener, IBroadCastReceiver{
+public abstract class BaseActivity extends FragmentActivity implements IRequestView, ShakeDetector.Listener, IBroadCastReceiver, ListViewEventReceiver<ListViewItemInfo>{
 	private StartAppAd startAppAd = new StartAppAd(this);
 
 	private DrawerLayout mDrawerLayout;
-	private ListView mDrawerList;
+	private LinearLayout mDrawerLeft;
+	private ListView mLvInfo;
 	private ActionBarDrawerToggle mDrawerToggle;
 
 	protected ActionBar actionBar;
@@ -52,6 +59,7 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	private ViewPager viewPager;
 	BaseBroadcastReceiver receiver = new BaseBroadcastReceiver(this);
 	protected boolean isSwitchActivity = false;
+
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -76,10 +84,12 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 		fragHolder = (FrameLayout) findViewById(R.id.fragHolder);
 		llAds = (Banner)findViewById(R.id.startAppBanner);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		mDrawerList = (ListView) findViewById(R.id.left_drawer);
+		mDrawerLeft = (LinearLayout) findViewById(R.id.left_drawer);
+		mLvInfo = (ListView) findViewById(R.id.left_drawer_lvInfo);
+
 
 		// Set the list's click listener
-		mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+		mLvInfo.setOnItemClickListener(new DrawerItemClickListener());
 		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
 				R.drawable.appthemeblue_ic_navigation_drawer, R.string.menu_draw, R.string.menu_draw) {
 
@@ -182,9 +192,10 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	protected abstract boolean isShowDrawMenu();
 	
 
-	protected void setDrawMenuAdapter(ArrayAdapter<?> adapter) {
+	protected void setDrawMenuAdapter(List<ListViewItemInfo> listItemDrawer) {
+		BaseListAdapter<ListViewItemInfo> adapter = new BaseListAdapter<ListViewItemInfo> (listItemDrawer, new ViewHolderListViewItemInfo(), this);
 		// Set the adapter for the list view
-		mDrawerList.setAdapter(adapter);
+		mLvInfo.setAdapter(adapter);
 	}
 
 	@Override
@@ -229,8 +240,8 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 
 	/** Swaps fragments in the main content view */
 	private void selectItem(int position) {
-		mDrawerList.setItemChecked(position, true);
-		mDrawerLayout.closeDrawer(mDrawerList);
+		mLvInfo.setItemChecked(position, true);
+		mDrawerLayout.closeDrawer(mDrawerLeft);
 		onDrawMenuChange(position);
 	}
 
@@ -272,11 +283,11 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 
 		// Handle your other action bar items...
 		switch (item.getItemId()) {
-		case android.R.id.home:
-			this.finish();
-			break;
-		default:
-			break;
+			case android.R.id.home:
+				this.finish();
+				break;
+			default:
+				break;
 		}
 
 		return super.onOptionsItemSelected(item);

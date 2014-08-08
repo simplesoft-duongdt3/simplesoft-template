@@ -1,6 +1,7 @@
 package com.simplesoft.simplesofttemplate.function.view;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -16,6 +17,7 @@ import android.widget.SearchView;
 import com.simplesoft.simpleappspermissions.R;
 import com.simplesoft.simplesofttemplate.constance.PermissionGroup;
 import com.simplesoft.simplesofttemplate.function.DTO.AppItemInfo;
+import com.simplesoft.simplesofttemplate.function.DTO.ListViewItemInfo;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.MultiCondition;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.Operator;
 import com.simplesoft.simplesofttemplate.main.utils.IntentUtil;
@@ -27,6 +29,8 @@ import com.simplesoft.simplesofttemplate.main.view.BundleKey;
 import com.simplesoft.simplesofttemplate.main.view.ViewPagerInfo;
 import com.simplesoft.simplesofttemplate.main.view.control.CheckBoxActionProvider;
 import com.simplesoft.simplesofttemplate.main.view.control.IViewActionSender;
+import com.simplesoft.simplesofttemplate.main.view.control.ListViewEventAction;
+import com.simplesoft.simplesofttemplate.main.view.control.ListViewEventData;
 
 public class MainActivity extends BaseActivity {
 	Bundle bundleData;
@@ -56,6 +60,17 @@ public class MainActivity extends BaseActivity {
 			ViewPagerInfo vPagerInfo = new ViewPagerInfo(tabTitles, vPagerAdapter);
 			setViewPagerInfo(vPagerInfo);
 		}
+		
+		//hiển thị danh sách app và thông tin ứng dụng, feedback, rating...
+		List<ListViewItemInfo> listItemDrawer = new ArrayList<ListViewItemInfo>();
+		listItemDrawer.add(new ListViewItemInfo(StringUtil.getString(R.string.text_feedback), R.drawable.ic_email, ListViewEventAction.SEND_MAIL_FEEDBACK, null));
+		listItemDrawer.add(new ListViewItemInfo(StringUtil.getString(R.string.text_rate), R.drawable.ic_rating, ListViewEventAction.RATING_APP, null));
+		listItemDrawer.add(new ListViewItemInfo(StringUtil.getString(R.string.text_share_with_friends), R.drawable.ic_share, ListViewEventAction.SHARE_APP, null));
+		listItemDrawer.add(new ListViewItemInfo("Android System Test", R.drawable.ic_app_system_test, ListViewEventAction.GO_TO_MY_APP, "ss.simplesoft.androidsystemtest"));
+		listItemDrawer.add(new ListViewItemInfo("Flashlight Notification", R.drawable.ic_app_notication_led, ListViewEventAction.GO_TO_MY_APP, "ss.simplesoft.flashlightnotification"));
+		listItemDrawer.add(new ListViewItemInfo("Fling The Pieces", R.drawable.ic_app_peices, ListViewEventAction.GO_TO_MY_APP, "ss.simplesoft.flingthepieces"));
+		
+		setDrawMenuAdapter(listItemDrawer);
 	}
 
 	@Override
@@ -70,7 +85,7 @@ public class MainActivity extends BaseActivity {
 
 	@Override
 	protected boolean isShowDrawMenu() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -156,27 +171,30 @@ public class MainActivity extends BaseActivity {
 		}
 	};
 	
-	public boolean onMenuItemSelected(int featureId, MenuItem item) {
-		boolean result = false;
-		switch (item.getItemId()) {
-		case R.id.action_rate:
-			this.isSwitchActivity = true;
-			//go to app market of this app
-			IntentUtil.goToMarketThisApp();
-			break;
-			
-		case R.id.action_sendMail:
-			this.isSwitchActivity = true;
-			IntentUtil.sendMailFeedBackThisApp();
-			break;
-			
-		case R.id.action_share:
-			this.isSwitchActivity = true;
-			IntentUtil.shareTextUrlThisApp();
-			break;
+	/*public boolean onMenuItemSelected(int featureId, MenuItem item) {
+		boolean result = super.onMenuItemSelected(featureId, item);
+		//nếu cha chưa xử lý
+		if (!result) {
+			switch (item.getItemId()) {
+			case R.id.action_rate:
+				this.isSwitchActivity = true;
+				//go to app market of this app
+				IntentUtil.goToMarketThisApp();
+				break;
+				
+			case R.id.action_sendMail:
+				this.isSwitchActivity = true;
+				IntentUtil.sendMailFeedBackThisApp();
+				break;
+				
+			case R.id.action_share:
+				this.isSwitchActivity = true;
+				IntentUtil.shareTextUrlThisApp();
+				break;
+			}
 		}
 		return result;
-	}
+	}*/
 
 	OnActionExpandListener searchExpandListener = new OnActionExpandListener() {
         @Override
@@ -213,4 +231,34 @@ public class MainActivity extends BaseActivity {
 		return false;
 	}
 
+	@Override
+	public void handleListViewSendEvent(ListViewEventData<ListViewItemInfo> data) {
+		switch (data.action) {
+		case SEND_MAIL_FEEDBACK:
+			this.isSwitchActivity = true;
+			IntentUtil.sendMailFeedBackThisApp();
+			break;
+
+		case SHARE_APP:
+			this.isSwitchActivity = true;
+			IntentUtil.shareTextUrlThisApp();
+			break;
+			
+		case RATING_APP:
+			this.isSwitchActivity = true;
+			//go to app market of this app
+			IntentUtil.goToMarketThisApp();
+			break;
+			
+		case GO_TO_MY_APP:
+			this.isSwitchActivity = true;
+			//go to app market of this app
+			IntentUtil.goToMarket(String.valueOf(data.dto.data));
+			break;
+			
+		default:
+			break;
+			
+		}
+	}
 }

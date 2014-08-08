@@ -5,9 +5,11 @@ import android.os.CountDownTimer;
 
 import com.simplesoft.simpleappspermissions.R;
 import com.simplesoft.simplesofttemplate.function.DTO.ListAppItemInfo;
+import com.simplesoft.simplesofttemplate.function.DTO.ListViewItemInfo;
 import com.simplesoft.simplesofttemplate.function.view.MainActivity;
 import com.simplesoft.simplesofttemplate.main.controller.RequestAction;
 import com.simplesoft.simplesofttemplate.main.controller.ResponseData;
+import com.simplesoft.simplesofttemplate.main.view.control.ListViewEventData;
 
 public class SplashScreenActivity extends BaseActivity {
 
@@ -94,5 +96,11 @@ public class SplashScreenActivity extends BaseActivity {
 	@Override
 	protected boolean isShowAdSlider() {
 		return false;
+	}
+
+	@Override
+	public void handleListViewSendEvent(ListViewEventData<ListViewItemInfo> data) {
+		// TODO Auto-generated method stub
+		
 	}
 }
