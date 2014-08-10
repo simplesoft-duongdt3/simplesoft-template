@@ -2,7 +2,6 @@ package com.simplesoft.simplesofttemplate.main.utils;
 
 import com.google.code.microlog4android.Logger;
 import com.google.code.microlog4android.LoggerFactory;
-import com.google.code.microlog4android.appender.FileAppender;
 import com.google.code.microlog4android.appender.LogCatAppender;
 
 /**
@@ -18,7 +17,7 @@ public class LogUtil {
 	public static boolean isDebugMode = false;
 	private static final String LOG_TAG = "simplesoft";
 	private static final String LOG_TAG_WTF = "simplesoft_wtf";
-	private static final String LOG_FILE_NAME = "simplesoft.log.txt";
+//	private static final String LOG_FILE_NAME = "simplesoft.log.txt";
 	
 	/**
 	 * set debug mode
@@ -38,9 +37,9 @@ public class LogUtil {
 		LogCatAppender logcatApp = new LogCatAppender();
 		LogUtil.fileLogger.addAppender(logcatApp);
 		
-		FileAppender fileApp = new FileAppender();
+/*		FileAppender fileApp = new FileAppender();
 		fileApp.setFileName(LOG_FILE_NAME);
-		LogUtil.fileLogger.addAppender(fileApp);
+		LogUtil.fileLogger.addAppender(fileApp);*/
 	}
 	
 	public static void log(Object msg, Throwable e){
