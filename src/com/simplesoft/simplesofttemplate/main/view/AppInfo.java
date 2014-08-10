@@ -23,9 +23,9 @@ public class AppInfo extends Application {
 	private static AppInfo instance = null;
 	BaseActivity activityContext = null;
 	// khong doi
-	public static final String DEV_ID = "107535046";
+	public static final String DEV_ID = "107808050";
 	// doi
-	public static final String APP_ID = "207236345";
+	public static final String APP_ID = "208566325";
 	
 	boolean isForeground = false;
 	String lastActivityCall = "";
