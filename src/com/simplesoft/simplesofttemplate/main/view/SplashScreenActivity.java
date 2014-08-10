@@ -1,17 +1,21 @@
 package com.simplesoft.simplesofttemplate.main.view;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.widget.Toast;
 
 import com.simplesoft.simpleappspermissions.R;
 import com.simplesoft.simplesofttemplate.function.DTO.ListAppItemInfo;
-import com.simplesoft.simplesofttemplate.function.DTO.ListViewItemInfo;
 import com.simplesoft.simplesofttemplate.function.view.MainActivity;
+import com.simplesoft.simplesofttemplate.main.controller.IRequestView;
 import com.simplesoft.simplesofttemplate.main.controller.RequestAction;
+import com.simplesoft.simplesofttemplate.main.controller.RequestData;
 import com.simplesoft.simplesofttemplate.main.controller.ResponseData;
-import com.simplesoft.simplesofttemplate.main.view.control.ListViewEventData;
+import com.simplesoft.simplesofttemplate.main.controller.SimpleController;
 
-public class SplashScreenActivity extends BaseActivity {
+public class SplashScreenActivity extends Activity implements IRequestView {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,34 +23,13 @@ public class SplashScreenActivity extends BaseActivity {
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);*/
 		super.onCreate(savedInstanceState);
-        getLayoutInflater().inflate(R.layout.splash_screen_layout, fragHolder, true);
-        
-        sendViewRequest(RequestAction.GET_LIST_APP);
+		setContentView(R.layout.splash_screen_layout);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-	}
-
-	@Override
-	protected void onDrawMenuChange(int position) {
-		
-	}
-	
-	@Override
-	protected boolean isShowDrawMenu() {
-		return false;
-	}
-
-	@Override
-	protected boolean isShowAdsWhenStop() {
-		return false;
-	}
-
-	@Override
-	protected boolean isShowAdsWhenStart() {
-		return false;
+		sendViewRequest(RequestAction.GET_LIST_APP);
 	}
 
 	@Override
@@ -83,24 +66,34 @@ public class SplashScreenActivity extends BaseActivity {
 		}
 	}
 
+	public void sendViewRequest(RequestAction rqAction) {
+		sendViewRequest(rqAction, new Bundle());
+	}
+	
+	public void sendViewRequest(RequestAction rqAction, Bundle data) {
+		RequestData rData = new RequestData();
+		rData.action = rqAction;
+		rData.sender = this;
+		rData.viewData = data;
+		SimpleController.getInstance().handleViewRequest(rData);
+	}
+	
 	@Override
-	protected void onViewPagerChange(int pos) {
-		
+	public void handleViewDataResponseError(ResponseData rspData) {
+		Toast.makeText(this, rspData.responseMessage, Toast.LENGTH_SHORT).show();
 	}
 
 	@Override
-	public void doActionBroadCast(BroadCastAction action, Bundle data) {
-		
+	public Activity getActivityContext() {
+		return this;
 	}
-
-	@Override
-	protected boolean isShowAdSlider() {
-		return false;
+	
+	public void switchActivity(Class<?> activityClass) {
+		Intent intent = new Intent(this, activityClass);
+		switchActivity(intent);
 	}
-
-	@Override
-	public void handleListViewSendEvent(ListViewEventData<ListViewItemInfo> data) {
-		// TODO Auto-generated method stub
-		
+	
+	public void switchActivity(Intent intent) {
+		startActivity(intent);
 	}
 }
