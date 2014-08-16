@@ -5,8 +5,8 @@ import java.io.File;
 import android.content.Intent;
 import android.net.Uri;
 
-import com.simplesoft.simpleappspermissions.R;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
+import com.simplesoft.simpletool.R;
 
 /**
  * IntentUtil.java
@@ -22,18 +22,20 @@ public class IntentUtil {
 		goToMarket(SystemUtil.getAppPackageName());
 	}
 	
-	
 	public static void goToMarket(String packName){
 		try {
-			AppInfo.getInstance().getActivityContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packName)));
+			Intent data = new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packName));
+			ActivityUtil.switchActivity(data);
 		} catch (android.content.ActivityNotFoundException anfe) {
 			try {
-				AppInfo.getInstance().getActivityContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + packName)));
+				Intent data = new Intent(Intent.ACTION_VIEW, Uri.parse("http://play.google.com/store/apps/details?id=" + packName));
+				ActivityUtil.switchActivity(data);
 			} catch (Exception e) {
 				LogUtil.log("goToMarket", e);
 			}
 		}
 	}
+	
 	public static void sendMailFeedBackThisApp(){
 		sendMail(mailUs, "[" + StringUtil.getString(R.string.text_feedback) + "] " + SystemUtil.getSystemInfoStr(), "");
 	}
@@ -45,8 +47,7 @@ public class IntentUtil {
 					, Uri.fromParts("mailto", mailTo, null));
 			emailIntent.putExtra(Intent.EXTRA_SUBJECT, subject);
 			emailIntent.putExtra(Intent.EXTRA_TEXT, contentMail);
-			
-			AppInfo.getInstance().getActivityContext().startActivity(Intent.createChooser(emailIntent, "Send mail"));
+			ActivityUtil.switchActivity(AppInfo.getInstance().getActivityContext(), Intent.createChooser(emailIntent, "Send mail"));
 		} catch (Exception e) {
 			LogUtil.log("sendMail", e);
 		}
@@ -77,7 +78,8 @@ public class IntentUtil {
 	    // what to do with it.
 	    share.putExtra(Intent.EXTRA_SUBJECT, title);
 	    share.putExtra(Intent.EXTRA_TEXT, link);
-	    AppInfo.getInstance().getActivityContext().startActivity(Intent.createChooser(share, "Share link!"));
+	    
+	    ActivityUtil.switchActivity(AppInfo.getInstance().getActivityContext(), Intent.createChooser(share, "Share link!"));
 	}
 	
 	public static void shareImage(String imagePath) {
@@ -95,7 +97,7 @@ public class IntentUtil {
 	    Uri uri = Uri.fromFile(imageFileToShare);
 	    share.putExtra(Intent.EXTRA_STREAM, uri);
 	 
-	    AppInfo.getInstance().getActivityContext().startActivity(Intent.createChooser(share, "Share Image!"));
+	    ActivityUtil.switchActivity(AppInfo.getInstance().getActivityContext(), Intent.createChooser(share, "Share Image!"));
 	}
 	
 }

@@ -1,6 +1,5 @@
 package com.simplesoft.simplesofttemplate.main.controller;
 
-import com.simplesoft.simplesofttemplate.main.model.SimpleModel;
 
 /**
  * SimpleController.java
@@ -14,10 +13,6 @@ public class SimpleController extends BaseController {
 	protected Object requestDataByView(RequestData e) throws Exception {
 		Object data = null;
 		switch (e.action) {
-			case GET_LIST_APP:
-				data = SimpleModel.getAllAppInfo();
-				break;
-	
 			default:
 				break;
 		}

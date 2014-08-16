@@ -1,5 +1,6 @@
 package com.simplesoft.simplesofttemplate.main.view;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.annotation.SuppressLint;
@@ -27,7 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.simplesoft.simpleappspermissions.R;
+import com.simplesoft.simpletool.R;
 import com.simplesoft.simplesofttemplate.function.DTO.ListViewItemInfo;
 import com.simplesoft.simplesofttemplate.function.viewholder.ViewHolderListViewItemInfo;
 import com.simplesoft.simplesofttemplate.main.controller.IRequestView;
@@ -35,8 +36,13 @@ import com.simplesoft.simplesofttemplate.main.controller.RequestAction;
 import com.simplesoft.simplesofttemplate.main.controller.RequestData;
 import com.simplesoft.simplesofttemplate.main.controller.ResponseData;
 import com.simplesoft.simplesofttemplate.main.controller.SimpleController;
+import com.simplesoft.simplesofttemplate.main.utils.ActivityUtil;
+import com.simplesoft.simplesofttemplate.main.utils.IntentUtil;
 import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
+import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
 import com.simplesoft.simplesofttemplate.main.view.control.BaseListAdapter;
+import com.simplesoft.simplesofttemplate.main.view.control.ListViewEventAction;
+import com.simplesoft.simplesofttemplate.main.view.control.ListViewEventData;
 import com.simplesoft.simplesofttemplate.main.view.control.ListViewEventReceiver;
 import com.squareup.seismic.ShakeDetector;
 import com.startapp.android.publish.StartAppAd;
@@ -138,9 +144,8 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	 * @param data
 	 */
 	public void switchActivity(Class<?> activityClass, Bundle data) {
-		Intent intent = new Intent(this, activityClass);
-		intent.putExtras(data);
-		switchActivity(intent);
+		isSwitchActivity = true;
+		ActivityUtil.switchActivity(this, activityClass, data);
 	}
 	
 	/**
@@ -155,7 +160,7 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	 */
 	public void switchActivity(Intent intent) {
 		isSwitchActivity = true;
-		startActivity(intent);
+		ActivityUtil.switchActivity(this, intent);
 	}
 
 	/**
@@ -169,8 +174,7 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	 * @param activityClass
 	 */
 	public void switchActivity(Class<?> activityClass) {
-		Intent intent = new Intent(this, activityClass);
-		switchActivity(intent);
+		ActivityUtil.switchActivity(this, activityClass);
 	}
 
 	/**
@@ -197,6 +201,21 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 		// Set the adapter for the list view
 		mLvInfo.setAdapter(adapter);
 	}
+	
+	protected void setDrawMenuAdapterDefault() {
+		//hiển thị danh sách app và thông tin ứng dụng, feedback, rating...
+		List<ListViewItemInfo> listItemDrawer = new ArrayList<ListViewItemInfo>();
+		listItemDrawer.add(new ListViewItemInfo(StringUtil.getString(R.string.text_feedback), R.drawable.ic_email, ListViewEventAction.SEND_MAIL_FEEDBACK, null));
+		listItemDrawer.add(new ListViewItemInfo(StringUtil.getString(R.string.text_rate), R.drawable.ic_rating, ListViewEventAction.RATING_APP, null));
+		listItemDrawer.add(new ListViewItemInfo(StringUtil.getString(R.string.text_share_with_friends), R.drawable.ic_share, ListViewEventAction.SHARE_APP, null));
+		listItemDrawer.add(new ListViewItemInfo("Android System Test", R.drawable.ic_app_system_test, ListViewEventAction.GO_TO_MY_APP, "ss.simplesoft.androidsystemtest"));
+		listItemDrawer.add(new ListViewItemInfo("Flashlight Notification", R.drawable.ic_app_notication_led, ListViewEventAction.GO_TO_MY_APP, "ss.simplesoft.flashlightnotification"));
+		listItemDrawer.add(new ListViewItemInfo("Fling The Pieces", R.drawable.ic_app_peices, ListViewEventAction.GO_TO_MY_APP, "ss.simplesoft.flingthepieces"));
+		
+		setDrawMenuAdapter(listItemDrawer);
+	}
+	
+	
 
 	@Override
 	protected void onStart() {
@@ -499,6 +518,37 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	public void setTitleActivity(CharSequence title){
 		if (actionBar != null) {
 			actionBar.setTitle(title);
+		}
+	}
+	
+	@Override
+	public void handleListViewSendEvent(ListViewEventData<ListViewItemInfo> data) {
+		switch (data.action) {
+		case SEND_MAIL_FEEDBACK:
+			this.isSwitchActivity = true;
+			IntentUtil.sendMailFeedBackThisApp();
+			break;
+
+		case SHARE_APP:
+			this.isSwitchActivity = true;
+			IntentUtil.shareTextUrlThisApp();
+			break;
+			
+		case RATING_APP:
+			this.isSwitchActivity = true;
+			//go to app market of this app
+			IntentUtil.goToMarketThisApp();
+			break;
+			
+		case GO_TO_MY_APP:
+			this.isSwitchActivity = true;
+			//go to app market of this app
+			IntentUtil.goToMarket(String.valueOf(data.dto.data));
+			break;
+			
+		default:
+			break;
+			
 		}
 	}
 }

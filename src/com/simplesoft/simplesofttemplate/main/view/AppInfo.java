@@ -7,7 +7,6 @@ import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 
-import com.simplesoft.simplesofttemplate.function.DTO.ListAppItemInfo;
 import com.simplesoft.simplesofttemplate.main.utils.CollectionUtil.Operator;
 import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
 
@@ -29,7 +28,6 @@ public class AppInfo extends Application {
 	
 	boolean isForeground = false;
 	String lastActivityCall = "";
-	public ListAppItemInfo listData;
 	public Operator opSystemApp = Operator.NOT;
 	public String strQueryApp = "";
 	

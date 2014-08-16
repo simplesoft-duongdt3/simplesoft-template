@@ -2,7 +2,7 @@ package com.simplesoft.simplesofttemplate.main.controller;
 
 import android.os.SystemClock;
 
-import com.simplesoft.simpleappspermissions.R;
+import com.simplesoft.simpletool.R;
 import com.simplesoft.simplesofttemplate.main.utils.LogUtil;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 
