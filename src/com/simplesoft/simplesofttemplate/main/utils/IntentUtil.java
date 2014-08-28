@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.net.Uri;
 
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
-import com.simplesoft.simpletool.R;
+import com.simplesoft.simplesysteminfo.R;
 
 /**
  * IntentUtil.java

@@ -4,11 +4,11 @@
  */
 package com.simplesoft.simplesofttemplate.main.utils;
 
-import com.simplesoft.simplesofttemplate.main.view.AppInfo;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 
 /**
  * ActivityUtil.java

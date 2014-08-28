@@ -2,8 +2,8 @@ package com.simplesoft.simplesofttemplate.main.utils;
 
 import android.content.pm.PackageManager.NameNotFoundException;
 
-import com.simplesoft.simpletool.R;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
+import com.simplesoft.simplesysteminfo.R;
 
 /**
  * SystemUtil.java

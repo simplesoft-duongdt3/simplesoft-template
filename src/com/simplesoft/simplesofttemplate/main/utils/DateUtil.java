@@ -7,6 +7,8 @@ import java.util.Date;
 
 import android.annotation.SuppressLint;
 
+import com.simplesoft.simplesysteminfo.R;
+
 /**
  * DateUtil.java
  * @author: duongdt3
@@ -72,5 +74,51 @@ public class DateUtil {
 		} catch (ParseException e) {
 		}
 		return date;
+	}
+	
+		
+	public static String formatMilisecond(long mili) {	
+		String res = "";
+		long secondsInMilli = 1000;
+		long minutesInMilli = secondsInMilli * 60;
+		long hoursInMilli = minutesInMilli * 60;
+		long daysInMilli = hoursInMilli * 24;
+ 
+		long elapsedDays = mili / daysInMilli;
+		mili = mili % daysInMilli;
+		
+		if (elapsedDays > 0) {
+			if (res.length() > 0) {
+				res += ", ";
+			}
+			res += elapsedDays + " " + StringUtil.getString(R.string.days);
+		}
+ 
+		long elapsedHours = mili / hoursInMilli;
+		mili = mili % hoursInMilli;
+		if (elapsedHours > 0) {
+			if (res.length() > 0) {
+				res += ", ";
+			}
+			res += elapsedHours + " " + StringUtil.getString(R.string.hours);
+		}
+ 
+		long elapsedMinutes = mili / minutesInMilli;
+		mili = mili % minutesInMilli;
+		if (elapsedMinutes > 0) {
+			if (res.length() > 0) {
+				res += ", ";
+			}
+			res += elapsedMinutes + " " + StringUtil.getString(R.string.minutes);
+		}
+ 
+		long elapsedSeconds = mili / secondsInMilli;
+		if (elapsedSeconds > 0) {
+			if (res.length() > 0) {
+				res += ", ";
+			}
+			res += elapsedSeconds + " " + StringUtil.getString(R.string.seconds);
+		}
+		return res;
 	}
 }

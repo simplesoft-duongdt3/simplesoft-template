@@ -28,7 +28,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.simplesoft.simpletool.R;
 import com.simplesoft.simplesofttemplate.function.DTO.ListViewItemInfo;
 import com.simplesoft.simplesofttemplate.function.viewholder.ViewHolderListViewItemInfo;
 import com.simplesoft.simplesofttemplate.main.controller.IRequestView;
@@ -44,6 +43,7 @@ import com.simplesoft.simplesofttemplate.main.view.control.BaseListAdapter;
 import com.simplesoft.simplesofttemplate.main.view.control.ListViewEventAction;
 import com.simplesoft.simplesofttemplate.main.view.control.ListViewEventData;
 import com.simplesoft.simplesofttemplate.main.view.control.ListViewEventReceiver;
+import com.simplesoft.simplesysteminfo.R;
 import com.squareup.seismic.ShakeDetector;
 import com.startapp.android.publish.StartAppAd;
 import com.startapp.android.publish.StartAppSDK;

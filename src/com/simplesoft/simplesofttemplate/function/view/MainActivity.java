@@ -6,8 +6,12 @@ package com.simplesoft.simplesofttemplate.function.view;
 
 import android.os.Bundle;
 
+import com.simplesoft.simplesofttemplate.main.utils.StringUtil;
 import com.simplesoft.simplesofttemplate.main.view.BaseActivity;
+import com.simplesoft.simplesofttemplate.main.view.BaseFragment;
 import com.simplesoft.simplesofttemplate.main.view.BroadCastAction;
+import com.simplesoft.simplesofttemplate.main.view.ViewPagerInfo;
+import com.simplesoft.simplesysteminfo.R;
 
 /**
  * MainActivity.java
@@ -18,6 +22,18 @@ import com.simplesoft.simplesofttemplate.main.view.BroadCastAction;
  */
 public class MainActivity extends BaseActivity {
 
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		String [] tabTitle = new String[] {StringUtil.getString(R.string.hardware_info), StringUtil.getString(R.string.software_info) };
+		BaseFragment [] arrFragment = new BaseFragment[] {new HardwareInfoFragment(), new SoftwareInfoFragment()}; 
+		ViewPagerInfo vPagerInfo = new ViewPagerInfo(tabTitle, arrFragment, getSupportFragmentManager());
+		setViewPagerInfo(vPagerInfo );
+	}
+	
+	
 	@Override
 	public void doActionBroadCast(BroadCastAction action, Bundle data) {
 		// TODO Auto-generated method stub

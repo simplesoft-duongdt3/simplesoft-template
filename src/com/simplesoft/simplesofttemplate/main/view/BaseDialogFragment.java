@@ -8,9 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 
-import com.simplesoft.simpletool.R;
 import com.simplesoft.simplesofttemplate.main.view.control.BaseViewHolder;
 import com.simplesoft.simplesofttemplate.main.view.control.ListViewEventReceiver;
+import com.simplesoft.simplesysteminfo.R;
 
 /**
  * BaseDialogFragment.java

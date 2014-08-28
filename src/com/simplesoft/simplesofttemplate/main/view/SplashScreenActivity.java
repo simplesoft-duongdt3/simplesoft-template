@@ -12,7 +12,7 @@ import com.simplesoft.simplesofttemplate.main.controller.RequestData;
 import com.simplesoft.simplesofttemplate.main.controller.ResponseData;
 import com.simplesoft.simplesofttemplate.main.controller.SimpleController;
 import com.simplesoft.simplesofttemplate.main.utils.ActivityUtil;
-import com.simplesoft.simpletool.R;
+import com.simplesoft.simplesysteminfo.R;
 
 public class SplashScreenActivity extends Activity implements IRequestView {
 

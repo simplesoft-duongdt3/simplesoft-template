@@ -17,5 +17,35 @@
     <string name="system_app">Sys Apps</string>
     <string name="search">Search</string>
     <string name="search_input">Input name</string>
+    <string name="hardware_info">Hardware info</string>
+    <string name="software_info">Software info</string>
+    <string name="model">Model:</string>
+    <string name="manufacturer">Manufacturer:</string>
+    <string name="product">Product:</string>
+    <string name="brand">Brand:</string>
+    <string name="board">Board:</string>
+    <string name="device">Device:</string>
+    <string name="display">Display:</string>
+    <string name="id">ID:</string>
+    <string name="serial">Serial:</string>
+    <string name="time">Time:</string>
+    <string name="time_from_boot">Time from boot:</string>
+    <string name="days">days</string>
+    <string name="hours">hours</string>
+    <string name="minutes">minutes</string>
+    <string name="seconds">seconds</string>
+    <string name="total_ram">Total RAM:</string>
+    <string name="ava_ram">Available RAM:</string>
+    <string name="low_memory">Is low RAM:</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="diskInTotal">Internal storage total:</string>
+    <string name="diskInAva">Internal storage free:</string>
+    <string name="diskExTotal">External storage total:</string>
+    <string name="diskExAva">External storage free:</string>
+    <string name="codename">Code name:</string>
+    <string name="release">Release:</string>
+    <string name="sdk">SDK:</string>
+    <string name="incremental">Incremental:</string>
 
 </resources>
