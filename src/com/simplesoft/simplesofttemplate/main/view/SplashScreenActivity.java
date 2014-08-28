@@ -24,7 +24,7 @@ public class SplashScreenActivity extends Activity implements IRequestView {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.splash_screen_layout);
 		
-		new CountDownTimer(2000, 1000) {
+		new CountDownTimer(1200, 1000) {
 			
 			public void onTick(long millisUntilFinished) {
 				
