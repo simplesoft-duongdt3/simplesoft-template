@@ -15,11 +15,6 @@
             android:layout_height="0dp"
             android:layout_weight="0.9" >
         </FrameLayout>
-
-        <com.startapp.android.publish.banner.Banner
-            android:id="@+id/startAppBanner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
     </LinearLayout>
     <!-- The navigation drawer -->
     <!-- should not be larger than 320 to show content -->

@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-import com.simplesoft.simpletool.R;
+import com.simplesoft.simplerootcheck.R;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 
 /**

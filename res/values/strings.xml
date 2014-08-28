@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Simple Tool</string>
+    <string name="app_name">Simple Root Check</string>
     <string name="contentDescription">SimpleSoft Image</string>
     <string name="menu_draw">Menu</string>
     <string name="text_error">fail</string>
@@ -14,8 +14,14 @@
     <string name="text_app_version">App Version</string>
     <string name="text_feedback">FeedBack</string>
     <string name="text_share_with_friends">Share with friends!</string>
+    <string name="text_check_root">Rooted?</string>
     <string name="system_app">Sys Apps</string>
     <string name="search">Search</string>
     <string name="search_input">Input name</string>
+    <string name="text_device_name">Device:</string>
+    <string name="text_manufacturer_name">Manufacturer:</string>
+    <string name="text_serial">Serial:</string>
+    <string name="text_release">Release:</string>
+    <string name="text_SDK">SDK:</string>
 
 </resources>

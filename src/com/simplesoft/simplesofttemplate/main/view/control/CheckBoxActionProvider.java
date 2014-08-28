@@ -9,7 +9,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-import com.simplesoft.simpletool.R;
+import com.simplesoft.simplerootcheck.R;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 
 /**

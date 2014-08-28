@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.simplesoft.simpletool.R;
+import com.simplesoft.simplerootcheck.R;
 import com.simplesoft.simplesofttemplate.function.DTO.ListViewItemInfo;
 import com.simplesoft.simplesofttemplate.main.view.AppInfo;
 import com.simplesoft.simplesofttemplate.main.view.control.BaseViewHolder;

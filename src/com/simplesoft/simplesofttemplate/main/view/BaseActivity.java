@@ -10,7 +10,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
-import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -28,7 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.simplesoft.simpletool.R;
+import com.simplesoft.simplerootcheck.R;
 import com.simplesoft.simplesofttemplate.function.DTO.ListViewItemInfo;
 import com.simplesoft.simplesofttemplate.function.viewholder.ViewHolderListViewItemInfo;
 import com.simplesoft.simplesofttemplate.main.controller.IRequestView;
@@ -44,15 +43,8 @@ import com.simplesoft.simplesofttemplate.main.view.control.BaseListAdapter;
 import com.simplesoft.simplesofttemplate.main.view.control.ListViewEventAction;
 import com.simplesoft.simplesofttemplate.main.view.control.ListViewEventData;
 import com.simplesoft.simplesofttemplate.main.view.control.ListViewEventReceiver;
-import com.squareup.seismic.ShakeDetector;
-import com.startapp.android.publish.StartAppAd;
-import com.startapp.android.publish.StartAppSDK;
-import com.startapp.android.publish.banner.Banner;
-import com.startapp.android.publish.splash.SplashConfig;
-import com.startapp.android.publish.splash.SplashConfig.Theme;
 
-public abstract class BaseActivity extends FragmentActivity implements IRequestView, ShakeDetector.Listener, IBroadCastReceiver, ListViewEventReceiver<ListViewItemInfo>{
-	private StartAppAd startAppAd = new StartAppAd(this);
+public abstract class BaseActivity extends FragmentActivity implements IRequestView, IBroadCastReceiver, ListViewEventReceiver<ListViewItemInfo>{
 
 	private DrawerLayout mDrawerLayout;
 	private LinearLayout mDrawerLeft;
@@ -61,7 +53,6 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 
 	protected ActionBar actionBar;
 	protected FrameLayout fragHolder;
-	protected Banner llAds;
 	private ViewPager viewPager;
 	BaseBroadcastReceiver receiver = new BaseBroadcastReceiver(this);
 	protected boolean isSwitchActivity = false;
@@ -73,22 +64,9 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 		// save last activity
 		AppInfo.getInstance().setActivityContext(this);
 				
-		//detect shake
-		SensorManager sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-	    ShakeDetector sd = new ShakeDetector(this);
-	    sd.start(sensorManager);
-	    
-		StartAppSDK.init(this, AppInfo.DEV_ID, AppInfo.APP_ID, true);
-		if (isShowAdsWhenStart()) {
-			StartAppAd.showSplash(this, savedInstanceState, new SplashConfig()
-					.setTheme(Theme.SKY).setLogo(R.drawable.ic_launcher)
-					.setAppName(getString(R.string.app_name)));
-		}
-
 		setContentView(R.layout.activity_base_draw);
 		actionBar = getActionBar();
 		fragHolder = (FrameLayout) findViewById(R.id.fragHolder);
-		llAds = (Banner)findViewById(R.id.startAppBanner);
 		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		mDrawerLeft = (LinearLayout) findViewById(R.id.left_drawer);
 		mLvInfo = (ListView) findViewById(R.id.left_drawer_lvInfo);
@@ -120,13 +98,6 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 			actionBar.setDisplayHomeAsUpEnabled(true);
 			actionBar.setHomeButtonEnabled(true);
 		}
-		
-		// ad
-		if (isShowAdSlider()) {
-			StartAppAd.showSlider(this);
-		}
-		startAppAd.showAd();
-		startAppAd.loadAd();
 		
 		//register Broadcast Receiver
 		IntentFilter filter = new IntentFilter(BaseBroadcastReceiver.BC_ACTION_SIMPLESOFT);
@@ -226,13 +197,11 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	protected void onResume() {
 		super.onResume();
 		AppInfo.getInstance().callActivityResume(this);
-		startAppAd.onResume();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-		startAppAd.onPause();
 	}
 
 	@Override
@@ -244,7 +213,6 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 		if (isSwitchActivity) {
 			isSwitchActivity = false;
 		} else if (isShowAdsWhenStop()) {
-			startAppAd.onBackPressed();
 		}
 	}
 
@@ -482,11 +450,6 @@ public abstract class BaseActivity extends FragmentActivity implements IRequestV
 	        }
 		}
     }*/
-    
-    @Override
-	public void hearShake() {
-    	Toast.makeText(this, "Shake!", Toast.LENGTH_SHORT).show();
-	}
     
     public void sendBroadCastSimpleSoft(BroadCastAction action, Bundle pData){
 		Intent intent = new Intent();
