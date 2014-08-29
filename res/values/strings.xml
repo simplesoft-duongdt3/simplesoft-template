@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Simple Tool</string>
+    <string name="app_name">Simple System Info</string>
     <string name="contentDescription">SimpleSoft Image</string>
     <string name="menu_draw">Menu</string>
     <string name="text_error">fail</string>
