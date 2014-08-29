@@ -90,10 +90,14 @@ public class HardwareInfoFragment extends BaseFragment{
 	}
 
 	class StorageInfo {
-		
 		public StorageInfo() {
-			getInternalInfo();
-			getExternalInfo();
+			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+				getExternalInfoNewApi18();
+				getInternalInfoNewApi18();
+			} else{
+				getInternalInfo();
+				getExternalInfo();
+			}
 		}
 		public long megInAvailable = 0;
 		public long megInTotal = 0;
@@ -132,8 +136,8 @@ public class HardwareInfoFragment extends BaseFragment{
 			}
 		}
 		
-		/*@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-		public void getInternalInfo() {
+		@SuppressLint("NewApi")
+		public void getInternalInfoNewApi18() {
 			try {
 				StatFs stat = new StatFs(Environment.getDataDirectory()
 						.getPath());
@@ -148,8 +152,8 @@ public class HardwareInfoFragment extends BaseFragment{
 			}
 		}
 
-		@TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
-		public void getExternalInfo() {
+		@SuppressLint("NewApi")
+		public void getExternalInfoNewApi18() {
 			try {
 				StatFs stat = new StatFs(Environment
 						.getExternalStorageDirectory().getPath());
@@ -162,6 +166,6 @@ public class HardwareInfoFragment extends BaseFragment{
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
-		}*/
+		}
 	}
 }

@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="no"?><resources>
 
-    <string name="app_name">Dụng cụ đơn giản</string>
-    <string name="contentDescription">Ảnh</string>
-    <string name="menu_draw">Danh sách</string>
+    <string name="app_name">Thông tin hệ thống</string>
+    <string name="contentDescription">SimpleSoft ảnh</string>
+        <string name="menu_draw">Danh sách</string>
     <string name="text_error">thất bại</string>
     <string name="text_success">thành công</string>
+    <string name="text_version">Phiên bản</string>
+    <string name="text_NA">Quyền của ứng dụng</string>
     <string name="text_rate">Đánh giá ứng dụng này!</string>
     <string name="text_send_mail">Gửi góp ý</string>
     <string name="text_manufacturer">Nhà sản xuất</string>
@@ -13,4 +15,38 @@
     <string name="text_app_version">Phiên bản ứng dụng</string>
     <string name="text_feedback">Thông tin phản hồi</string>
     <string name="text_share_with_friends">Chia sẻ với bạn bè!</string>
+    <string name="system_app">sys Apps</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="search_input">Nhập tên</string>
+    <string name="hardware_info">Phần cứng</string>
+    <string name="software_info">Phần mềm</string>
+    <string name="model">Dòng máy :</string>
+    <string name="manufacturer">Nhà sản xuất:</string>
+    <string name="product">Sản phẩm:</string>
+    <string name="brand">Nhãn hiệu:</string>
+    <string name="board">Phiên bản phân phối :</string>
+    <string name="device">Thiết bị :</string>
+    <string name="display">Màn hình:</string>
+    <string name="id">ID:</string>
+    <string name="serial">Số seri:</string>
+    <string name="time">Thời gian:</string>
+    <string name="time_from_boot">Thời gian từ lúc khởi động :</string>
+    <string name="days">ngày</string>
+    <string name="hours">giờ</string>
+    <string name="minutes">phút</string>
+    <string name="seconds">giây</string>
+    <string name="total_ram">Bộ nhớ RAM :</string>
+    <string name="ava_ram">RAM còn trống:</string>
+    <string name="low_memory">Đang thiếu RAM:</string>
+    <string name="yes">Có</string>
+    <string name="no">Không</string>
+    <string name="diskInTotal">Tổng bộ nhớ trong :</string>
+    <string name="diskInAva">Bộ nhớ trong trống :</string>
+    <string name="diskExTotal">Tổng thẻ nhớ ngoài :</string>
+    <string name="diskExAva">Thẻ nhớ ngoài trống :</string>
+    <string name="codename">Tên mã:</string>
+    <string name="release">Phát hành:</string>
+    <string name="sdk">Phiên bản Android :</string>
+    <string name="incremental">Incremental:</string>
+
 </resources>
